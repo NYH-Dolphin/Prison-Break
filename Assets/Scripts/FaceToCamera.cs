@@ -2,8 +2,19 @@ using UnityEngine;
 
 public class FaceToCamera : MonoBehaviour
 {
+    private Camera _camera;
+    private float _eulerAngleZ;
+
+    private void Start()
+    {
+        _camera = Camera.main;
+        _eulerAngleZ = transform.rotation.eulerAngles.z;
+    }
+
     void Update()
     {
-        if (Camera.main != null) transform.rotation = Camera.main.transform.rotation;
+        Vector3 rotation = _camera.transform.rotation.eulerAngles;
+        rotation.z = _eulerAngleZ;
+        transform.rotation = Quaternion.Euler(rotation);
     }
 }
