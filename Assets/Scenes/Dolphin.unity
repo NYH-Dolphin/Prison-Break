@@ -473,9 +473,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163433792}
+  - component: {fileID: 163433796}
   - component: {fileID: 163433793}
   - component: {fileID: 163433795}
-  - component: {fileID: 163433796}
   m_Layer: 0
   m_Name: '[Player]'
   m_TagString: Untagged
@@ -540,7 +540,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fMovementSpeed: 10
-  fJumpSpeed: 10
+  fJumpSpeed: 40
+  fGroundCheckRadius: 0.3
+  lmGroundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!136 &163433796
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -563,7 +567,7 @@ CapsuleCollider:
   m_Radius: 0.31338853
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.09, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &179735760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,7 +1888,7 @@ Transform:
   m_GameObject: {fileID: 1138800887}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.28, z: 0}
+  m_LocalPosition: {x: -0.096, y: 0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

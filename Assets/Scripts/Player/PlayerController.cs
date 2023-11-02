@@ -1,3 +1,4 @@
+using System;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,11 +9,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fMovementSpeed = 10f;
     [SerializeField] private float fJumpSpeed = 10f;
+    [SerializeField] private float fGroundCheckRadius = 0.3f;
+    [SerializeField] private LayerMask lmGroundLayer;
+
 
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero;
-    private bool _bOnGround;
+    private bool _bIsGrounded;
 
 
     private void Awake()
@@ -46,12 +50,21 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    private void Update()
+    {
+        Collider[] hitColliders = new Collider[1];
+        _bIsGrounded = Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
+        _rb.drag = _bIsGrounded ? 1f : 0f;
+    }
+
 
     private void FixedUpdate()
     {
         MovementUpdate();
     }
 
+
+    #region Movement
 
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
@@ -71,18 +84,24 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _vecMove * fMovementSpeed;
     }
 
+    #endregion
+
 
     public void OnJumpPerformed(InputAction.CallbackContext value)
     {
-        _rb.drag = 0;
-        _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
+        if (_bIsGrounded)
+        {
+            _bIsGrounded = false;
+            Vector3 velocity = _rb.velocity;
+            velocity.y = 0f;
+            _rb.velocity = velocity;
+            _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
+        }
     }
 
-    public void OnJumpCanceled()
+    private void OnDrawGizmos()
     {
-    }
-
-    public void OnWeapon(InputAction.CallbackContext context)
-    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
 }
