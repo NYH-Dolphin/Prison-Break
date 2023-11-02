@@ -332,7 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83906484}
   - component: {fileID: 83906483}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,9 +473,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163433792}
-  - component: {fileID: 163433794}
   - component: {fileID: 163433793}
   - component: {fileID: 163433795}
+  - component: {fileID: 163433796}
   m_Layer: 0
   m_Name: '[Player]'
   m_TagString: Untagged
@@ -525,10 +525,24 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 74
+  m_Constraints: 112
   m_CollisionDetection: 1
---- !u!65 &163433794
-BoxCollider:
+--- !u!114 &163433795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163433791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbeb4d6e790c10d4697619981085bf1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fMovementSpeed: 10
+  fJumpSpeed: 10
+--- !u!136 &163433796
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -545,23 +559,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.7839699, z: 0.25556993}
-  m_Center: {x: 0, y: 0.28870624, z: 0.017902613}
---- !u!114 &163433795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163433791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbeb4d6e790c10d4697619981085bf1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fMovementSpeed: 10
-  fJumpSpeed: 1.5
+  serializedVersion: 2
+  m_Radius: 0.31338853
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0.09, y: 0.3, z: 0}
 --- !u!1 &179735760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,8 +1509,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 1
+  m_VerticalDamping: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
@@ -2408,7 +2410,7 @@ GameObject:
   - component: {fileID: 1485090434}
   - component: {fileID: 1485090433}
   - component: {fileID: 1485090435}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

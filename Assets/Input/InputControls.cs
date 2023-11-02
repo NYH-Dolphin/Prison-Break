@@ -26,12 +26,12 @@ namespace GameInputSystem
     ""name"": ""InputControls"",
     ""maps"": [
         {
-            ""name"": ""gameplay"",
+            ""name"": ""Gameplay"",
             ""id"": ""048f88ef-d00d-4359-b20a-131d1c3e30cc"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
                     ""id"": ""9f49a4c8-2ed8-4a45-b51a-fbf3922d0e6a"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -59,13 +59,13 @@ namespace GameInputSystem
             ],
             ""bindings"": [
                 {
-                    ""name"": ""Dpad"",
+                    ""name"": ""WASD"",
                     ""id"": ""6c35aaa5-920e-4871-8278-e2d55f7f27f7"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -76,62 +76,29 @@ namespace GameInputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""5f461a2d-6ed7-497a-aae8-4fc3724d6080"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
                     ""id"": ""e414332c-8484-4125-a921-f123eb54b212"",
-                    ""path"": ""<Keyboard>/#(A)"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""49585e36-ff88-4d07-b51b-de296417576e"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
                     ""id"": ""9316b515-b3a1-413a-9f57-67dac45d295b"",
-                    ""path"": ""<Keyboard>/#(S)"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""bdd1b363-a0f5-4fa3-809a-2db0c1544b54"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -142,7 +109,51 @@ namespace GameInputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""8c3801c7-3847-43b4-9531-f9647addd852"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5f461a2d-6ed7-497a-aae8-4fc3724d6080"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""49585e36-ff88-4d07-b51b-de296417576e"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""bdd1b363-a0f5-4fa3-809a-2db0c1544b54"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -153,7 +164,7 @@ namespace GameInputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -184,11 +195,11 @@ namespace GameInputSystem
     ],
     ""controlSchemes"": []
 }");
-            // gameplay
-            m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
-            m_gameplay_Move = m_gameplay.FindAction("Move", throwIfNotFound: true);
-            m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
-            m_gameplay_Weapon = m_gameplay.FindAction("Weapon", throwIfNotFound: true);
+            // Gameplay
+            m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
+            m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+            m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+            m_Gameplay_Weapon = m_Gameplay.FindAction("Weapon", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -247,20 +258,20 @@ namespace GameInputSystem
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // gameplay
-        private readonly InputActionMap m_gameplay;
+        // Gameplay
+        private readonly InputActionMap m_Gameplay;
         private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-        private readonly InputAction m_gameplay_Move;
-        private readonly InputAction m_gameplay_Jump;
-        private readonly InputAction m_gameplay_Weapon;
+        private readonly InputAction m_Gameplay_Movement;
+        private readonly InputAction m_Gameplay_Jump;
+        private readonly InputAction m_Gameplay_Weapon;
         public struct GameplayActions
         {
             private @InputControls m_Wrapper;
             public GameplayActions(@InputControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_gameplay_Move;
-            public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
-            public InputAction @Weapon => m_Wrapper.m_gameplay_Weapon;
-            public InputActionMap Get() { return m_Wrapper.m_gameplay; }
+            public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+            public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+            public InputAction @Weapon => m_Wrapper.m_Gameplay_Weapon;
+            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
@@ -269,9 +280,9 @@ namespace GameInputSystem
             {
                 if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -282,9 +293,9 @@ namespace GameInputSystem
 
             private void UnregisterCallbacks(IGameplayActions instance)
             {
-                @Move.started -= instance.OnMove;
-                @Move.performed -= instance.OnMove;
-                @Move.canceled -= instance.OnMove;
+                @Movement.started -= instance.OnMovement;
+                @Movement.performed -= instance.OnMovement;
+                @Movement.canceled -= instance.OnMovement;
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
@@ -307,10 +318,10 @@ namespace GameInputSystem
                 AddCallbacks(instance);
             }
         }
-        public GameplayActions @gameplay => new GameplayActions(this);
+        public GameplayActions @Gameplay => new GameplayActions(this);
         public interface IGameplayActions
         {
-            void OnMove(InputAction.CallbackContext context);
+            void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnWeapon(InputAction.CallbackContext context);
         }

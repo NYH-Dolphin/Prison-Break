@@ -8,14 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fMovementSpeed = 10f;
     [SerializeField] private float fJumpSpeed = 10f;
-    
+
     private Rigidbody _rb;
-    
-    
-    
-    
-    // private InputControls _controls;
-    // private Vector2 _inputMovement;
+    private InputControls _inputs;
+    private Vector3 _vecMove = Vector3.zero;
+    private bool _bOnGround;
 
 
     private void Awake()
@@ -23,47 +20,66 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+
+    #region EventRegisteration
+
     private void OnEnable()
     {
-        // if (_controls == null)
-        // {
-        //     _controls = new InputControls();
-        // }
-        //
-        // _controls.gameplay.Enable();
+        if (_inputs == null)
+        {
+            _inputs = new InputControls();
+        }
+
+        _inputs.Gameplay.Enable();
+        _inputs.Gameplay.Movement.performed += OnMovementPerformed;
+        _inputs.Gameplay.Movement.canceled += OnMovementCanceled;
+        _inputs.Gameplay.Jump.performed += OnJumpPerformed;
     }
 
     public void OnDisable()
     {
-        // _controls.gameplay.Disable();
+        _inputs.Gameplay.Disable();
+        _inputs.Gameplay.Movement.performed -= OnMovementPerformed;
+        _inputs.Gameplay.Movement.canceled -= OnMovementCanceled;
+        _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
+    }
+
+    #endregion
+
+
+    private void FixedUpdate()
+    {
+        MovementUpdate();
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnMovementPerformed(InputAction.CallbackContext value)
     {
+        Vector2 inputMove = value.ReadValue<Vector2>();
+        _vecMove.x = inputMove.x;
+        _vecMove.z = inputMove.y;
+        _vecMove = _vecMove.normalized;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMovementCanceled(InputAction.CallbackContext value)
     {
-        // OnMove();
-        // OnJump();
+        _vecMove = Vector3.zero;
     }
 
-    public void OnMove()
+    private void MovementUpdate()
     {
-        // Vector2 movementInput = _controls.gameplay.Move.ReadValue<Vector2>().normalized;
-        // Vector3 movementVelocity = new Vector3(movementInput.x, 0f, movementInput.y) * fMovementSpeed;
-        // _rb.AddForce(movementVelocity);
+        _rb.velocity = _vecMove * fMovementSpeed;
     }
 
-    public void OnJump()
+
+    public void OnJumpPerformed(InputAction.CallbackContext value)
     {
-        // if (_controls.gameplay.Jump.IsPressed())
-        // {
-        //     _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
-        // }
+        _rb.drag = 0;
+        _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
+    }
+
+    public void OnJumpCanceled()
+    {
     }
 
     public void OnWeapon(InputAction.CallbackContext context)
