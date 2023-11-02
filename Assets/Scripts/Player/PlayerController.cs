@@ -1,4 +1,3 @@
-using System;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fJumpSpeed = 10f;
     [SerializeField] private float fGroundCheckRadius = 0.3f;
     [SerializeField] private LayerMask lmGroundLayer;
+    [SerializeField] private Animator animator;
 
 
     private Rigidbody _rb;
@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
         Vector2 inputMove = value.ReadValue<Vector2>();
+        animator.SetFloat("Horizontal", inputMove.x);
+        animator.SetFloat("Vertical", inputMove.y);
+        animator.SetFloat("Speed", inputMove.magnitude);
         _vecMove.x = inputMove.x;
         _vecMove.z = inputMove.y;
         _vecMove = _vecMove.normalized;
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         _vecMove = Vector3.zero;
+        animator.SetFloat("Speed", 0f);
     }
 
     private void MovementUpdate()
@@ -112,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
 }
