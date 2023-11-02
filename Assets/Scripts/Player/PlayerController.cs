@@ -83,10 +83,9 @@ public class PlayerController : MonoBehaviour
 
     private void MovementUpdate()
     {
-        if (_bIsGrounded)
-        {
-            _rb.velocity = _vecMove * fMovementSpeed;
-        }
+        Vector3 moveVelocity = _vecMove * fMovementSpeed;
+        moveVelocity.y = _rb.velocity.y;
+        _rb.velocity = moveVelocity;
     }
 
     #endregion
