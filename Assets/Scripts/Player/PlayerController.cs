@@ -52,9 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Collider[] hitColliders = new Collider[1];
-        _bIsGrounded = Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
-        _rb.drag = _bIsGrounded ? 1f : 0f;
+        GroundDetectUpdate();
     }
 
 
@@ -87,6 +85,8 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
+    #region Jump
+
     public void OnJumpPerformed(InputAction.CallbackContext value)
     {
         if (_bIsGrounded)
@@ -98,6 +98,17 @@ public class PlayerController : MonoBehaviour
             _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
         }
     }
+
+    public void GroundDetectUpdate()
+    {
+        Collider[] hitColliders = new Collider[1];
+        _bIsGrounded =
+            Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
+        _rb.drag = _bIsGrounded ? 1f : 0f;
+    }
+
+    #endregion
+
 
     private void OnDrawGizmos()
     {
