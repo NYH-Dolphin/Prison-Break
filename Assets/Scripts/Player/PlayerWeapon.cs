@@ -8,6 +8,7 @@ namespace Player
     [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
+        [SerializeField] private Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
 
@@ -96,10 +97,9 @@ namespace Player
                 _weaponEquipped = _weaponSelected;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold();
                 // Attach Weapon Position to User
-                Vector3 pos = transform.position;
-                pos.y = _weaponEquipped.transform.position.y;
+                Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
-                _weaponEquipped.transform.parent = transform;
+                _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
 
