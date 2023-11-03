@@ -1,3 +1,4 @@
+using System.Collections;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero;
+    private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
 
 
@@ -98,6 +100,9 @@ public class PlayerController : MonoBehaviour
         if (_bIsGrounded)
         {
             _bIsGrounded = false;
+            animator.SetBool("Grounded", false);
+            animator.SetTrigger("Jump");
+            StartCoroutine(JumpCountDown(0.1f)); // wait a really time for jump detection
             Vector3 velocity = _rb.velocity;
             velocity.y = 0f;
             _rb.velocity = velocity;
@@ -105,12 +110,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    IEnumerator JumpCountDown(float time)
+    {
+        _bJumpUpdate = false;
+        yield return new WaitForSeconds(time);
+        _bJumpUpdate = true;
+    }
+
     public void GroundDetectUpdate()
     {
+        if (!_bJumpUpdate) return;
         Collider[] hitColliders = new Collider[1];
         _bIsGrounded =
             Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
         _rb.drag = _bIsGrounded ? 1f : 0f;
+        animator.SetBool("Grounded", _bIsGrounded);
     }
 
     #endregion
