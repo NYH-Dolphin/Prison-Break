@@ -36,15 +36,17 @@ public class PlayerController : MonoBehaviour
             _inputs = new InputControls();
         }
 
-        _inputs.Gameplay.Enable();
+        _inputs.Gameplay.Movement.Enable();
+        _inputs.Gameplay.Jump.Enable();
         _inputs.Gameplay.Movement.performed += OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled += OnMovementCanceled;
         _inputs.Gameplay.Jump.performed += OnJumpPerformed;
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
-        _inputs.Gameplay.Disable();
+        _inputs.Gameplay.Movement.Disable();
+        _inputs.Gameplay.Jump.Disable();
         _inputs.Gameplay.Movement.performed -= OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled -= OnMovementCanceled;
         _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
