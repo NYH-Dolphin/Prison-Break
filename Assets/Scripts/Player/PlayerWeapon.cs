@@ -5,6 +5,7 @@ using Weapon;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
         [SerializeField] private float fWeaponGrabRange;
@@ -93,8 +94,8 @@ namespace Player
             if (_weaponSelected != null)
             {
                 _weaponEquipped = _weaponSelected;
-                _weaponEquipped.layer = LayerMask.NameToLayer("Player");
-                _weaponEquipped.GetComponent<WeaponBehaviour>().OnNotSelected();
+                _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold();
+                // Attach Weapon Position to User
                 Vector3 pos = transform.position;
                 pos.y = _weaponEquipped.transform.position.y;
                 _weaponEquipped.transform.position = pos;
@@ -106,8 +107,8 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                _weaponEquipped.layer = LayerMask.NameToLayer("Weapon");
-                _weaponEquipped.transform.parent = GameObject.Find("[Weapon]").transform;
+                Vector3 dropDir = transform.GetComponent<PlayerController>().vecDir;
+                _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
             }
         }

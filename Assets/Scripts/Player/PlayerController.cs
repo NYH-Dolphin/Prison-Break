@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask lmGroundLayer;
     [SerializeField] private Animator animator;
 
-
+    public Vector3 vecDir => _vecDir;
+    
     private Rigidbody _rb;
     private InputControls _inputs;
-    private Vector3 _vecMove = Vector3.zero;
+    private Vector3 _vecMove = Vector3.zero; // player movement direction
+    private Vector3 _vecDir = new Vector3(0, 0, 1); // player facing direction
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
 
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
         _vecMove.x = inputMove.x;
         _vecMove.z = inputMove.y;
         _vecMove = _vecMove.normalized;
+        _vecDir = _vecMove;
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext value)
