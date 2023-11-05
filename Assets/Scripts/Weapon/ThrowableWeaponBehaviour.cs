@@ -27,6 +27,7 @@ namespace Weapon
             args.Add("time", 0.5f);
             args.Add("easetype", iTween.EaseType.easeOutQuart);
             iTween.MoveTo(gameObject, args);
+            BAttack = true;
             StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
         }
         

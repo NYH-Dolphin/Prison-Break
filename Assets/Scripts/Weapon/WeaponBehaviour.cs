@@ -10,6 +10,7 @@ namespace Weapon
         private Rigidbody _rb;
         private Material _mat; // require material "2d Sprite Glow"
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
+        protected bool BAttack;
 
         // TODO will be modified later by each weapon's behaviour
         private float _fDropForce = 3f;
@@ -72,7 +73,7 @@ namespace Weapon
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (BAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
