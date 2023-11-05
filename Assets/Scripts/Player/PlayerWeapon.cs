@@ -11,6 +11,8 @@ namespace Player
         [SerializeField] private Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
+        public GameObject WeaponEquipped => _weaponEquipped;
+        public static bool BAttack;
 
         private GameObject _weaponSelected; // current weapon detected
         private GameObject _weaponEquipped; // current weapon used
@@ -37,7 +39,12 @@ namespace Player
 
         private void Update()
         {
-            WeaponDetectionUpdate();
+            if (!BAttack) WeaponDetectionUpdate();
+
+            if (_weaponEquipped == null)
+            {
+                BAttack = false;
+            }
         }
 
 
@@ -63,7 +70,7 @@ namespace Player
                 }
             }
         }
-        
+
         /// <summary>
         /// Gets the closest weapon to the player
         /// </summary>
@@ -82,6 +89,7 @@ namespace Player
                     minCollider = coll;
                 }
             }
+
             return minCollider;
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Weapon
 {
@@ -24,12 +25,12 @@ namespace Weapon
         /// <summary>
         /// Weapon is selected and ready for grabbing
         /// </summary>
-        public void OnSelected()
+        public virtual void OnSelected()
         {
             _mat.SetFloat(OutlineWidth, 5);
         }
 
-        public void OnNotSelected()
+        public virtual void OnNotSelected()
         {
             _mat.SetFloat(OutlineWidth, 0);
         }
@@ -37,7 +38,7 @@ namespace Weapon
         /// <summary>
         /// Weapon Effect for grabbing
         /// </summary>
-        public void OnHold()
+        public virtual void OnHold()
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
             OnNotSelected();
@@ -47,7 +48,7 @@ namespace Weapon
         /// <summary>
         /// Weapon Effect for dropping
         /// </summary>
-        public void OnDrop()
+        public virtual void OnDrop()
         {
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
@@ -59,14 +60,19 @@ namespace Weapon
         /// Drop with a specific direction
         /// </summary>
         /// <param name="dropDir"></param>
-        public void OnDrop(Vector3 dropDir)
+        public virtual void OnDrop(Vector3 dropDir)
         {
             OnDrop();
             _rb.AddForce(dropDir * _fDropForce, ForceMode.Impulse);
         }
-        
-        
 
-        public delegate void AttackBehaviour(Transform targetPosition);
+        public virtual void OnAttack(Transform startTransform, Transform targetTransform)
+        {
+        }
+
+        public void OnDestroy()
+        {
+            
+        }
     }
 }

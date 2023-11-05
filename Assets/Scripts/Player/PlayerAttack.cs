@@ -1,13 +1,38 @@
 ﻿using Enemy;
 using UnityEngine;
+using GameInputSystem;
+using UnityEngine.InputSystem;
+using Weapon;
 
 namespace Player
 {
     public class PlayerAttack : MonoBehaviour
     {
+        [SerializeField] private Transform tAttackPointTransform;
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private LayerMask lmEnemy;
         private GameObject _enemyDetected; // current weapon detected
+
+        private InputControls _inputs;
+
+
+        private void OnEnable()
+        {
+            if (_inputs == null)
+            {
+                _inputs = new InputControls();
+            }
+
+            _inputs.Gameplay.Attack.Enable();
+            _inputs.Gameplay.Attack.performed += OnAttackPerformed;
+        }
+
+        private void OnDisable()
+        {
+            _inputs.Gameplay.Attack.Disable();
+            _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
+        }
+
 
         private void Update()
         {
@@ -55,6 +80,7 @@ namespace Player
                     minCollider = coll;
                 }
             }
+
             return minCollider;
         }
 
@@ -63,5 +89,23 @@ namespace Player
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, fEnemyDetectionRange);
         }
+
+        private void OnAttackPerformed(InputAction.CallbackContext value)
+        {
+            if (!PlayerWeapon.BAttack)
+            {
+                if (_enemyDetected != null)
+                {
+                    GameObject weapon = transform.GetComponent<PlayerWeapon>().WeaponEquipped;
+                    if (weapon != null)
+                    {
+                        weapon.GetComponent<WeaponBehaviour>()
+                            .OnAttack(tAttackPointTransform, _enemyDetected.transform);
+                    }
+                }
+            }
+        }
+        
+        
     }
 }

@@ -29,5 +29,11 @@ namespace Enemy
         {
             _mat.SetFloat(OutlineWidth, 0);
         }
+        
+        
+        protected void OnDead()
+        {
+            
+        }
     }
 }
