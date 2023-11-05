@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000017447148, g: 0.000000028329465, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18212943, g: 0.22451913, b: 0.2881719, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689396}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerFollowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,8 @@ GameObject:
   - component: {fileID: 163433798}
   - component: {fileID: 163433797}
   - component: {fileID: 163433799}
-  m_Layer: 0
+  - component: {fileID: 163433800}
+  m_Layer: 7
   m_Name: '[Player]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,6 +407,19 @@ MonoBehaviour:
   lmWeapon:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &163433800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163433791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff15ff2adda4ccca7fc0e130652d689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fEnemyDetectionRange: 5
 --- !u!1 &237392408
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +504,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &312625090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312625091}
+  - component: {fileID: 312625092}
+  m_Layer: 0
+  m_Name: Obstruction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &312625091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312625090}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1252490764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312625092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312625090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04f4f963453422d8b5b8a70c3b91bcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tPlayer: {fileID: 395650857}
 --- !u!1 &381052810
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +678,7 @@ GameObject:
   - component: {fileID: 395650857}
   - component: {fileID: 395650859}
   - component: {fileID: 395650858}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,6 +1294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 821147349}
+  - component: {fileID: 821147350}
   m_Layer: 0
   m_Name: NightBorne
   m_TagString: Untagged
@@ -1258,6 +1318,27 @@ Transform:
   - {fileID: 1757989682}
   m_Father: {fileID: 1200112758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &821147350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821147348}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3921828, y: 1.2749034, z: 1}
+  m_Center: {x: 0.19609141, y: 0.13745177, z: 0}
 --- !u!1 &858521964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,13 +1606,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885371832}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.078226626, y: 0.5420094, z: 0.8339288, w: -0.06833113}
+  m_LocalRotation: {x: 0.4843592, y: 0.25551814, z: 0.5457399, w: 0.63425124}
   m_LocalPosition: {x: 0, y: 3, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 704651285}
-  m_LocalEulerAnglesHint: {x: -66.161, y: 8.021, z: 184.138}
+  m_LocalEulerAnglesHint: {x: 19.604, y: 64.859, z: 93.949}
 --- !u!114 &885371835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1916,7 +1997,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 2.465, z: -11.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 312625091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1252490765
@@ -6528,7 +6610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1587941763}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponHoldingPoints
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -11507,7 +11589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &2094593554
 Grid:
   m_ObjectHideFlags: 0
