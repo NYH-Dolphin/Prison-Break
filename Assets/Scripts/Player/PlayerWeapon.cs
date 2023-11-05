@@ -43,11 +43,10 @@ namespace Player
 
         private void WeaponDetectionUpdate()
         {
-            Collider[] hitColliders = new Collider[1];
-            int num = Physics.OverlapSphereNonAlloc(transform.position, fWeaponGrabRange, hitColliders, lmWeapon);
-            if (num != 0)
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmWeapon);
+            if (hitColliders.Length != 0)
             {
-                GameObject weapon = hitColliders[0].gameObject;
+                GameObject weapon = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_weaponSelected != weapon)
                 {
                     weapon.GetComponent<WeaponBehaviour>().OnSelected();
@@ -63,6 +62,27 @@ namespace Player
                     _weaponSelected = null;
                 }
             }
+        }
+        
+        /// <summary>
+        /// Gets the closest weapon to the player
+        /// </summary>
+        /// <param name="hitColliders"></param>
+        /// <returns></returns>
+        private Collider GetMinimumDistanceCollider(Collider[] hitColliders)
+        {
+            Collider minCollider = hitColliders[0];
+            float minimumDistance = float.MaxValue;
+            foreach (var coll in hitColliders)
+            {
+                float distance = Vector3.Distance(coll.gameObject.transform.position, transform.position);
+                if (distance < minimumDistance)
+                {
+                    minimumDistance = distance;
+                    minCollider = coll;
+                }
+            }
+            return minCollider;
         }
 
         private void OnWeaponPerformed(InputAction.CallbackContext value)

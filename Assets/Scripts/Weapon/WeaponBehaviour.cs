@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Weapon
 {
@@ -65,5 +64,9 @@ namespace Weapon
             OnDrop();
             _rb.AddForce(dropDir * _fDropForce, ForceMode.Impulse);
         }
+        
+        
+
+        public delegate void AttackBehaviour(Transform targetPosition);
     }
 }
