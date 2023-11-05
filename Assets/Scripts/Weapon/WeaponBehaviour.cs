@@ -68,6 +68,7 @@ namespace Weapon
 
         public virtual void OnAttack(Transform startTransform, Transform targetTransform)
         {
+            
         }
 
         public void OnDestroy()

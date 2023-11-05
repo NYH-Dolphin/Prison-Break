@@ -1,4 +1,5 @@
-﻿using GameInputSystem;
+﻿using Enemy;
+using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
@@ -11,9 +12,12 @@ namespace Player
         [SerializeField] private Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
-        public GameObject WeaponEquipped => _weaponEquipped;
-        public static bool BAttack;
-
+        [SerializeField] private float fEnemyDetectionRange;
+        [SerializeField] private LayerMask lmEnemy;
+        
+        
+        private bool _bAttack;
+        private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
@@ -28,25 +32,53 @@ namespace Player
 
             _inputs.Gameplay.Weapon.Enable();
             _inputs.Gameplay.Weapon.performed += OnWeaponPerformed;
+            _inputs.Gameplay.Attack.Enable();
+            _inputs.Gameplay.Attack.performed += OnAttackPerformed;
         }
 
         private void OnDisable()
         {
             _inputs.Gameplay.Weapon.Disable();
             _inputs.Gameplay.Weapon.performed -= OnWeaponPerformed;
+            _inputs.Gameplay.Attack.Disable();
+            _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
         }
 
 
         private void Update()
         {
-            if (!BAttack) WeaponDetectionUpdate();
-
+            EnemyDetectionUpdate();
+            WeaponDetectionUpdate();
+            
             if (_weaponEquipped == null)
             {
-                BAttack = false;
+                _bAttack = false;
             }
         }
 
+
+        private void EnemyDetectionUpdate()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
+            if (hitColliders.Length != 0)
+            {
+                GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
+                if (_enemyDetected != enemy)
+                {
+                    enemy.GetComponent<EnemyBehaviour>().OnSelected();
+                    if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    _enemyDetected = enemy;
+                }
+            }
+            else
+            {
+                if (_enemyDetected != null)
+                {
+                    _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    _enemyDetected = null;
+                }
+            }
+        }
 
         private void WeaponDetectionUpdate()
         {
@@ -93,9 +125,12 @@ namespace Player
             return minCollider;
         }
 
+
+        #region WeaponEquipped
+
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
-            OnSwitchWeapon();
+            if(!_bAttack) OnSwitchWeapon();
         }
 
         private void OnSwitchWeapon()
@@ -141,10 +176,33 @@ namespace Player
             }
         }
 
+        #endregion
+
+
+        #region Attack
+
+        private void OnAttackPerformed(InputAction.CallbackContext value)
+        {
+            if (!_bAttack)
+            {
+                if (_enemyDetected != null && _weaponEquipped != null)
+                {
+                    _bAttack = true;
+                    _weaponEquipped.GetComponent<WeaponBehaviour>()
+                        .OnAttack(tHoldWeaponTransform, _enemyDetected.transform);
+                }
+            }
+        }
+        #endregion
+        
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, fWeaponGrabRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, fEnemyDetectionRange);
         }
     }
 }
