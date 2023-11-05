@@ -102,12 +102,7 @@ namespace Player
                 }
             }
         }
-
-        /// <summary>
-        /// Gets the closest weapon to the player
-        /// </summary>
-        /// <param name="hitColliders"></param>
-        /// <returns></returns>
+        
         private Collider GetMinimumDistanceCollider(Collider[] hitColliders)
         {
             Collider minCollider = hitColliders[0];

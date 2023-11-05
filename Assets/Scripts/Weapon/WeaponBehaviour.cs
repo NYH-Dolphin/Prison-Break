@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Enemy;
 using UnityEngine;
 
 namespace Weapon
@@ -68,12 +68,15 @@ namespace Weapon
 
         public virtual void OnAttack(Transform startTransform, Transform targetTransform)
         {
-            
         }
 
-        public void OnDestroy()
+        private void OnTriggerEnter(Collider other)
         {
-            
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                Destroy(gameObject);
+            }
         }
     }
 }
