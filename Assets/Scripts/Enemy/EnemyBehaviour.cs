@@ -29,5 +29,12 @@ namespace Enemy
         {
             _mat.SetFloat(OutlineWidth, 0);
         }
+        
+        
+        // TODO Current directly make enemy dead after being hitted
+        public void OnHit()
+        {
+            Destroy(gameObject);
+        }
     }
 }

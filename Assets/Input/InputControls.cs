@@ -55,6 +55,15 @@ namespace GameInputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2da35b6-23b6-4502-a08d-2aa45ea2e48b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -189,6 +198,17 @@ namespace GameInputSystem
                     ""action"": ""Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1da9d0ba-c20c-49cf-a0d2-cb4d12279139"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -200,6 +220,7 @@ namespace GameInputSystem
             m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
             m_Gameplay_Weapon = m_Gameplay.FindAction("Weapon", throwIfNotFound: true);
+            m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -264,6 +285,7 @@ namespace GameInputSystem
         private readonly InputAction m_Gameplay_Movement;
         private readonly InputAction m_Gameplay_Jump;
         private readonly InputAction m_Gameplay_Weapon;
+        private readonly InputAction m_Gameplay_Attack;
         public struct GameplayActions
         {
             private @InputControls m_Wrapper;
@@ -271,6 +293,7 @@ namespace GameInputSystem
             public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
             public InputAction @Weapon => m_Wrapper.m_Gameplay_Weapon;
+            public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -289,6 +312,9 @@ namespace GameInputSystem
                 @Weapon.started += instance.OnWeapon;
                 @Weapon.performed += instance.OnWeapon;
                 @Weapon.canceled += instance.OnWeapon;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -302,6 +328,9 @@ namespace GameInputSystem
                 @Weapon.started -= instance.OnWeapon;
                 @Weapon.performed -= instance.OnWeapon;
                 @Weapon.canceled -= instance.OnWeapon;
+                @Attack.started -= instance.OnAttack;
+                @Attack.performed -= instance.OnAttack;
+                @Attack.canceled -= instance.OnAttack;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -324,6 +353,7 @@ namespace GameInputSystem
             void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnWeapon(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
         }
     }
 }
