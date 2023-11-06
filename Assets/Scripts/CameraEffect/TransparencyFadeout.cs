@@ -50,6 +50,7 @@ namespace MyCameraEffect
                 }
                 else
                 {
+                    _objCollide = null;
                     if (_srs != null)
                     {
                         foreach (var sr in _srs)
