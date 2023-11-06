@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CameraEffect
+namespace MyCameraEffect
 {
     /// <summary>
     /// Require object in tag [Wall] and contains a [Collider] for detection
@@ -9,6 +9,8 @@ namespace CameraEffect
     public class TransparencyFadeout : MonoBehaviour
     {
         [SerializeField] private Transform tPlayer;
+        [SerializeField] [Range(0, 1)] private float fFadeAmount;
+        private GameObject _objCollide;
         private SpriteRenderer[] _srs;
         private RaycastHit _hit;
         private static readonly int Transparency = Shader.PropertyToID("_Transparency");
@@ -26,11 +28,24 @@ namespace CameraEffect
                 // TODO which one to set transparency should be considered
                 if (_hit.collider.CompareTag("Wall"))
                 {
-                    GameObject objHit = _hit.collider.gameObject;
-                    _srs = objHit.GetComponentsInChildren<SpriteRenderer>();
-                    foreach (var sr in _srs)
+                    if (_objCollide != _hit.collider.gameObject)
                     {
-                        sr.material.SetFloat(Transparency, 0.5f);
+                        _objCollide = _hit.collider.gameObject;
+                        if (_srs != null)
+                        {
+                            foreach (var sr in _srs)
+                            {
+                                sr.material.SetFloat(Transparency, 1f);
+                            }
+
+                            _srs = null;
+                        }
+
+                        _srs = _objCollide.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (var sr in _srs)
+                        {
+                            sr.material.SetFloat(Transparency, fFadeAmount);
+                        }
                     }
                 }
                 else
@@ -41,6 +56,7 @@ namespace CameraEffect
                         {
                             sr.material.SetFloat(Transparency, 1f);
                         }
+
                         _srs = null;
                     }
                 }

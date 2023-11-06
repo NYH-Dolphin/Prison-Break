@@ -22,7 +22,7 @@ namespace Enemy
         public void OnSelected()
         {
             _mat.SetColor(GlowColor, Color.red);
-            _mat.SetFloat(OutlineWidth, 0.03f);
+            _mat.SetFloat(OutlineWidth, 0.1f);
         }
 
         public void OnNotSelected()
