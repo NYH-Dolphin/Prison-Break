@@ -5,15 +5,11 @@ using UnityEngine;
 public class TransparentController : MonoBehaviour
 {
     public Transform playerHead;
-    public SpriteRenderer sp;
-    private SpriteRenderer lastSP;
+    public Material wallMat;
+    
 
     private RaycastHit hit;
-    // Start is called before the first frame update
-    void Start()
-    {
-        lastSP = sp;
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -30,13 +26,14 @@ public class TransparentController : MonoBehaviour
             if(hit.collider.CompareTag("Wall"))
             {
                 
-                sp = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-                sp.color = new Color(1f,1f,1f,0.05f);
+                wallMat = hit.collider.gameObject.GetComponent<SpriteRenderer>().material;
+                wallMat.SetFloat("_Transparency", 0f);
 
             }
+            ;
         }
-        else
-            sp.color = new Color(1f,1f,1f,1f);
+        //else
+            //wallMat.SetFloat("_Transparency", 1f);
     }
 
 }
