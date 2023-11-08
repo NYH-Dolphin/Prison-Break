@@ -1,22 +1,23 @@
 ﻿using Enemy;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody), typeof(Collider))]
     public class WeaponBehaviour : MonoBehaviour
     {
-
         public WeaponInfo weaponInfo;
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
         protected Material Mat; // require material "2d Sprite Glow"
-        protected bool BAttack;
-        
-        
+        [HideInInspector] public bool bAttack;
+        protected PlayerWeapon Pw;
+
+
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-        
+
         // TODO will be modified later by each weapon's behaviour
         private float _fDropForce = 3f;
 
@@ -27,7 +28,7 @@ namespace Weapon
             {
                 Debug.LogError("Weapon Info is not set! Make Sure you specify a correct weapon info");
             }
-            
+
             Sr = GetComponent<SpriteRenderer>();
             Rb = GetComponent<Rigidbody>();
             Mat = Sr.material;
@@ -50,8 +51,9 @@ namespace Weapon
         /// <summary>
         /// Weapon Effect for grabbing
         /// </summary>
-        public virtual void OnHold()
+        public virtual void OnHold(PlayerWeapon pw)
         {
+            Pw = pw;
             gameObject.layer = LayerMask.NameToLayer("Player");
             OnNotSelected();
             Rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -62,6 +64,7 @@ namespace Weapon
         /// </summary>
         public virtual void OnDrop()
         {
+            Pw = null;
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
             Rb.constraints = RigidbodyConstraints.None;
@@ -79,19 +82,13 @@ namespace Weapon
         }
 
 
-        /// <summary>
-        /// Weapon Attack Behaviour
-        /// </summary>
-        /// <param name="startTransform"></param> Weapon Staring Point
-        /// <param name="targetTransform"></param>Target Enemy
-        /// <param name="facingDir"></param>Player Facing Point
-        public virtual void OnAttack(Transform startTransform, Transform targetTransform, Vector3 facingDir)
+        public virtual void OnAttack()
         {
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (BAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);

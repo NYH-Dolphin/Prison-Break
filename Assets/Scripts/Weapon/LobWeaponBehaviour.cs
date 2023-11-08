@@ -5,11 +5,16 @@ namespace Weapon
 {
     public class LobWeaponBehaviour : WeaponBehaviour
     {
-        public override void OnAttack(Transform startTransform, Transform targetTransform, Vector3 facingDir)
+        public override void OnAttack()
         {
-            ThrowBehaviour(startTransform, targetTransform);
+            if (Pw.GetEnemyDetected() != null)
+            {
+                Transform startTransform = Pw.tHoldWeaponTransform;
+                Transform targetTransform = Pw.GetEnemyDetected().transform;
+                ThrowBehaviour(startTransform, targetTransform);
+            }
         }
-        
+
         private void ThrowBehaviour(Transform startTransform, Transform targetTransform)
         {
             iTween.Init(gameObject);
@@ -27,10 +32,10 @@ namespace Weapon
             args.Add("time", 0.5f);
             args.Add("easetype", iTween.EaseType.easeOutQuart);
             iTween.MoveTo(gameObject, args);
-            BAttack = true;
+            bAttack = true;
             StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
         }
-        
+
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time);

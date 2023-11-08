@@ -31,7 +31,7 @@ namespace Enemy
         }
         
         
-        // TODO Current directly make enemy dead after being hitted
+        // TODO Current directly make enemy dead after being hit
         public void OnHit()
         {
             Destroy(gameObject);

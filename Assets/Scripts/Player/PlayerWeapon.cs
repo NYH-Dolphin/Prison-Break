@@ -9,14 +9,12 @@ namespace Player
     [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
-        [SerializeField] private Transform tHoldWeaponTransform;
+        [SerializeField] public Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private LayerMask lmEnemy;
 
-
-        private bool _bAttack;
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
         private GameObject _weaponEquipped; // current weapon used
@@ -47,20 +45,25 @@ namespace Player
 
         private void Update()
         {
-            EnemyDetectionUpdate();
             WeaponDetectionUpdate();
-
-            if (_weaponEquipped == null)
-            {
-                _bAttack = false;
-            }
+            EnemyDetectionUpdate();
         }
 
 
+        #region SceneDetection
+
         private void EnemyDetectionUpdate()
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
-            if (hitColliders.Length != 0)
+            // TODO may alter the enemy detection, so far only lob need enemy detection
+            bool detected = _weaponEquipped != null &&
+                            _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eWeaponAttackType ==
+                            AttackType.Lob;
+
+
+            Collider[] hitColliders = null;
+            if (detected) hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
+
+            if (detected && hitColliders != null && hitColliders.Length != 0)
             {
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy)
@@ -82,8 +85,14 @@ namespace Player
 
         private void WeaponDetectionUpdate()
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmWeapon);
-            if (hitColliders.Length != 0)
+            // when player is holding the weapon and the weapon is on attack, can not detect the weapon
+            bool detected = _weaponEquipped == null ||
+                            (_weaponEquipped != null && !_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack);
+
+            Collider[] hitColliders = null;
+            if (detected) hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmWeapon);
+
+            if (detected && hitColliders != null && hitColliders.Length != 0)
             {
                 GameObject weapon = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_weaponSelected != weapon)
@@ -120,12 +129,16 @@ namespace Player
             return minCollider;
         }
 
+        #endregion
+
 
         #region WeaponEquipped
 
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
-            if (!_bAttack) OnSwitchWeapon();
+            // Can not switch weapon during the attack phase
+            if (_weaponEquipped != null && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
+            OnSwitchWeapon();
         }
 
         private void OnSwitchWeapon()
@@ -153,7 +166,7 @@ namespace Player
             if (_weaponSelected != null)
             {
                 _weaponEquipped = _weaponSelected;
-                _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold();
+                _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
@@ -178,29 +191,28 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            if (!_bAttack)
+            if (_weaponEquipped != null)
             {
-                if (_weaponEquipped != null)
+                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
                 {
-                    WeaponInfo info = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
-                    if (info.eWeaponAttackType == AttackType.Lob)
-                    {
-                        if (_enemyDetected != null)
-                        {
-                            _bAttack = true;
-                            _weaponEquipped.GetComponent<WeaponBehaviour>()
-                                .OnAttack(tHoldWeaponTransform, _enemyDetected.transform,
-                                    transform.GetComponent<PlayerController>().vecDir);
-                        }
-                    }
-                    else if (info.eWeaponAttackType == AttackType.Throwable)
-                    {
-                        _bAttack = true;
-                        _weaponEquipped.GetComponent<WeaponBehaviour>()
-                            .OnAttack(null, null, transform.GetComponent<PlayerController>().vecDir);
-                    }
+                    _weaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Get the direction the player face
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 GetPlayerVecDir()
+        {
+            return transform.GetComponent<PlayerController>().vecDir;
+        }
+
+        public GameObject GetEnemyDetected()
+        {
+            return _enemyDetected;
         }
 
         #endregion
