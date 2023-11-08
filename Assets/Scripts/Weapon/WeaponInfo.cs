@@ -32,6 +32,6 @@ namespace Weapon
         public int iDurability;
         public Sharpness eSharpness;
         public Range eRange;
-        public AttackType eWeaponAttackType;
+        public AttackType eAttackType;
     }
 }

@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
         [SerializeField] private float fEnemyDetectionRange;
+        [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
 
         private GameObject _enemyDetected; // current enemy detected
@@ -56,7 +57,7 @@ namespace Player
         {
             // TODO may alter the enemy detection, so far only lob need enemy detection
             bool detected = _weaponEquipped != null &&
-                            _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eWeaponAttackType ==
+                            _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
                             AttackType.Lob;
 
 
@@ -198,6 +199,19 @@ namespace Player
                     _weaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
             }
+            else
+            {
+                OnAttackWithoutWeapon();
+            }
+        }
+
+
+        /// <summary>
+        /// Perform Melee Attack
+        /// </summary>
+        private void OnAttackWithoutWeapon()
+        {
+            
         }
 
 
@@ -225,6 +239,9 @@ namespace Player
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, fEnemyDetectionRange);
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(tHoldWeaponTransform.position, fHandMeleeRange);
         }
     }
 }
