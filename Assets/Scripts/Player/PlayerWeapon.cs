@@ -14,8 +14,8 @@ namespace Player
         [SerializeField] private LayerMask lmWeapon;
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private LayerMask lmEnemy;
-        
-        
+
+
         private bool _bAttack;
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
@@ -49,7 +49,7 @@ namespace Player
         {
             EnemyDetectionUpdate();
             WeaponDetectionUpdate();
-            
+
             if (_weaponEquipped == null)
             {
                 _bAttack = false;
@@ -102,7 +102,7 @@ namespace Player
                 }
             }
         }
-        
+
         private Collider GetMinimumDistanceCollider(Collider[] hitColliders)
         {
             Collider minCollider = hitColliders[0];
@@ -125,7 +125,7 @@ namespace Player
 
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
-            if(!_bAttack) OnSwitchWeapon();
+            if (!_bAttack) OnSwitchWeapon();
         }
 
         private void OnSwitchWeapon()
@@ -180,16 +180,31 @@ namespace Player
         {
             if (!_bAttack)
             {
-                if (_enemyDetected != null && _weaponEquipped != null)
+                if (_weaponEquipped != null)
                 {
-                    _bAttack = true;
-                    _weaponEquipped.GetComponent<WeaponBehaviour>()
-                        .OnAttack(tHoldWeaponTransform, _enemyDetected.transform);
+                    WeaponInfo info = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
+                    if (info.eWeaponAttackType == AttackType.Lob)
+                    {
+                        if (_enemyDetected != null)
+                        {
+                            _bAttack = true;
+                            _weaponEquipped.GetComponent<WeaponBehaviour>()
+                                .OnAttack(tHoldWeaponTransform, _enemyDetected.transform,
+                                    transform.GetComponent<PlayerController>().vecDir);
+                        }
+                    }
+                    else if (info.eWeaponAttackType == AttackType.Throwable)
+                    {
+                        _bAttack = true;
+                        _weaponEquipped.GetComponent<WeaponBehaviour>()
+                            .OnAttack(null, null, transform.GetComponent<PlayerController>().vecDir);
+                    }
                 }
             }
         }
+
         #endregion
-        
+
 
         private void OnDrawGizmosSelected()
         {

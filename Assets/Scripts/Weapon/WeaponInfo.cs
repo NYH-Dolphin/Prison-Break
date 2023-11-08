@@ -3,21 +3,35 @@ using UnityEngine;
 
 namespace Weapon
 {
-    public enum WeaponAttackType
+    public enum Sharpness
+    {
+        Sharp,
+        Blunt
+    }
+
+    public enum Range
+    {
+        Ranged,
+        Melee
+    }
+
+
+    public enum AttackType
     {
         Throwable,
         Lob,
         Swing,
-        Shooting,
+        Thrust,
+        Slam
     }
 
-    [Serializable]
-    public class WeaponInfo : MonoBehaviour
+    [CreateAssetMenu(fileName = "WeaponInfo", menuName = "ScriptableObjects/WeaponInformation", order = 1)]
+    public class WeaponInfo : ScriptableObject
     {
         public string sName;
-        public int iAvailableTimes;
-        public float fWeight;
-        public float fAtk;
-        public WeaponAttackType eWeaponAttackType;
+        public int iDurability;
+        public Sharpness eSharpness;
+        public Range eRange;
+        public AttackType eWeaponAttackType;
     }
 }

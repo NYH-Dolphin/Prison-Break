@@ -62,7 +62,7 @@ namespace GameInputSystem
                     ""id"": ""d2da35b6-23b6-4502-a08d-2aa45ea2e48b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7773926056730166994}
   - component: {fileID: 8415629577389312596}
   m_Layer: 6
-  m_Name: item2
+  m_Name: LobWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,3 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a52e614da5d4e6898518ae31d32d7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponInfo: {fileID: 11400000, guid: 187b108f07808b740bd52df05e491d91, type: 2}

@@ -1,4 +1,5 @@
 ﻿using Enemy;
+using Player;
 using UnityEngine;
 
 namespace Weapon
@@ -6,20 +7,30 @@ namespace Weapon
     [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody), typeof(Collider))]
     public class WeaponBehaviour : MonoBehaviour
     {
-        private SpriteRenderer _sr;
-        private Rigidbody _rb;
-        private Material _mat; // require material "2d Sprite Glow"
-        private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-        protected bool BAttack;
 
+        public WeaponInfo weaponInfo;
+        protected SpriteRenderer Sr;
+        protected Rigidbody Rb;
+        protected Material Mat; // require material "2d Sprite Glow"
+        protected bool BAttack;
+        
+        
+        private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
+        
         // TODO will be modified later by each weapon's behaviour
         private float _fDropForce = 3f;
 
+
         private void Awake()
         {
-            _sr = GetComponent<SpriteRenderer>();
-            _rb = GetComponent<Rigidbody>();
-            _mat = _sr.material;
+            if (weaponInfo == null)
+            {
+                Debug.LogError("Weapon Info is not set! Make Sure you specify a correct weapon info");
+            }
+            
+            Sr = GetComponent<SpriteRenderer>();
+            Rb = GetComponent<Rigidbody>();
+            Mat = Sr.material;
             OnNotSelected();
         }
 
@@ -28,12 +39,12 @@ namespace Weapon
         /// </summary>
         public virtual void OnSelected()
         {
-            _mat.SetFloat(OutlineWidth, 5);
+            Mat.SetFloat(OutlineWidth, 5);
         }
 
         public virtual void OnNotSelected()
         {
-            _mat.SetFloat(OutlineWidth, 0);
+            Mat.SetFloat(OutlineWidth, 0);
         }
 
         /// <summary>
@@ -43,7 +54,7 @@ namespace Weapon
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
             OnNotSelected();
-            _rb.constraints = RigidbodyConstraints.FreezeAll;
+            Rb.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         /// <summary>
@@ -53,7 +64,7 @@ namespace Weapon
         {
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
-            _rb.constraints = RigidbodyConstraints.None;
+            Rb.constraints = RigidbodyConstraints.None;
         }
 
 
@@ -64,10 +75,17 @@ namespace Weapon
         public virtual void OnDrop(Vector3 dropDir)
         {
             OnDrop();
-            _rb.AddForce(dropDir * _fDropForce, ForceMode.Impulse);
+            Rb.AddForce(dropDir * _fDropForce, ForceMode.Impulse);
         }
 
-        public virtual void OnAttack(Transform startTransform, Transform targetTransform)
+
+        /// <summary>
+        /// Weapon Attack Behaviour
+        /// </summary>
+        /// <param name="startTransform"></param> Weapon Staring Point
+        /// <param name="targetTransform"></param>Target Enemy
+        /// <param name="facingDir"></param>Player Facing Point
+        public virtual void OnAttack(Transform startTransform, Transform targetTransform, Vector3 facingDir)
         {
         }
 

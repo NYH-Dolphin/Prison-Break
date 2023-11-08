@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Weapon
 {
-    public class ThrowableWeaponBehaviour : WeaponBehaviour
+    public class LobWeaponBehaviour : WeaponBehaviour
     {
-        public override void OnAttack(Transform startTransform, Transform targetTransform)
+        public override void OnAttack(Transform startTransform, Transform targetTransform, Vector3 facingDir)
         {
             ThrowBehaviour(startTransform, targetTransform);
         }
