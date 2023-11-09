@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     public Vector3 vecDir => _vecDir;
-    
+
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GroundDetectUpdate();
-        
     }
 
 
@@ -77,9 +76,17 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", inputMove.x);
         animator.SetFloat("Vertical", inputMove.y);
         animator.SetFloat("Speed", inputMove.magnitude);
-        _vecMove.x = inputMove.x;
-        _vecMove.z = inputMove.y;
-        _vecMove = _vecMove.normalized;
+
+        // player moving direction is based on the view of camera
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 vecFront = cameraTransform.forward;
+        vecFront.y = 0;
+        vecFront = vecFront.normalized;
+        Vector3 vecRight = cameraTransform.right;
+        vecRight.y = 0;
+        vecRight = vecRight.normalized;
+        Vector3 vecIsoMove = vecRight * inputMove.x + vecFront * inputMove.y;
+        _vecMove = vecIsoMove.normalized;
         _vecDir = _vecMove;
     }
 
