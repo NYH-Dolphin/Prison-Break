@@ -11,11 +11,11 @@ public class flashingLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.gameObject.GetComponent<Light>().intensity >= 0.83f)
+        if(this.gameObject.GetComponent<Light>().intensity >= 1.83f)
         {
             flip = true;
         }
-        if(this.gameObject.GetComponent<Light>().intensity <= 0.2f)
+        if(this.gameObject.GetComponent<Light>().intensity <= 1.2f)
         flip = false;
 
         if(flip)
