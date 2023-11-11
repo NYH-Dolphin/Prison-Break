@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace MyCameraEffect
 {
@@ -14,6 +16,9 @@ namespace MyCameraEffect
         private SpriteRenderer[] _srs;
         private RaycastHit _hit;
         private static readonly int Transparency = Shader.PropertyToID("_Transparency");
+
+
+        private Dictionary<SpriteRenderer, Coroutine> _threads = new();
 
         private void Update()
         {
@@ -35,7 +40,13 @@ namespace MyCameraEffect
                         {
                             foreach (var sr in _srs)
                             {
-                                sr.material.SetFloat(Transparency, 1f);
+                                if (_threads.TryGetValue(sr, out var thread1))
+                                {
+                                   StopCoroutine(thread1); 
+                                }
+
+                                Coroutine thread = StartCoroutine(Fade(sr.material, 1f, 0.2f, 20));
+                                _threads[sr] = thread;
                             }
 
                             _srs = null;
@@ -44,7 +55,12 @@ namespace MyCameraEffect
                         _srs = _objCollide.GetComponentsInChildren<SpriteRenderer>();
                         foreach (var sr in _srs)
                         {
-                            sr.material.SetFloat(Transparency, fFadeAmount);
+                            if (_threads.TryGetValue(sr, out var thread1))
+                            {
+                                StopCoroutine(thread1); 
+                            }
+                            Coroutine thread = StartCoroutine(Fade(sr.material, fFadeAmount, 0.2f, 20));
+                            _threads[sr] = thread;
                         }
                     }
                 }
@@ -55,13 +71,33 @@ namespace MyCameraEffect
                     {
                         foreach (var sr in _srs)
                         {
-                            sr.material.SetFloat(Transparency, 1f);
+                            if (_threads.TryGetValue(sr, out var thread1))
+                            {
+                                StopCoroutine(thread1); 
+                            }
+                            Coroutine thread = StartCoroutine(Fade(sr.material, 1f, 0.2f, 20));
+                            _threads[sr] = thread;
                         }
 
                         _srs = null;
                     }
                 }
             }
+        }
+        
+        IEnumerator Fade(Material mat, float alpha, float time, int sample)
+        {
+            float transparency = mat.GetFloat(Transparency);
+            float timeDuration = time / sample;
+            float alphaDur = (alpha - transparency) / sample;
+            for (int i = 0; i < sample; i++)
+            {
+                float curAlpha = transparency + alphaDur * i;
+                mat.SetFloat(Transparency, curAlpha);
+                yield return new WaitForSeconds(timeDuration);
+            }
+
+            mat.SetFloat(Transparency, alpha);
         }
     }
 }
