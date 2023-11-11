@@ -14,6 +14,7 @@ namespace Weapon
         protected Material Mat; // require material "2d Sprite Glow"
         [HideInInspector] public bool bAttack;
         protected PlayerWeapon Pw;
+        protected PlayerController Pc;
 
 
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
@@ -54,6 +55,7 @@ namespace Weapon
         public virtual void OnHold(PlayerWeapon pw)
         {
             Pw = pw;
+            Pc = pw.gameObject.GetComponent<PlayerController>();
             gameObject.layer = LayerMask.NameToLayer("Player");
             OnNotSelected();
             Rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -65,6 +67,7 @@ namespace Weapon
         public virtual void OnDrop()
         {
             Pw = null;
+            Pc = null;
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
             Rb.constraints = RigidbodyConstraints.None;

@@ -2,6 +2,7 @@ using System.Collections;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapon;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     #region EventRegisteration
 
+    // TODO Currently Jump is Removed
     private void OnEnable()
     {
         if (_inputs == null)
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Enable();
         _inputs.Gameplay.Movement.performed += OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled += OnMovementCanceled;
-        _inputs.Gameplay.Jump.performed += OnJumpPerformed;
+        // _inputs.Gameplay.Jump.performed += OnJumpPerformed;
     }
 
     private void OnDisable()
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Disable();
         _inputs.Gameplay.Movement.performed -= OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled -= OnMovementCanceled;
-        _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
+        // _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
     }
 
     #endregion
@@ -67,6 +69,19 @@ public class PlayerController : MonoBehaviour
         MovementUpdate();
     }
 
+
+    public void OnAttackPerformed(AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.Swing:
+                animator.SetTrigger("Swing");
+                break;
+            case AttackType.Throwable:
+                animator.SetTrigger("Throw");
+                break;
+        }
+    }
 
     #region Movement
 

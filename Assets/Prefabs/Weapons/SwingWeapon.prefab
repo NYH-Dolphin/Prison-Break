@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 470230865771333737}
   - component: {fileID: 2438754630307028216}
   - component: {fileID: 7773926056730166994}
-  - component: {fileID: 3391501287815065787}
+  - component: {fileID: 2178128524157680120}
   m_Layer: 6
-  m_Name: ThrowWeapon
+  m_Name: SwingWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3391501287815065787
+--- !u!114 &2178128524157680120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,10 +157,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5553995303318409865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa108e53e9fa40e1a22739b5480c3d41, type: 3}
+  m_Script: {fileID: 11500000, guid: 802105cfe8f0487ea35902ad777a14eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponInfo: {fileID: 11400000, guid: 255b673a4b74feb4d927b98230e675f6, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 1cc1ae46c104e824f9ff42285a974066, type: 2}
   bAttack: 0
-  fThrowForce: 60
-  fThrowTime: 3
+  fSwingTime: 0.3

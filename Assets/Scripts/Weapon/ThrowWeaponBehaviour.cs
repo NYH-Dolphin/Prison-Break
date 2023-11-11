@@ -10,16 +10,17 @@ namespace Weapon
 
         public override void OnAttack()
         {
-            LobBehaviour(Pw.GetPlayerVecDir());
+            ThrowBehaviour(Pw.GetPlayerVecDir());
         }
 
-        private void LobBehaviour(Vector3 facingDir)
+        private void ThrowBehaviour(Vector3 facingDir)
         {
             bAttack = true;
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             Rb.AddForce(facingDir * fThrowForce, ForceMode.Impulse);
+            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(DestroyCountDown(fThrowTime));
         }
 
