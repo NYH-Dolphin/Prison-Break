@@ -16,13 +16,13 @@ namespace Weapon
         {
             bAttack = true;
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            StartCoroutine(DestroyCountDown(fSwingTime));
+            StartCoroutine(SwingCountdown(fSwingTime));
         }
 
-        IEnumerator DestroyCountDown(float time)
+        IEnumerator SwingCountdown(float time)
         {
             yield return new WaitForSeconds(time);
-            Destroy(gameObject);
+            bAttack = false;
         }
     }
 }
