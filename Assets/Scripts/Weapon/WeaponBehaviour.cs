@@ -97,5 +97,14 @@ namespace Weapon
                 Destroy(gameObject);
             }
         }
+        
+        private void OnTriggerStay(Collider other)
+        {
+            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                Destroy(gameObject);
+            }
+        }
     }
 }
