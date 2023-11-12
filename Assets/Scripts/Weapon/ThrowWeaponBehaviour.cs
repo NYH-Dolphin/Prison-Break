@@ -8,9 +8,17 @@ namespace Weapon
         [SerializeField] private float fThrowForce = 20f;
         [SerializeField] private float fThrowTime = 3f;
 
+        private AudioControl SFX;
+
+        void Start()
+        {
+            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
+        }
+
         public override void OnAttack()
         {
             ThrowBehaviour(Pw.GetPlayerVecDir());
+            SFX.PlayThrow();
         }
 
         private void ThrowBehaviour(Vector3 facingDir)

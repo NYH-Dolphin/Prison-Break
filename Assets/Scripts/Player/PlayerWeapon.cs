@@ -15,6 +15,7 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
+        
 
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
@@ -167,6 +168,7 @@ namespace Player
             if (_weaponSelected != null)
             {
                 _weaponEquipped = _weaponSelected;
+                _weaponEquipped.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
