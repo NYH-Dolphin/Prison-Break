@@ -12,8 +12,10 @@ namespace Enemy
         private Transform player;
         public float startCool;
         private float cool;
+        private AudioControl SFX;
         public Animator anim;
         public Collider hitbox;
+
 
         private void Awake()
         {
@@ -26,6 +28,7 @@ namespace Enemy
             player = GameObject.FindGameObjectWithTag("Player").transform;
             cool = startCool;
             hitbox.enabled = false;
+            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
         }
 
         void Update()
@@ -69,6 +72,7 @@ namespace Enemy
         // TODO Current directly make enemy dead after being hit
         public void OnHit()
         {
+            SFX.PlayHit();
             Destroy(gameObject);
         }
     }
