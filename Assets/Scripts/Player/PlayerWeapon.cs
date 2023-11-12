@@ -170,7 +170,9 @@ namespace Player
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
+                Quaternion rot = tHoldWeaponTransform.rotation;
                 _weaponEquipped.transform.position = pos;
+                _weaponEquipped.transform.rotation = rot;
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
