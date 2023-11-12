@@ -417,7 +417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &23888175
 Transform:
   m_ObjectHideFlags: 0
@@ -526,6 +526,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 35842612}
+  startCool: 0
+  anim: {fileID: 0}
+  hitbox: {fileID: 0}
 --- !u!65 &23888180
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14738,7 +14741,7 @@ GameObject:
   - component: {fileID: 268179081}
   m_Layer: 8
   m_Name: Guard2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14752,7 +14755,7 @@ Transform:
   m_GameObject: {fileID: 268179079}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.09, y: 1.62, z: -5.8}
+  m_LocalPosition: {x: 2.09, y: 1.62, z: -5.796}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14851,6 +14854,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 1334266272}
+  startCool: 1
+  anim: {fileID: 1334266271}
+  hitbox: {fileID: 330739791}
 --- !u!65 &268179085
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23624,6 +23630,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1943397070}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &330739789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330739790}
+  - component: {fileID: 330739791}
+  m_Layer: 8
+  m_Name: hitbox
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &330739790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330739789}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.21551724, y: 0.21551724, z: 0.21551724}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1334266269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &330739791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330739789}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.49514985, y: 0.46812576, z: 0.55487967}
+  m_Center: {x: -0.18544805, y: -0.4472253, z: -0.078768015}
 --- !u!1 &336359404
 GameObject:
   m_ObjectHideFlags: 0
@@ -70972,6 +71031,7 @@ GameObject:
   - component: {fileID: 575772511}
   - component: {fileID: 575772510}
   - component: {fileID: 575772515}
+  - component: {fileID: 575772516}
   m_Layer: 7
   m_Name: '[Player]'
   m_TagString: Player
@@ -71110,6 +71170,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &575772516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575772509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172d666c3951d904da9e1dde1a810f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &576202812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77564,7 +77636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &738408250
 Transform:
   m_ObjectHideFlags: 0
@@ -77621,6 +77693,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 1328923865}
+  startCool: 0
+  anim: {fileID: 0}
+  hitbox: {fileID: 0}
 --- !u!65 &738408253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -91109,7 +91184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252490761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.0977964, w: 0.9019228}
+  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.09779638, w: 0.9019229}
   m_LocalPosition: {x: -5, y: 7.24, z: -11.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100239,7 +100314,7 @@ Transform:
   m_GameObject: {fileID: 1328923862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.38, y: 0, z: 1.06}
   m_LocalScale: {x: 4.64, y: 4.64, z: 4.64}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -100344,7 +100419,7 @@ GameObject:
   - component: {fileID: 1334266270}
   m_Layer: 8
   m_Name: Guard_Sprites
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100361,7 +100436,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.64, y: 4.64, z: 4.64}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 330739790}
   m_Father: {fileID: 268179080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1334266270
@@ -115613,7 +115689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653845538}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.0977964, w: 0.9019228}
+  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.09779638, w: 0.9019229}
   m_LocalPosition: {x: -5, y: 7.24, z: -11.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -119653,7 +119729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2119683479
 Transform:
   m_ObjectHideFlags: 0
@@ -119762,6 +119838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 499805670}
+  startCool: 0
+  anim: {fileID: 0}
+  hitbox: {fileID: 0}
 --- !u!65 &2119683484
 BoxCollider:
   m_ObjectHideFlags: 0

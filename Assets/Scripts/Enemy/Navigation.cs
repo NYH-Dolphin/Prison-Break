@@ -58,7 +58,7 @@ public class Navigation : MonoBehaviour
         else
             Patrolling();
 
-        Debug.Log(waitTime);
+
 
     }
 

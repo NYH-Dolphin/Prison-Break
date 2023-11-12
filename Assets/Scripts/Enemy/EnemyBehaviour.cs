@@ -9,11 +9,46 @@ namespace Enemy
         private Material _mat; // require material "2d Sprite Glow"
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
         private static readonly int GlowColor = Shader.PropertyToID("_GlowColor");
+        private Transform player;
+        public float startCool;
+        private float cool;
+        public Animator anim;
+        public Collider hitbox;
 
         private void Awake()
         {
             _mat = sr.material;
             OnNotSelected();
+        }
+
+        void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            cool = startCool;
+            hitbox.enabled = false;
+        }
+
+        void Update()
+        {
+            cool -=Time.deltaTime;
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= 5f)
+            {
+                anim.SetBool("attacking", true);
+                hitbox.enabled = true;
+                cool = startCool;
+            }
+            else{
+                anim.SetBool("attacking", false);
+            }
+
+            if(AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName("GuardStill"))
+            {
+                hitbox.enabled = false;
+            }
+        }
+
+        bool AnimatorIsPlaying(){
+            return anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
         }
 
         /// <summary>

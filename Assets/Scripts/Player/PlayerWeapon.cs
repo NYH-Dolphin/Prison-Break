@@ -67,7 +67,7 @@ namespace Player
             if (detected && hitColliders != null && hitColliders.Length != 0)
             {
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
-                if (_enemyDetected != enemy)
+                if (_enemyDetected != enemy && enemy != null)
                 {
                     enemy.GetComponent<EnemyBehaviour>().OnSelected();
                     if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
