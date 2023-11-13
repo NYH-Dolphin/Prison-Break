@@ -18,7 +18,7 @@ namespace Player
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private Animator anim;
-        
+
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
@@ -286,26 +286,20 @@ namespace Player
             GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
             {
-                //if(_weaponEquipped.GetComponent<Collider>().enabled)
-                //{
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                    if(_weaponEquipped)
-                        Destroy(_weaponEquipped);
-                //}
+                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                if (_weaponEquipped)
+                    Destroy(_weaponEquipped);
             }
         }
-        
+
         private void OnTriggerStay(Collider other)
         {
             GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
             {
-                //if(_weaponEquipped.GetComponent<Collider>().enabled)
-                //{
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                    if(_weaponEquipped)
-                        Destroy(_weaponEquipped);
-                //}
+                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                if (_weaponEquipped)
+                    Destroy(_weaponEquipped);
             }
         }
     }

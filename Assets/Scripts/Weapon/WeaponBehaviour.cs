@@ -91,27 +91,35 @@ namespace Weapon
 
         private void OnTriggerEnter(Collider other)
         {
-            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (weaponInfo.eRange == Range.Ranged)
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                Destroy(gameObject);
-            }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
-            {
-                Destroy(gameObject);
+                if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    Destroy(gameObject);
+                }
+                else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
+                         Rb.velocity != Vector3.zero)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
-        
+
         private void OnTriggerStay(Collider other)
         {
-            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (weaponInfo.eRange == Range.Ranged)
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                Destroy(gameObject);
-            }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
-            {
-                Destroy(gameObject);
+                if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    Destroy(gameObject);
+                }
+                else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
+                         Rb.velocity != Vector3.zero)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
