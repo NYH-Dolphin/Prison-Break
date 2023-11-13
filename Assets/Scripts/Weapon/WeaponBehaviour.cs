@@ -96,7 +96,7 @@ namespace Weapon
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
             }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
             {
                 Destroy(gameObject);
             }
@@ -109,7 +109,7 @@ namespace Weapon
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
             }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
             {
                 Destroy(gameObject);
             }

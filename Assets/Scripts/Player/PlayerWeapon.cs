@@ -17,6 +17,7 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
+        [SerializeField] private Animator anim;
         
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
@@ -187,6 +188,14 @@ namespace Player
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
+
+        //  bool AnimatorIsPlaying(string stateName){
+        //     return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        // }
+
+        // bool AnimatorIsPlaying(){
+        //     return anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        // }
 
         private void OnDropWeapon()
         {
