@@ -10,6 +10,7 @@ namespace Player
     [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
     public class PlayerWeapon : MonoBehaviour
     {
+        public float lineMultiplier;
         [SerializeField] public Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
@@ -202,7 +203,7 @@ namespace Player
             _lrDir.positionCount = 2;
             Vector3 startPos = transform.position;
             startPos.y = 1f;
-            Vector3 endPos = startPos + dir * 2f;
+            Vector3 endPos = startPos + dir * lineMultiplier;
             _lrDir.SetPosition(0, startPos);
             _lrDir.SetPosition(1, endPos);
         }
@@ -268,6 +269,35 @@ namespace Player
 
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(tHoldWeaponTransform.position, fHandMeleeRange);
+        }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
+            {
+                //if(_weaponEquipped.GetComponent<Collider>().enabled)
+                //{
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if(_weaponEquipped)
+                        Destroy(_weaponEquipped);
+                //}
+            }
+        }
+        
+        private void OnTriggerStay(Collider other)
+        {
+            GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
+            {
+                //if(_weaponEquipped.GetComponent<Collider>().enabled)
+                //{
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if(_weaponEquipped)
+                        Destroy(_weaponEquipped);
+                //}
+            }
         }
     }
 }

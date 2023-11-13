@@ -96,6 +96,10 @@ namespace Weapon
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
             }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                Destroy(gameObject);
+            }
         }
         
         private void OnTriggerStay(Collider other)
@@ -103,6 +107,10 @@ namespace Weapon
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                Destroy(gameObject);
+            }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
                 Destroy(gameObject);
             }
         }

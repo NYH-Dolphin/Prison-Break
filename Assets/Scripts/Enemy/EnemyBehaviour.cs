@@ -32,7 +32,7 @@ namespace Enemy
         void Update()
         {
             cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= 5f)
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= 3.5f)
             {
                 anim.SetBool("attacking", true);
                 cool = startCool;
