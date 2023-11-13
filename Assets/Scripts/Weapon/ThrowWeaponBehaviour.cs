@@ -9,6 +9,7 @@ namespace Weapon
         [SerializeField] private float fThrowForce = 20f;
         [SerializeField] private float fThrowTime = 3f;
         [SerializeField] private LayerMask lmGround;
+        //public string weaponName;
         
         private Vector3 _vecThrowDir;
         

@@ -8,6 +8,7 @@ namespace Weapon
         [SerializeField] private float fSwingTime = 1f;
 
         private AudioControl SFX;
+        //public string weaponName;
 
         void Start()
         {

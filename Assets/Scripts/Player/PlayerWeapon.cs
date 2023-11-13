@@ -22,6 +22,7 @@ namespace Player
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
+        private GameObject _breakableSelected; // current breakable object detected
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
 
@@ -162,7 +163,26 @@ namespace Player
             {
                 if (_weaponEquipped != null)
                 {
-                    OnDropWeapon();
+                    // try fusioon
+                    string ground_weapon_name =  _weaponSelected.GetComponent<WeaponBehaviour>().weaponName;
+                    string current_weapon_name =  _weaponEquipped.GetComponent<WeaponBehaviour>().weaponName;
+                    Fusion fusion = GetComponent<Fusion>();
+                    
+                    GameObject fused_weapon = fusion.AttemptFusion(ground_weapon_name, current_weapon_name);
+
+                    // if fusion fails
+                    if(fused_weapon == null){
+                        Debug.Log("No fused weapon found");
+                        OnDropWeapon();
+                    }
+                    else {
+                        // spawn fused weapon
+                        GameObject newWeapon = Instantiate(fused_weapon, tHoldWeaponTransform);
+                        Destroy(_weaponSelected);
+                        Destroy(_weaponEquipped);
+                        //_weaponEquipped = null;
+                        _weaponSelected = newWeapon;
+                    }
                 }
 
                 OnHoldWeapon();
@@ -186,6 +206,8 @@ namespace Player
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
+
+                _weaponEquipped.layer = LayerMask.NameToLayer("Player");
             }
         }
 

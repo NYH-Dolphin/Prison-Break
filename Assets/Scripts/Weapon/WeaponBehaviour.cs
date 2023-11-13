@@ -15,6 +15,7 @@ namespace Weapon
         [HideInInspector] public bool bAttack;
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
+        public string weaponName;
 
 
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
@@ -96,6 +97,11 @@ namespace Weapon
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
             }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Breakable"))
+            {
+                other.gameObject.GetComponent<Breakable>().OnHit();
+                //Destroy(gameObject);
+            }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
             {
                 Destroy(gameObject);
@@ -108,6 +114,11 @@ namespace Weapon
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
                 Destroy(gameObject);
+            }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Breakable"))
+            {
+                other.gameObject.GetComponent<Breakable>().OnHit();
+                //Destroy(gameObject);
             }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && Rb.velocity != Vector3.zero)
             {

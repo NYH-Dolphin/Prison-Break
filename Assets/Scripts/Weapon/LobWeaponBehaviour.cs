@@ -6,6 +6,7 @@ namespace Weapon
     public class LobWeaponBehaviour : WeaponBehaviour
     {
         private AudioControl SFX;
+       // public string weaponName;
 
         void Start()
         {
