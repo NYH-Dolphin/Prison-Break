@@ -11,6 +11,7 @@ namespace Enemy
         private static readonly int GlowColor = Shader.PropertyToID("_GlowColor");
         private Transform player;
         public float startCool;
+        public float attackingRange;
         private float cool;
         private AudioControl SFX;
         public Animator anim;
@@ -32,7 +33,7 @@ namespace Enemy
         void Update()
         {
             cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= 3.5f)
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange)
             {
                 anim.SetBool("attacking", true);
                 cool = startCool;
