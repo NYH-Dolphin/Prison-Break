@@ -5,13 +5,6 @@ namespace Weapon
 {
     public class LobWeaponBehaviour : WeaponBehaviour
     {
-        private AudioControl SFX;
-
-        void Start()
-        {
-            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
-        }
-
         public override void OnAttack()
         {
             if (Pw.GetEnemyDetected() != null)
@@ -39,7 +32,6 @@ namespace Weapon
             args.Add("time", 0.5f);
             args.Add("easetype", iTween.EaseType.easeOutQuart);
             iTween.MoveTo(gameObject, args);
-            SFX.PlayLob();
             bAttack = true;
             StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
         }

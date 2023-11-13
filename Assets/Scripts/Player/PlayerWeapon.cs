@@ -1,5 +1,4 @@
-﻿using System;
-using Enemy;
+﻿using Enemy;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +6,7 @@ using Weapon;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
+    [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
         [SerializeField] public Transform tHoldWeaponTransform;
@@ -16,18 +15,12 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
-        
-        private LineRenderer _lrDir; // TODO might change the way to indicate the direction
+
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
 
-
-        private void Awake()
-        {
-            _lrDir = GetComponent<LineRenderer>();
-        }
 
         private void OnEnable()
         {
@@ -48,11 +41,6 @@ namespace Player
             _inputs.Gameplay.Weapon.performed -= OnWeaponPerformed;
             _inputs.Gameplay.Attack.Disable();
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
-        }
-
-        private void Start()
-        {
-            OnCancelDrawWeaponDir();
         }
 
 
@@ -182,7 +170,9 @@ namespace Player
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
+                Quaternion rot = tHoldWeaponTransform.rotation;
                 _weaponEquipped.transform.position = pos;
+                _weaponEquipped.transform.rotation = rot;
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
@@ -195,21 +185,6 @@ namespace Player
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
             }
-        }
-
-        public void OnDrawWeaponDir(Vector3 dir)
-        {
-            _lrDir.positionCount = 2;
-            Vector3 startPos = transform.position;
-            startPos.y = 1f;
-            Vector3 endPos = startPos + dir * 2f;
-            _lrDir.SetPosition(0, startPos);
-            _lrDir.SetPosition(1, endPos);
-        }
-
-        public void OnCancelDrawWeaponDir()
-        {
-            _lrDir.positionCount = 0;
         }
 
         #endregion
@@ -238,6 +213,7 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
+            
         }
 
 
