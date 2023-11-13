@@ -12,8 +12,9 @@ namespace Enemy
         private Transform player;
         public float startCool;
         private float cool;
+        private AudioControl SFX;
         public Animator anim;
-        public Collider hitbox;
+
 
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace Enemy
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
             cool = startCool;
-            hitbox.enabled = false;
+            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
         }
 
         void Update()
@@ -34,16 +35,10 @@ namespace Enemy
             if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= 5f)
             {
                 anim.SetBool("attacking", true);
-                hitbox.enabled = true;
                 cool = startCool;
             }
             else{
                 anim.SetBool("attacking", false);
-            }
-
-            if(AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName("GuardStill"))
-            {
-                hitbox.enabled = false;
             }
         }
 
@@ -69,6 +64,7 @@ namespace Enemy
         // TODO Current directly make enemy dead after being hit
         public void OnHit()
         {
+            SFX.PlayHit();
             Destroy(gameObject);
         }
     }

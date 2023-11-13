@@ -1,11 +1,12 @@
 using System.Collections;
 using GameInputSystem;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(PlayerWeapon))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fMovementSpeed = 10f;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 vecDir => _vecDir;
 
     private Rigidbody _rb;
+    private PlayerWeapon _pw;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
     private Vector3 _vecDir = new Vector3(0, 0, 1); // player facing direction
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _pw = GetComponent<PlayerWeapon>();
     }
 
 
@@ -78,9 +81,17 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Swing");
                 break;
             case AttackType.Throwable:
+                
                 animator.SetTrigger("Throw");
                 break;
         }
+    }
+    
+    public void OnSetAttackDir(Vector3 dir)
+    {
+        dir = dir.normalized;
+        animator.SetFloat("Horizontal", dir.x);
+        animator.SetFloat("Vertical", dir.y);
     }
 
     #region Movement
