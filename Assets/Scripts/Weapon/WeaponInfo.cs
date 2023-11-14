@@ -33,5 +33,6 @@ namespace Weapon
         public Sharpness eSharpness;
         public Range eRange;
         public AttackType eAttackType;
+        public bool bFused;
     }
 }

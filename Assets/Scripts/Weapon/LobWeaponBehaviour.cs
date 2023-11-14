@@ -1,12 +1,15 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Weapon
 {
     public class LobWeaponBehaviour : WeaponBehaviour
     {
-        [SerializeField] private float fMaxDistance;
-        [SerializeField] private float fSpeed;
+        [SerializeField]
+        private float
+            fMaxDistance =
+                10f; // maximum distance between the player and the enemy, so the lob weapon will tracking the enemy's position
+
+        [SerializeField] private float fSpeed = 30f;
 
         private Transform _tEnemy;
 
@@ -43,13 +46,6 @@ namespace Weapon
             _tEnemy = Pw.GetEnemyDetected().transform;
             AudioControl.Instance.PlayLob();
             iTween.Init(gameObject);
-            //StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
-        }
-
-        IEnumerator DestroyCountDown(float time)
-        {
-            yield return new WaitForSeconds(time);
-            Destroy(gameObject);
         }
     }
 }

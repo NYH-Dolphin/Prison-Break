@@ -162,6 +162,23 @@ namespace Player
             {
                 if (_weaponEquipped != null)
                 {
+                    WeaponInfo weaponEquippedInfo = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
+
+                    // not fused
+                    if (!weaponEquippedInfo.bFused)
+                    {
+                        WeaponInfo weaponSelectedInfo = _weaponSelected.GetComponent<WeaponBehaviour>().weaponInfo;
+                        GameObject fusedWeaponPrefab =
+                            FusionSystem.Instance.GetFusionWeapon(weaponEquippedInfo, weaponSelectedInfo);
+                        if (fusedWeaponPrefab != null)
+                        {
+                            GameObject fusedWeapon = Instantiate(fusedWeaponPrefab);
+                            Destroy(_weaponSelected);
+                            Destroy(_weaponEquipped);
+                            _weaponSelected = fusedWeapon;
+                        }
+                    }
+
                     OnDropWeapon();
                 }
 
@@ -188,14 +205,6 @@ namespace Player
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
-
-        //  bool AnimatorIsPlaying(string stateName){
-        //     return AnimatorIsPlaying() && anim.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-        // }
-
-        // bool AnimatorIsPlaying(){
-        //     return anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        // }
 
         private void OnDropWeapon()
         {

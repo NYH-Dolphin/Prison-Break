@@ -88,6 +88,7 @@ namespace Weapon
         public virtual void OnAttack()
         {
         }
+        
 
         private void OnTriggerEnter(Collider other)
         {
