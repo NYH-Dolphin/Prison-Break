@@ -24171,7 +24171,7 @@ MonoBehaviour:
   m_Area: 0
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
-  m_IgnoreFromBuild: 1
+  m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
 --- !u!1 &432667284
@@ -69103,7 +69103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
+  m_OverrideArea: 0
   m_Area: 0
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
@@ -109109,7 +109109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
+  m_OverrideArea: 0
   m_Area: 0
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
@@ -115258,7 +115258,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.07
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: d0429e1a5da9f194aa9e1a91a3f7cc94, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: fcda0bc387d37194b9cb1c8af4748062, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1712578883
 Transform:
@@ -115287,7 +115287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: -1372625422
+  m_AgentTypeID: 0
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
@@ -115302,7 +115302,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.23666666
+  m_VoxelSize: 0.07
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -116291,10 +116291,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a752a613c12014f4da6b22005924bd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingSFX: {fileID: 1842985867}
-  hitSFX: {fileID: 1842985869}
-  throwSFX: {fileID: 1842985870}
-  lobSFX: {fileID: 1842985871}
+  swingSFX: {fileID: 0}
+  hitSFX: {fileID: 0}
+  throwSFX: {fileID: 0}
+  lobSFX: {fileID: 0}
 --- !u!82 &1842985867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -117006,8 +117006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
+  m_OverrideArea: 0
+  m_Area: 0
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 0
@@ -119643,10 +119643,10 @@ SceneRoots:
   - {fileID: 2108716387}
   - {fileID: 704651285}
   - {fileID: 665362343}
-  - {fileID: 1879549995}
   - {fileID: 2122714252}
   - {fileID: 1712578883}
   - {fileID: 806346108}
+  - {fileID: 1879549995}
   - {fileID: 1228721226}
   - {fileID: 761999498}
   - {fileID: 594662005}
