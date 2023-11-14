@@ -7,22 +7,15 @@ namespace Weapon
     {
         [SerializeField] private float fSwingTime = 1f;
 
-        private AudioControl SFX;
-
-        void Start()
-        {
-            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
-        }
-
         public override void OnAttack()
         {
             SwingBehaviour();
-            SFX.PlaySwing();
         }
 
         private void SwingBehaviour()
         {
             bAttack = true;
+            AudioControl.Instance.PlaySwing();
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(SwingCountdown(fSwingTime));
         }

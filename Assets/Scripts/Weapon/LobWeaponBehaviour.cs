@@ -5,43 +5,45 @@ namespace Weapon
 {
     public class LobWeaponBehaviour : WeaponBehaviour
     {
-        private AudioControl SFX;
+        [SerializeField] private float fMaxDistance;
+        [SerializeField] private float fSpeed;
 
-        void Start()
-        {
-            SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
-        }
+        private Transform _tEnemy;
+
 
         public override void OnAttack()
         {
             if (Pw.GetEnemyDetected() != null)
             {
-                Transform startTransform = Pw.tHoldWeaponTransform;
-                Transform targetTransform = Pw.GetEnemyDetected().transform;
-                ThrowBehaviour(startTransform, targetTransform);
+                LobBehaviour();
             }
         }
 
-        private void ThrowBehaviour(Transform startTransform, Transform targetTransform)
+
+        private void Update()
         {
-            iTween.Init(gameObject);
-            Vector3[] path = new Vector3[3];
-            Vector3 startPosition = startTransform.position;
-            Vector3 targetPosition = targetTransform.position;
-            Vector3 midPosition = (startPosition + targetPosition) / 2.0f;
-            midPosition.y += 1f;
-            path[0] = startPosition;
-            path[1] = midPosition;
-            path[2] = targetPosition;
-            Hashtable args = new Hashtable();
-            args.Add("position", targetPosition);
-            args.Add("path", path);
-            args.Add("time", 0.5f);
-            args.Add("easetype", iTween.EaseType.easeOutQuart);
-            iTween.MoveTo(gameObject, args);
-            SFX.PlayLob();
+            if (bAttack)
+            {
+                float distance = (_tEnemy.position - Pw.transform.position).magnitude;
+                if (distance < fMaxDistance)
+                {
+                    Vector3 dir = Vector3.Normalize(_tEnemy.position - transform.position);
+                    transform.position += dir * (fSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    Destroy(this);
+                }
+            }
+        }
+
+        private void LobBehaviour()
+        {
             bAttack = true;
-            StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
+            _tEnemy = Pw.GetEnemyDetected().transform;
+            AudioControl.Instance.PlayLob();
+            iTween.Init(gameObject);
+            //StartCoroutine(DestroyCountDown(0.6f)); // Start this countdown in case weapon doesn't hit the enemy
         }
 
         IEnumerator DestroyCountDown(float time)

@@ -297,9 +297,12 @@ namespace Player
             GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                if (_weaponEquipped)
-                    Destroy(_weaponEquipped);
+                if (other.gameObject != null)
+                {
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if (_weaponEquipped)
+                        Destroy(_weaponEquipped);
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Weapon
@@ -9,9 +8,9 @@ namespace Weapon
         [SerializeField] private float fThrowForce = 20f;
         [SerializeField] private float fThrowTime = 3f;
         [SerializeField] private LayerMask lmGround;
-        
+
         private Vector3 _vecThrowDir;
-        
+
         private void Update()
         {
             // Player Hold the Weapon, start detection
@@ -41,25 +40,26 @@ namespace Weapon
                 }
             }
         }
-        
+
         public override void OnAttack()
         {
             ThrowBehaviour(_vecThrowDir);
         }
-        
+
 
         private void ThrowBehaviour(Vector3 facingDir)
         {
             bAttack = true;
+            AudioControl.Instance.PlayThrow();
             
             Pc.OnSetAttackDir(_vecThrowDir);
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            
+
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             Rb.AddForce(facingDir * fThrowForce, ForceMode.Impulse);
-            
+
             StartCoroutine(DestroyCountDown(fThrowTime));
         }
 
