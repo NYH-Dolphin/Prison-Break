@@ -4,8 +4,7 @@ namespace Weapon
 {
     public class LobWeaponBehaviour : WeaponBehaviour
     {
-        [SerializeField]
-        private float
+        [SerializeField] private float
             fMaxDistance =
                 10f; // maximum distance between the player and the enemy, so the lob weapon will tracking the enemy's position
 
@@ -27,16 +26,8 @@ namespace Weapon
         {
             if (bAttack)
             {
-                float distance = (_tEnemy.position - Pw.transform.position).magnitude;
-                if (distance < fMaxDistance)
-                {
-                    Vector3 dir = Vector3.Normalize(_tEnemy.position - transform.position);
-                    transform.position += dir * (fSpeed * Time.deltaTime);
-                }
-                else
-                {
-                    Destroy(this);
-                }
+                Vector3 dir = Vector3.Normalize(_tEnemy.position - transform.position);
+                transform.position += dir * (fSpeed * Time.deltaTime);
             }
         }
 
