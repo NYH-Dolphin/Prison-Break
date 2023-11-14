@@ -162,23 +162,7 @@ namespace Player
             {
                 if (_weaponEquipped != null)
                 {
-                    WeaponInfo weaponEquippedInfo = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
-
-                    // not fused
-                    if (!weaponEquippedInfo.bFused)
-                    {
-                        WeaponInfo weaponSelectedInfo = _weaponSelected.GetComponent<WeaponBehaviour>().weaponInfo;
-                        GameObject fusedWeaponPrefab =
-                            FusionSystem.Instance.GetFusionWeapon(weaponEquippedInfo, weaponSelectedInfo);
-                        if (fusedWeaponPrefab != null)
-                        {
-                            GameObject fusedWeapon = Instantiate(fusedWeaponPrefab);
-                            Destroy(_weaponSelected);
-                            Destroy(_weaponEquipped);
-                            _weaponSelected = fusedWeapon;
-                        }
-                    }
-
+                    FusionCheck();
                     OnDropWeapon();
                 }
 
@@ -189,6 +173,26 @@ namespace Player
                 if (_weaponEquipped != null)
                 {
                     OnDropWeapon();
+                }
+            }
+        }
+
+        private void FusionCheck()
+        {
+            WeaponInfo weaponEquippedInfo = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
+
+            // use a basic weapon
+            if (!weaponEquippedInfo.bFused)
+            {
+                WeaponInfo weaponSelectedInfo = _weaponSelected.GetComponent<WeaponBehaviour>().weaponInfo;
+                GameObject fusedWeaponPrefab =
+                    FusionSystem.Instance.GetFusionWeapon(weaponEquippedInfo, weaponSelectedInfo);
+                if (fusedWeaponPrefab != null)
+                {
+                    GameObject fusedWeapon = Instantiate(fusedWeaponPrefab);
+                    Destroy(_weaponSelected);
+                    Destroy(_weaponEquipped);
+                    _weaponSelected = fusedWeapon;
                 }
             }
         }
