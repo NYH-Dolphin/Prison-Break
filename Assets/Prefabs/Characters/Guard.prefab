@@ -137,9 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWaitTime: 4
   startTimeToRotate: 0.04
-  speedWalk: 0
-  speedRun: 9
-  viewRadius: 8.22
+  speedWalk: 5
+  speedRun: 15
+  viewRadius: 15
   viewAngle: 360
   playerMask:
     serializedVersion: 2
@@ -151,6 +151,7 @@ MonoBehaviour:
   edgeIterations: 4
   edgeDistance: 0.5
   waypoints:
+  - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &7720747554264006400
 GameObject:
