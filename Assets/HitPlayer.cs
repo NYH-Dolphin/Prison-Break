@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class hitPlayer : MonoBehaviour
+public class HitPlayer : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
         if(col.tag == "hitbox")
         {
-            Debug.Log("here");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

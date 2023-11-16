@@ -81,12 +81,20 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Swing");
                 break;
             case AttackType.Throwable:
-                
                 animator.SetTrigger("Throw");
+                break;
+            case AttackType.Lob:
+                animator.SetTrigger("Lob");
+                break;
+            case AttackType.Slam:
+                animator.SetTrigger("Slam");
+                break;
+            case AttackType.Thrust:
+                animator.SetTrigger("Thrust");
                 break;
         }
     }
-    
+
     public void OnSetAttackDir(Vector3 dir)
     {
         dir = dir.normalized;

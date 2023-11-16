@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enemy;
 using UnityEngine;
 
 namespace Weapon
@@ -6,10 +7,11 @@ namespace Weapon
     public class ThrowWeaponBehaviour : WeaponBehaviour
     {
         [SerializeField] private float fThrowForce = 20f;
-        [SerializeField] private float fThrowTime = 3f;
+        [SerializeField] private float fThrowTime = 1f;
         [SerializeField] private LayerMask lmGround;
 
         private Vector3 _vecThrowDir;
+        private bool _bLock;
 
         private void Update()
         {
@@ -50,23 +52,64 @@ namespace Weapon
         private void ThrowBehaviour(Vector3 facingDir)
         {
             bAttack = true;
+            Coll.enabled = false;
+            Coll.enabled = true;
             AudioControl.Instance.PlayThrow();
-            
+
             Pc.OnSetAttackDir(_vecThrowDir);
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             Rb.AddForce(facingDir * fThrowForce, ForceMode.Impulse);
-
+            _bLock = true;
+            
             StartCoroutine(DestroyCountDown(fThrowTime));
         }
+
 
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time);
-            Destroy(gameObject);
+
+            if (_bLock)
+            {
+                _bLock = false;
+                IDurability -= 1;
+                if (IDurability == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+            if (IDurability > 0)
+            {
+                bAttack = false;
+                Rb.constraints = RigidbodyConstraints.FreezeAll;
+                gameObject.transform.position = Pw.tHoldWeaponTransform.position;
+            }
+        }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+            }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
+                     Rb.velocity != Vector3.zero)
+            {
+                if (_bLock)
+                {
+                    _bLock = false;
+                    IDurability -= 1;
+                    if (IDurability == 0)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+            }
         }
     }
 }

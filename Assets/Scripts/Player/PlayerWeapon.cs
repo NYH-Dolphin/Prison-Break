@@ -236,7 +236,7 @@ namespace Player
             _lrDir.positionCount = 0;
         }
 
-        
+
         public void OnDisableLobPosition()
         {
             objLobRangeEffect.SetActive(false);
@@ -309,29 +309,18 @@ namespace Player
         }
 
 
+        #region MeleeWeaponDetection
+
         private void OnTriggerEnter(Collider other)
         {
             GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
             {
                 other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                if (_weaponEquipped)
-                    Destroy(_weaponEquipped);
+                if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
             }
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
-            {
-                if (other.gameObject != null)
-                {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                    if (_weaponEquipped)
-                        Destroy(_weaponEquipped);
-                }
-            }
-        }
+        #endregion
     }
 }

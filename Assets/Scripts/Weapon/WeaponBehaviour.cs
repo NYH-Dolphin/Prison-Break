@@ -1,5 +1,6 @@
 ﻿using Enemy;
 using Player;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,6 +16,8 @@ namespace Weapon
         [HideInInspector] public bool bAttack;
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
+        protected Collider Coll;
+        protected int IDurability;
 
 
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
@@ -30,8 +33,11 @@ namespace Weapon
                 Debug.LogError("Weapon Info is not set! Make Sure you specify a correct weapon info");
             }
 
+            // weaponInfo is a serializable object, we need to use runtime variable 
+            IDurability = weaponInfo.iDurability;
             Sr = GetComponent<SpriteRenderer>();
             Rb = GetComponent<Rigidbody>();
+            Coll = GetComponent<Collider>();
             Mat = Sr.material;
             OnNotSelected();
         }
@@ -88,39 +94,19 @@ namespace Weapon
         public virtual void OnAttack()
         {
         }
-        
 
-        private void OnTriggerEnter(Collider other)
+
+        public void OnUseMeleeWeapon()
         {
-            if (weaponInfo.eRange == Range.Ranged)
+            IDurability -= 1;
+
+            if (IDurability == 0)
             {
-                if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                    Destroy(gameObject);
-                }
-                else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
-                         Rb.velocity != Vector3.zero)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (weaponInfo.eRange == Range.Ranged)
+            else
             {
-                if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                    Destroy(gameObject);
-                }
-                else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
-                         Rb.velocity != Vector3.zero)
-                {
-                    Destroy(gameObject);
-                }
+                bAttack = false;
             }
         }
     }
