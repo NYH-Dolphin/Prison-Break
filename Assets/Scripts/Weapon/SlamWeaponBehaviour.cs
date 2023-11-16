@@ -6,7 +6,7 @@ namespace Weapon
 {
     public class SlamWeaponBehaviour : WeaponBehaviour
     {
-        [SerializeField] private float fSwingTime = 1f;
+        [SerializeField] private float fSlamTime = 1f;
         
         public override void OnAttack()
         {
@@ -18,7 +18,7 @@ namespace Weapon
             // TODO doesn't contain this function yet
             // AudioControl.Instance.PlaySlam();
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            StartCoroutine(SlamCountdown(fSwingTime));
+            StartCoroutine(SlamCountdown(fSlamTime));
         }
         
         IEnumerator SlamCountdown(float time)

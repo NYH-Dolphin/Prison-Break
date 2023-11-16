@@ -9,7 +9,6 @@ namespace Player
     [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
     public class PlayerWeapon : MonoBehaviour
     {
-        public float lineMultiplier;
         [SerializeField] public Transform tHoldWeaponTransform;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private LayerMask lmWeapon;
@@ -17,7 +16,8 @@ namespace Player
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
-
+        
+        [SerializeField] private float lineMultiplier;
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
         private GameObject _weaponSelected; // current weapon detected
@@ -62,12 +62,13 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
-            EnemyDetectionUpdate();
+            // EnemyDetectionUpdate();
         }
 
 
         #region SceneDetection
 
+        // Current weapon behaviour no longer need enemy detection
         private void EnemyDetectionUpdate()
         {
             // TODO may alter the enemy detection, so far only lob need enemy detection
