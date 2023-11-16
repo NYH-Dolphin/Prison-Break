@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
     [Serializable]
     public class FusionPair
     {
-        [SerializeField] public WeaponInfo rangeWeapon;
-        [SerializeField] public WeaponInfo meleeWeapon;
+        [SerializeField] public GameObject rangeWeapon;
+        [SerializeField] public GameObject meleeWeapon;
         [SerializeField] public GameObject fusionWeapon;
     }
 
@@ -24,20 +25,25 @@ namespace Weapon
             _dicFusion = new();
             for (int i = 0; i < pairs.Count; i++)
             {
-                string key = $"{pairs[i].rangeWeapon.name}-{pairs[i].meleeWeapon.name}";
+                string key =
+                    $"{pairs[i].rangeWeapon.GetComponent<SpriteRenderer>().sprite.name}" +
+                    $"-" +
+                    $"{pairs[i].meleeWeapon.GetComponent<SpriteRenderer>().sprite.name}";
                 _dicFusion[key] = pairs[i].fusionWeapon;
             }
-
             Instance = this;
         }
 
-        public GameObject GetFusionWeapon(WeaponInfo w1, WeaponInfo w2)
+        public GameObject GetFusionWeapon(GameObject w1, GameObject w2)
         {
-            if (w1.eRange == w2.eRange) return null;
-            string key = w1.eRange == Range.Ranged ? $"{w1.name}-{w2.name}" : $"{w2.name}-{w1.name}";
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange ==
+                w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange) return null;
+            string key = w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Ranged
+                ? $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}"
+                : $"{w2.GetComponent<SpriteRenderer>().sprite.name}-{w1.GetComponent<SpriteRenderer>().sprite.name}";
             if (_dicFusion.TryGetValue(key, out var weapon))
             {
-                return weapon;
+                return Instantiate(weapon);
             }
             return null;
         }

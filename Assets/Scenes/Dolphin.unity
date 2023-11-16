@@ -84343,8 +84343,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pairs:
-  - rangeWeapon: {fileID: 11400000, guid: 187b108f07808b740bd52df05e491d91, type: 2}
-    meleeWeapon: {fileID: 11400000, guid: 1cc1ae46c104e824f9ff42285a974066, type: 2}
+  - rangeWeapon: {fileID: 5553995303318409865, guid: 472781d20ca9398489507615464432dd,
+      type: 3}
+    meleeWeapon: {fileID: 5553995303318409865, guid: 806505e61b00c3146be187bac81bcc50,
+      type: 3}
     fusionWeapon: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
       type: 3}
 --- !u!1001 &1108498687
@@ -89857,7 +89859,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252490761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.09779638, w: 0.9019229}
+  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.0977964, w: 0.9019228}
   m_LocalPosition: {x: -5, y: 7.24, z: -11.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -114193,7 +114195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653845538}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.09779638, w: 0.9019229}
+  m_LocalRotation: {x: 0.30907714, y: 0.2853812, z: -0.0977964, w: 0.9019228}
   m_LocalPosition: {x: -5, y: 7.24, z: -11.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

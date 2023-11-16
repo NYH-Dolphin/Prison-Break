@@ -16,7 +16,7 @@ namespace Player
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
-        
+
         [SerializeField] private float lineMultiplier;
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
@@ -182,16 +182,12 @@ namespace Player
         private void FusionCheck()
         {
             WeaponInfo weaponEquippedInfo = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
-
             // use a basic weapon
             if (!weaponEquippedInfo.bFused)
             {
-                WeaponInfo weaponSelectedInfo = _weaponSelected.GetComponent<WeaponBehaviour>().weaponInfo;
-                GameObject fusedWeaponPrefab =
-                    FusionSystem.Instance.GetFusionWeapon(weaponEquippedInfo, weaponSelectedInfo);
-                if (fusedWeaponPrefab != null)
+                GameObject fusedWeapon = FusionSystem.Instance.GetFusionWeapon(_weaponEquipped, _weaponSelected);
+                if (fusedWeapon != null)
                 {
-                    GameObject fusedWeapon = Instantiate(fusedWeaponPrefab);
                     Destroy(_weaponSelected);
                     Destroy(_weaponEquipped);
                     _weaponSelected = fusedWeapon;
