@@ -43,6 +43,16 @@ namespace Weapon
             }
         }
 
+        /// <summary>
+        /// Drop with a specific direction
+        /// </summary>
+        /// <param name="dropDir"></param>
+        public override void OnDrop(Vector3 dropDir)
+        {
+            Pw.OnCancelDrawWeaponDir();
+            base.OnDrop();
+        }
+
         public override void OnAttack()
         {
             ThrowBehaviour(_vecThrowDir);
@@ -63,7 +73,7 @@ namespace Weapon
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             Rb.AddForce(facingDir * fThrowForce, ForceMode.Impulse);
             _bLock = true;
-            
+
             StartCoroutine(DestroyCountDown(fThrowTime));
         }
 

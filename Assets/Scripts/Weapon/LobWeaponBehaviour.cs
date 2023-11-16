@@ -106,6 +106,16 @@ namespace Weapon
             }
         }
 
+        /// <summary>
+        /// Drop with a specific direction
+        /// </summary>
+        /// <param name="dropDir"></param>
+        public override void OnDrop(Vector3 dropDir)
+        {
+            Pw.OnDisableLobPosition();
+            base.OnDrop();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
