@@ -113,7 +113,7 @@ namespace Weapon
         public override void OnDrop(Vector3 dropDir)
         {
             Pw.OnDisableLobPosition();
-            base.OnDrop();
+            base.OnDrop(dropDir);
         }
 
         private void OnTriggerEnter(Collider other)

@@ -50,7 +50,7 @@ namespace Weapon
         public override void OnDrop(Vector3 dropDir)
         {
             Pw.OnCancelDrawWeaponDir();
-            base.OnDrop();
+            base.OnDrop(dropDir);
         }
 
         public override void OnAttack()
