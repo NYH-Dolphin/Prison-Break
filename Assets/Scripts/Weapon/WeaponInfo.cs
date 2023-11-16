@@ -28,7 +28,6 @@ namespace Weapon
     [CreateAssetMenu(fileName = "WeaponInfo", menuName = "ScriptableObjects/WeaponInformation", order = 1)]
     public class WeaponInfo : ScriptableObject
     {
-        public string sName;
         public int iDurability;
         public Sharpness eSharpness;
         public Range eRange;

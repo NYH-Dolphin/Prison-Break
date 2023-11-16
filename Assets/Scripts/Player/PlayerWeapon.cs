@@ -23,11 +23,13 @@ namespace Player
         private GameObject _weaponSelected; // current weapon detected
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
-
-
+        private GameObject _hitBox;
+        
+        
         private void Awake()
         {
             _lrDir = GetComponent<LineRenderer>();
+            _hitBox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
         }
 
 
@@ -310,11 +312,16 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            GameObject hitbox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && hitbox.GetComponent<Collider>().enabled)
+            bool detected = _weaponEquipped != null 
+                            && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack 
+                            && _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
+            if (detected)
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
-                if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+                if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    if (other != null) other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+                }
             }
         }
 
