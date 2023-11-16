@@ -50,6 +50,8 @@ namespace Weapon
         public override void OnDrop(Vector3 dropDir)
         {
             Pw.OnCancelDrawWeaponDir();
+            Rb.drag = 1f;
+            Rb.angularDrag = 0.05f;
             base.OnDrop(dropDir);
         }
 
