@@ -56,8 +56,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3921828, y: 1.2749034, z: 1}
-  m_Center: {x: 0.19609141, y: 0.13745177, z: 0}
+  m_Size: {x: 1.3921828, y: 2.906281, z: 1}
+  m_Center: {x: 0.19609141, y: 0.2475763, z: 0}
 --- !u!114 &3369506118529487586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,9 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWaitTime: 4
   startTimeToRotate: 0.04
-  speedWalk: 5
-  speedRun: 15
-  viewRadius: 15
+  speedWalk: 3
+  speedRun: 8
+  viewRadius: 8
   viewAngle: 360
   playerMask:
     serializedVersion: 2
@@ -151,7 +151,6 @@ MonoBehaviour:
   edgeIterations: 4
   edgeDistance: 0.5
   waypoints:
-  - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &7720747554264006400
 GameObject:
