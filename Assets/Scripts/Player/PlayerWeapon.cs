@@ -1,5 +1,4 @@
-﻿using System;
-using Enemy;
+﻿using Enemy;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +16,7 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
-        [SerializeField] private Animator anim;
+        [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
 
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected; // current enemy detected
@@ -30,6 +29,7 @@ namespace Player
         {
             _lrDir = GetComponent<LineRenderer>();
         }
+
 
         private void OnEnable()
         {
@@ -55,6 +55,7 @@ namespace Player
         private void Start()
         {
             OnCancelDrawWeaponDir();
+            OnDisableLobPosition();
         }
 
 
@@ -233,6 +234,20 @@ namespace Player
         public void OnCancelDrawWeaponDir()
         {
             _lrDir.positionCount = 0;
+        }
+
+        
+        public void OnDisableLobPosition()
+        {
+            objLobRangeEffect.SetActive(false);
+        }
+
+        public void OnDrawLobPosition(Vector3 position)
+        {
+            objLobRangeEffect.SetActive(true);
+            Vector3 pos = position;
+            pos.y += 0.1f;
+            objLobRangeEffect.transform.position = pos;
         }
 
         #endregion

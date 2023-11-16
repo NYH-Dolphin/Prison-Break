@@ -75416,7 +75416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &665362343
 Transform:
   m_ObjectHideFlags: 0
@@ -84499,6 +84499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwingWeapon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: 806505e61b00c3146be187bac81bcc50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -109019,6 +109024,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwingWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: 806505e61b00c3146be187bac81bcc50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -117471,6 +117481,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThrowWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -119156,6 +119171,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 443516962366065147, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093171180639650849, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_Name
+      value: LobRange
+      objectReference: {fileID: 0}
     - target: {fileID: 3339951385850833052, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: m_LocalPosition.x
