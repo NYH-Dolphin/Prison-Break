@@ -10,6 +10,7 @@ public class Navigation : MonoBehaviour
     public float startTimeToRotate = 2f;
     public float speedWalk = 8f;
     public float speedRun = 16f;
+    public float acceleration = 40f;
 
     public float viewRadius = 15;
     public float viewAngle = 90;
@@ -18,11 +19,14 @@ public class Navigation : MonoBehaviour
     public float meshResolution = 1;
     public int edgeIterations = 4;
     public float edgeDistance = 0.5f;
+    public SpriteRenderer exclaim;
 
-    public Transform[] waypoints;
+    private Transform waypoint;
     int currentWaypointIndex;
     Vector3 playerLastPosition = Vector3.zero;
     Vector3 playerPosition;
+
+    private bool first;
 
     float waitTime;
     float timeToRotate;
@@ -39,13 +43,16 @@ public class Navigation : MonoBehaviour
         playerInRange = false;
         waitTime = startWaitTime;
         timeToRotate = startTimeToRotate;
+        waypoint = this.transform;
 
         currentWaypointIndex = 0;
         agent = GetComponent<NavMeshAgent>();
 
         agent.isStopped = false;
         agent.speed = speedWalk;
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
+        agent.acceleration = acceleration;
+        agent.SetDestination(waypoint.position);
+        first = true;
     }
 
     // Update is called once per frame
@@ -74,14 +81,14 @@ public class Navigation : MonoBehaviour
         }
         if(agent.remainingDistance <= agent.stoppingDistance)
         {
-            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 6f)
+            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 2)
             {
                 isPatrol = true;
                 playerNear = false;
                 Move(speedWalk);
                 timeToRotate = startTimeToRotate;
                 waitTime = startWaitTime;
-                agent.SetDestination(waypoints[currentWaypointIndex].position);
+                agent.SetDestination(waypoint.position);
             }
             else
             {
@@ -113,12 +120,11 @@ public class Navigation : MonoBehaviour
         {
             playerNear = false;
             playerLastPosition = Vector3.zero;
-            agent.SetDestination(waypoints[currentWaypointIndex].position);
+            agent.SetDestination(waypoint.position);
             if(agent.remainingDistance <= agent.stoppingDistance)
             {
                 if(waitTime <= 0)
                 {
-                    NextPoint();
                     Move(speedWalk);
                     waitTime = startWaitTime;
                 }
@@ -143,11 +149,7 @@ public class Navigation : MonoBehaviour
         agent.isStopped = true;
         agent.speed = 0;
     }
-    public void NextPoint()
-    {
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
-    }
+
 
     void CaughtPlayer()
     {
@@ -163,7 +165,7 @@ public class Navigation : MonoBehaviour
             {
                 playerNear = false;
                 Move(speedWalk);
-                agent.SetDestination(waypoints[currentWaypointIndex].position);
+                agent.SetDestination(waypoint.position);
                 waitTime = startWaitTime;
                 timeToRotate = startTimeToRotate;
             }
@@ -171,6 +173,8 @@ public class Navigation : MonoBehaviour
             waitTime -= Time.deltaTime;
         }
     }
+
+    
 
     void EnvironmentView()
     {
@@ -186,11 +190,16 @@ public class Navigation : MonoBehaviour
                 if(!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
                 {
                     playerInRange = true;
-                    isPatrol = false;
+                    if(first)
+                    {
+                        StartCoroutine(Surprised());
+                        first = false;
+                    }
                 }
                 else
                 {
                     playerInRange = false;
+                    first = true;
                 }
 
             }
@@ -203,6 +212,15 @@ public class Navigation : MonoBehaviour
                 playerPosition = player.transform.position;
             }
         }
+
+    }
+
+    private IEnumerator Surprised()
+    {
+        exclaim.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        exclaim.enabled = false;
+        isPatrol = false;
 
     }
 

@@ -11,9 +11,16 @@ namespace Weapon
         [SerializeField] private float fMaxDistance = 10f;
         [SerializeField] private float fTime = 0.5f; // Lobbing time
         [SerializeField] private LayerMask lmGround;
+        [SerializeField] private float arcHeight;
 
         private Vector3 _vecHitPos;
         private bool _bLock;
+        
+        Vector3 startPosition;
+        Vector3 targetPosition;
+        Vector3 midPosition;
+
+        public float radius;
 
 
         public override void OnAttack()
@@ -54,23 +61,41 @@ namespace Weapon
                     }
                 }
             }
+
+            if(gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                int weapLayer = LayerMask.NameToLayer("Weapon");
+                gameObject.layer = weapLayer;
+            }
         }
 
         private void LobBehaviour()
         {
             bAttack = true;
             Coll.enabled = false;
-            Coll.enabled = true;
+            //Coll.enabled = true;
             AudioControl.Instance.PlayLob();
             Pw.OnDisableLobPosition();
             _bLock = true;
 
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
-            Vector3 startPosition = transform.position;
-            Vector3 targetPosition = _vecHitPos;
-            Vector3 midPosition = (startPosition + targetPosition) / 2.0f;
-            midPosition.y += 1f;
+            startPosition = transform.position;
+            targetPosition = _vecHitPos;
+
+            Collider[] enemiesInsideArea = Physics.OverlapSphere(targetPosition, radius);
+            foreach (var col in enemiesInsideArea)
+            {
+                if (col.gameObject.tag == "Enemy") {
+                    targetPosition = col.gameObject.transform.position;
+                    targetPosition.y += 1f;
+                    Coll.enabled = true;
+                    break;
+                }
+            }
+
+            midPosition = (startPosition + targetPosition) / 2.0f;
+            midPosition.y += arcHeight;
             path[0] = startPosition;
             path[1] = midPosition;
             path[2] = targetPosition;
@@ -82,6 +107,13 @@ namespace Weapon
             iTween.MoveTo(gameObject, args);
             StartCoroutine(DestroyCountDown(fTime)); // Start this countdown in case weapon doesn't hit the enemy
         }
+
+        // void OnDrawGizmosSelected()
+        // {
+        //     // Draw a yellow sphere at the transform's position
+        //     Gizmos.color = Color.yellow;
+        //     Gizmos.DrawSphere(this.transform.position, radius);
+        // }
 
         IEnumerator DestroyCountDown(float time)
         {
