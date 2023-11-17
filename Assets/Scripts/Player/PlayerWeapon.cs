@@ -24,6 +24,7 @@ namespace Player
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
         private GameObject _hitBox;
+        private bool holdFirst = true;
         
         
         private void Awake()
@@ -206,6 +207,12 @@ namespace Player
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
+                
+                if(holdFirst)
+                {
+                    _weaponEquipped.transform.localScale *= 0.6f;
+                    holdFirst = false;
+                }
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
@@ -214,6 +221,8 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
+                _weaponEquipped.transform.localScale *= 1/0.6f;
+                holdFirst = true;
                 Vector3 dropDir = transform.GetComponent<PlayerController>().vecDir;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
