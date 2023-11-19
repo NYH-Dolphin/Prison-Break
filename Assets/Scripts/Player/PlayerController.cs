@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool _bIsGrounded;
     public bool zipping = false;
     public float zipAngle;
-    public GameObject nearEnemy;
+    public Vector3 nearEnemy;
     private float zipTime = 0f;
 
 
@@ -73,10 +73,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!zipping)
+        //if(!zipping)
             MovementUpdate();
-        else if(nearEnemy != null)
-            ZipMove(nearEnemy.transform);
+        //else
+        //    ZipMove(nearEnemy);
 
     }
 
@@ -100,9 +100,6 @@ public class PlayerController : MonoBehaviour
             case AttackType.Thrust:
                 animator.SetTrigger("Thrust");
                 break;
-            // case AttackType.Shiv:
-            //     animator.SetTrigger("Swing");//change to shiv when added
-            //     break;
         }
     }
 
@@ -151,10 +148,7 @@ public class PlayerController : MonoBehaviour
     public void Zip(GameObject en)
     {
         Vector3 dir = (this.transform.position - en.transform.position).normalized;
-        // if(Vector3.Angle(_vecMove, dir)< zipAngle/2)
-        //     {
-                ZipMove(en.transform);
-            // }
+        ZipMove(en.transform.position);
         
     }
 
@@ -198,17 +192,21 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    void ZipMove(Transform enemy)
+    void ZipMove(Vector3 enemy)
     {
         zipping = true;
-        zipTime += Time.deltaTime;
-        float dis = Vector3.Distance(transform.position, enemy.position);
-        transform.position = Vector3.Lerp(transform.position, enemy.position, .05f * dis);
-        if(zipTime >=0.1f)
+        Vector3 yLessPos = transform.position;
+        yLessPos.y = 0;
+        Vector3 yLessEn = enemy;
+        yLessEn.y = 0;
+        float dis = Vector3.Distance(yLessPos, yLessEn);
+        Debug.Log(dis);
+        if(dis <=0.3f)
         {
             zipping = false;
-            zipTime = 0;
         }
+        transform.position = Vector3.Lerp(transform.position, enemy, .1f * dis);
+        
     }
 
 

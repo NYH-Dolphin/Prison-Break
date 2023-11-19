@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class Knockback : MonoBehaviour
 {
     public Rigidbody rb;
-    private float strength = 40, delay = 0.15f;
+    private float strength = 40, delay = 0.25f;
 
     public UnityEvent OnBegin, OnDone;
     

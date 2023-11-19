@@ -21,6 +21,7 @@ namespace Enemy
         public Animator anim;
         public bool notStunned = true;
         private Navigation nav;
+        private int health = 2;
 
 
         private void Awake()
@@ -70,10 +71,12 @@ namespace Enemy
         
         
         // TODO Current directly make enemy dead after being hit
-        public void OnHit()
+        public void OnHit(int hit)
         {
             SFX.PlayHit();
-            Destroy(gameObject);
+            health -= hit;
+            if (health <= 0) 
+                Destroy(gameObject);
         }
 
 
@@ -89,11 +92,13 @@ namespace Enemy
             this.GetComponent<Navigation>().stunned = true;
             dizzy.enabled = true;
             anim.SetTrigger("stunned");
+            health--;
             yield return new WaitForSeconds(stunTime);
             notStunned = true;
             this.GetComponent<Navigation>().stunned = false;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
+            health++;
 
         }
     }

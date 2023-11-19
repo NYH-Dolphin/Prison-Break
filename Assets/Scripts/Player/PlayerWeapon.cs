@@ -3,6 +3,8 @@ using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Player
 {
@@ -17,6 +19,7 @@ namespace Player
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
         [SerializeField] private Animator animator;
+        [SerializeField] private float fSwingTime = 1f;
 
         [SerializeField] private float lineMultiplier;
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
@@ -27,6 +30,7 @@ namespace Player
         private GameObject _hitBox;
         public bool holdFirst = true;
         private PlayerController Pc;
+        private bool bAttack;
         
         
         private void Awake()
@@ -270,9 +274,11 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
+                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack && !Input.GetMouseButtonUp(0))
                 {
                     _weaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
+                    bAttack = true;
+                    StartCoroutine(SwingCountdown(fSwingTime - 0.2f));
                 }
             }
             else
@@ -281,7 +287,7 @@ namespace Player
             }
             if(_enemyDetected != null) {
                 Pc.zipping = true;
-                Pc.nearEnemy = _enemyDetected;
+                Pc.nearEnemy = _enemyDetected.transform.position;
             }
         }
 
@@ -291,8 +297,16 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
-            if(!Input.GetMouseButtonUp(0))
-                animator.SetTrigger("Swing");//change to shiv
+            if(!Input.GetMouseButtonUp(0) && !bAttack)
+                ShivBehaviour();
+        }
+
+        private void ShivBehaviour()
+        {
+            bAttack = true;
+            AudioControl.Instance.PlaySwing();//change to shiv
+            animator.SetTrigger("Swing");//change to shiv
+            StartCoroutine(SwingCountdown(fSwingTime));
         }
 
 
@@ -339,18 +353,34 @@ namespace Player
                 {
                     if (other != null) 
                     {
-                        other.GetComponent<Knockback>().PlayFeedback(Pc.vecDir);
+                        other.GetComponent<Knockback>().PlayFeedback(Pc.vecDir.normalized);
                         if(_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                         else
-                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2);
                     }
                     if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+                }
+            }
+            else
+            {
+                if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    if (other != null) 
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(1);
+                    }
                 }
             }
         }
 
         #endregion
 
+
+        IEnumerator SwingCountdown(float time)
+        {
+            yield return new WaitForSeconds(time);
+            bAttack = false;
+        }
     }
 }
