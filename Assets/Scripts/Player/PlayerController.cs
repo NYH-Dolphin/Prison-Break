@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 _vecDir = new Vector3(0, 0, 1); // player facing direction
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
+    public bool zipping = false;
+    public float zipAngle;
+    public GameObject nearEnemy;
+    private float zipTime = 0f;
 
 
     private void Awake()
@@ -69,7 +73,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovementUpdate();
+        if(!zipping)
+            MovementUpdate();
+        else if(nearEnemy != null)
+            ZipMove(nearEnemy.transform);
+
     }
 
 
@@ -92,6 +100,9 @@ public class PlayerController : MonoBehaviour
             case AttackType.Thrust:
                 animator.SetTrigger("Thrust");
                 break;
+            // case AttackType.Shiv:
+            //     animator.SetTrigger("Swing");//change to shiv when added
+            //     break;
         }
     }
 
@@ -137,6 +148,16 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = moveVelocity;
     }
 
+    public void Zip(GameObject en)
+    {
+        Vector3 dir = (this.transform.position - en.transform.position).normalized;
+        // if(Vector3.Angle(_vecMove, dir)< zipAngle/2)
+        //     {
+                ZipMove(en.transform);
+            // }
+        
+    }
+
     #endregion
 
 
@@ -177,10 +198,25 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    void ZipMove(Transform enemy)
+    {
+        zipping = true;
+        zipTime += Time.deltaTime;
+        float dis = Vector3.Distance(transform.position, enemy.position);
+        transform.position = Vector3.Lerp(transform.position, enemy.position, .05f * dis);
+        if(zipTime >=0.1f)
+        {
+            zipping = false;
+            zipTime = 0;
+        }
+    }
+
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
+
+    
 }

@@ -20,6 +20,7 @@ namespace Enemy
         private AudioControl SFX;
         public Animator anim;
         public bool notStunned = true;
+        private Navigation nav;
 
 
         private void Awake()
@@ -33,12 +34,13 @@ namespace Enemy
             player = GameObject.FindGameObjectWithTag("Player").transform;
             cool = startCool;
             SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
+            nav = this.GetComponent<Navigation>();
         }
 
         void Update()
         {
             cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned)
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned && !nav.isPatrol && !nav.isSurprised)
             {
                 anim.SetBool("attacking", true);
                 cool = startCool;
@@ -86,12 +88,12 @@ namespace Enemy
             notStunned = false;
             this.GetComponent<Navigation>().stunned = true;
             dizzy.enabled = true;
-            //anim.SetTrigger("stunned");
+            anim.SetTrigger("stunned");
             yield return new WaitForSeconds(stunTime);
             notStunned = true;
             this.GetComponent<Navigation>().stunned = false;
             dizzy.enabled = false;
-            //anim.ResetTrigger("stunned");
+            anim.ResetTrigger("stunned");
 
         }
     }

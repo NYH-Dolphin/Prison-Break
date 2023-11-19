@@ -75,6 +75,7 @@ MonoBehaviour:
   sr: {fileID: 3171004277033477673}
   stunTime: 2
   dizzy: {fileID: 1452304415504777894}
+  nav: {fileID: 8515791055630276574}
   startCool: 1
   attackingRange: 4.2
   anim: {fileID: 6311949765514190679}
@@ -159,6 +160,8 @@ MonoBehaviour:
   edgeIterations: 4
   edgeDistance: 0.5
   stunned: 0
+  isPatrol: 0
+  isSurprised: 0
 --- !u!1 &3967617849643433926
 GameObject:
   m_ObjectHideFlags: 0

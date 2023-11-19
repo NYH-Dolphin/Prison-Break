@@ -83,7 +83,7 @@ public class Navigation : MonoBehaviour
         }
         if(agent.remainingDistance <= agent.stoppingDistance)
         {
-            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 2)
+            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 3)
             {
                 isPatrol = true;
                 playerNear = false;
