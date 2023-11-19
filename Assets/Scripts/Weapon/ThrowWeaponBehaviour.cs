@@ -70,6 +70,7 @@ namespace Weapon
 
             Pc.OnSetAttackDir(_vecThrowDir);
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
+            Pw.holdFirst = true;
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
@@ -107,7 +108,10 @@ namespace Weapon
         {
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                if(weaponInfo.eSharpness == Sharpness.Blunt)
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                else
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
             }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
                      Rb.velocity != Vector3.zero)

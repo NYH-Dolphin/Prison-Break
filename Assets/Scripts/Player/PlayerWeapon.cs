@@ -24,7 +24,7 @@ namespace Player
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
         private GameObject _hitBox;
-        private bool holdFirst = true;
+        public bool holdFirst = true;
         
         
         private void Awake()
@@ -328,7 +328,13 @@ namespace Player
             {
                 if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    if (other != null) other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if (other != null) 
+                    {
+                        if(_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                        else
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    }
                     if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
                 }
             }
