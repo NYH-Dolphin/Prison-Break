@@ -16,6 +16,7 @@ namespace Player
         [SerializeField] private float fHandMeleeRange; // without weapon
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
+        [SerializeField] private Animator animator;
 
         [SerializeField] private float lineMultiplier;
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
@@ -24,13 +25,15 @@ namespace Player
         private GameObject _weaponEquipped; // current weapon used
         private InputControls _inputs;
         private GameObject _hitBox;
-        private bool holdFirst = true;
+        public bool holdFirst = true;
+        private PlayerController Pc;
         
         
         private void Awake()
         {
             _lrDir = GetComponent<LineRenderer>();
             _hitBox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
+            Pc = GetComponent<PlayerController>();
         }
 
 
@@ -65,7 +68,7 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
-            // EnemyDetectionUpdate();
+             EnemyDetectionUpdate();
         }
 
 
@@ -75,9 +78,9 @@ namespace Player
         private void EnemyDetectionUpdate()
         {
             // TODO may alter the enemy detection, so far only lob need enemy detection
-            bool detected = _weaponEquipped != null &&
-                            _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
-                            AttackType.Lob;
+            bool detected = true; //_weaponEquipped != null &&
+                            //_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
+                            //AttackType.Lob;
 
 
             Collider[] hitColliders = null;
@@ -88,8 +91,8 @@ namespace Player
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy && enemy != null)
                 {
-                    enemy.GetComponent<EnemyBehaviour>().OnSelected();
-                    if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    //enemy.GetComponent<EnemyBehaviour>().OnSelected();
+                    //if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = enemy;
                 }
             }
@@ -97,7 +100,7 @@ namespace Player
             {
                 if (_enemyDetected != null)
                 {
-                    _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    //_enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = null;
                 }
             }
@@ -276,6 +279,10 @@ namespace Player
             {
                 OnAttackWithoutWeapon();
             }
+            if(_enemyDetected != null) {
+                Pc.zipping = true;
+                Pc.nearEnemy = _enemyDetected;
+            }
         }
 
 
@@ -284,6 +291,8 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
+            if(!Input.GetMouseButtonUp(0))
+                animator.SetTrigger("Swing");//change to shiv
         }
 
 
@@ -328,12 +337,20 @@ namespace Player
             {
                 if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    if (other != null) other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    if (other != null) 
+                    {
+                        other.GetComponent<Knockback>().PlayFeedback(Pc.vecDir);
+                        if(_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                        else
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                    }
                     if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
                 }
             }
         }
 
         #endregion
+
     }
 }

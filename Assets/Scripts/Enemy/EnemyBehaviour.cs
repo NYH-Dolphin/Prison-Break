@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -6,6 +8,8 @@ namespace Enemy
     public class EnemyBehaviour : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer sr;
+        [SerializeField] private float stunTime;
+        [SerializeField] private SpriteRenderer dizzy;
         private Material _mat; // require material "2d Sprite Glow"
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
         private static readonly int GlowColor = Shader.PropertyToID("_GlowColor");
@@ -15,6 +19,8 @@ namespace Enemy
         private float cool;
         private AudioControl SFX;
         public Animator anim;
+        public bool notStunned = true;
+        private Navigation nav;
 
 
         private void Awake()
@@ -28,12 +34,13 @@ namespace Enemy
             player = GameObject.FindGameObjectWithTag("Player").transform;
             cool = startCool;
             SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
+            nav = this.GetComponent<Navigation>();
         }
 
         void Update()
         {
             cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange)
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned && !nav.isPatrol && !nav.isSurprised)
             {
                 anim.SetBool("attacking", true);
                 cool = startCool;
@@ -67,6 +74,27 @@ namespace Enemy
         {
             SFX.PlayHit();
             Destroy(gameObject);
+        }
+
+
+        public void OnHitBlunt()
+        {
+            SFX.PlayHit();
+            StartCoroutine(Blunt());
+        }
+
+        private IEnumerator Blunt()
+        {
+            notStunned = false;
+            this.GetComponent<Navigation>().stunned = true;
+            dizzy.enabled = true;
+            anim.SetTrigger("stunned");
+            yield return new WaitForSeconds(stunTime);
+            notStunned = true;
+            this.GetComponent<Navigation>().stunned = false;
+            dizzy.enabled = false;
+            anim.ResetTrigger("stunned");
+
         }
     }
 }

@@ -108,12 +108,7 @@ namespace Weapon
             StartCoroutine(DestroyCountDown(fTime)); // Start this countdown in case weapon doesn't hit the enemy
         }
 
-        // void OnDrawGizmosSelected()
-        // {
-        //     // Draw a yellow sphere at the transform's position
-        //     Gizmos.color = Color.yellow;
-        //     Gizmos.DrawSphere(this.transform.position, radius);
-        // }
+
 
         IEnumerator DestroyCountDown(float time)
         {
@@ -152,7 +147,10 @@ namespace Weapon
         {
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
+                if(weaponInfo.eSharpness == Sharpness.Blunt)
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                else
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit();
             }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
                      Rb.velocity != Vector3.zero)

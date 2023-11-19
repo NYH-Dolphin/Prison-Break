@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
+    [SerializeField] private float surprisedTime;
+    [SerializeField] private SpriteRenderer exclaim;
     private NavMeshAgent agent;
     public float startWaitTime = 4f;
     public float startTimeToRotate = 2f;
@@ -19,20 +21,20 @@ public class Navigation : MonoBehaviour
     public float meshResolution = 1;
     public int edgeIterations = 4;
     public float edgeDistance = 0.5f;
-    public SpriteRenderer exclaim;
 
     private Transform waypoint;
     int currentWaypointIndex;
     Vector3 playerLastPosition = Vector3.zero;
     Vector3 playerPosition;
-
+    public bool stunned = false;
     private bool first;
 
     float waitTime;
     float timeToRotate;
     bool playerInRange;
     bool playerNear;
-    bool isPatrol;
+    public bool isPatrol;
+    public bool isSurprised;
     bool caughtPlayer;
     // Start is called before the first frame update
     void Start()
@@ -60,10 +62,10 @@ public class Navigation : MonoBehaviour
     {
         EnvironmentView();
 
-        if(!isPatrol)
-            Chasing();
-        else
+        if(isPatrol || stunned)
             Patrolling();
+        else
+            Chasing();
 
 
 
@@ -81,7 +83,7 @@ public class Navigation : MonoBehaviour
         }
         if(agent.remainingDistance <= agent.stoppingDistance)
         {
-            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 2)
+            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 3)
             {
                 isPatrol = true;
                 playerNear = false;
@@ -218,10 +220,11 @@ public class Navigation : MonoBehaviour
     private IEnumerator Surprised()
     {
         exclaim.enabled = true;
-        yield return new WaitForSeconds(0.5f);
+        isSurprised = true;
+        yield return new WaitForSeconds(surprisedTime);
         exclaim.enabled = false;
         isPatrol = false;
-
+        isSurprised = false;
     }
 
 
