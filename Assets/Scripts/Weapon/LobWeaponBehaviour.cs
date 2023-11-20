@@ -150,7 +150,7 @@ namespace Weapon
                 if(weaponInfo.eSharpness == Sharpness.Blunt)
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                 else
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2);
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
             }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
                      Rb.velocity != Vector3.zero)

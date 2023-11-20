@@ -22,6 +22,7 @@ namespace Enemy
         public bool notStunned = true;
         private Navigation nav;
         private int health = 2;
+        public Transform deadGuard;
 
 
         private void Awake()
@@ -71,12 +72,22 @@ namespace Enemy
         
         
         // TODO Current directly make enemy dead after being hit
-        public void OnHit(int hit)
+        public void OnHit(int hit, bool melee)
         {
             SFX.PlayHit();
             health -= hit;
             if (health <= 0) 
+            {
+                var dead = Instantiate(deadGuard, new Vector3(this.transform.position.x, 0.5f,this.transform.position.z), Quaternion.identity);
+                dead.transform.eulerAngles = new Vector3(0,90,0);
+                if(melee)
+                {
+                    Knockback kb = dead.GetComponent<Knockback>();
+                    PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
+                    kb.PlayFeedback(Pc.vecDir.normalized);
+                }
                 Destroy(gameObject);
+            }
         }
 
 

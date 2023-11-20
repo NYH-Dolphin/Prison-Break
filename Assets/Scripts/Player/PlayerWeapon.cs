@@ -361,7 +361,7 @@ namespace Player
                         if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                         else
-                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2);
+                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
                     }
 
                     if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
@@ -374,7 +374,7 @@ namespace Player
                 {
                     if (other != null)
                     {
-                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(1);
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(1, false);
                     }
                 }
             }
