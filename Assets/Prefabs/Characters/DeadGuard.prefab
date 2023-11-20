@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3171655538657005236}
   - component: {fileID: 7826128463735596502}
   - component: {fileID: 3290171322767483622}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: DeadGuard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -52,10 +52,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3921828, y: 2.906281, z: 0.9845979}
-  m_Center: {x: 0.19609141, y: 0.24757624, z: -0.009995103}
+  m_Size: {x: 0.38073424, y: 0.49512324, z: 0.98459786}
+  m_Center: {x: 0.0085505955, y: 0.3762916, z: -0.009995103}
 --- !u!54 &7826128463735596502
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 801848238225505892}
   - component: {fileID: 3171004277033477673}
   - component: {fileID: 4353021958716883362}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Guard_Sprites
   m_TagString: Enemy
   m_Icon: {fileID: 0}
