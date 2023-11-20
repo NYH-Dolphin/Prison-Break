@@ -31,8 +31,8 @@ namespace Player
         public bool holdFirst = true;
         private PlayerController Pc;
         private bool bAttack;
-        
-        
+
+
         private void Awake()
         {
             _lrDir = GetComponent<LineRenderer>();
@@ -72,7 +72,7 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
-             EnemyDetectionUpdate();
+            EnemyDetectionUpdate();
         }
 
 
@@ -83,8 +83,8 @@ namespace Player
         {
             // TODO may alter the enemy detection, so far only lob need enemy detection
             bool detected = true; //_weaponEquipped != null &&
-                            //_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
-                            //AttackType.Lob;
+            //_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
+            //AttackType.Lob;
 
 
             Collider[] hitColliders = null;
@@ -214,12 +214,13 @@ namespace Player
                 // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
-                
-                if(holdFirst)
+
+                if (holdFirst)
                 {
                     _weaponEquipped.transform.localScale *= 0.6f;
                     holdFirst = false;
                 }
+
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
             }
         }
@@ -228,7 +229,7 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                _weaponEquipped.transform.localScale *= 1/0.6f;
+                _weaponEquipped.transform.localScale *= 1 / 0.6f;
                 holdFirst = true;
                 Vector3 dropDir = transform.GetComponent<PlayerController>().vecDir;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
@@ -285,7 +286,9 @@ namespace Player
             {
                 OnAttackWithoutWeapon();
             }
-            if(_enemyDetected != null) {
+
+            if (_enemyDetected != null)
+            {
                 Pc.zipping = true;
                 Pc.nearEnemy = _enemyDetected.transform.position;
             }
@@ -297,15 +300,15 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
-            if(!Input.GetMouseButtonUp(0) && !bAttack)
+            if (!Input.GetMouseButtonUp(0) && !bAttack)
                 ShivBehaviour();
         }
 
         private void ShivBehaviour()
         {
             bAttack = true;
-            AudioControl.Instance.PlaySwing();//change to shiv
-            animator.SetTrigger("Swing");//change to shiv
+            AudioControl.Instance.PlaySwing(); //change to shiv
+            animator.SetTrigger("Swing"); //change to shiv
             StartCoroutine(SwingCountdown(fSwingTime));
         }
 
@@ -344,29 +347,32 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            bool detected = _weaponEquipped != null 
-                            && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack 
+            bool detected = _weaponEquipped != null
+                            && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                             && _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
             if (detected)
             {
-                if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                if (_hitBox.GetComponent<Collider>().enabled &&
+                    other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    if (other != null) 
+                    if (other != null)
                     {
                         other.GetComponent<Knockback>().PlayFeedback(Pc.vecDir.normalized);
-                        if(_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                        if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                         else
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2);
                     }
+
                     if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
                 }
             }
             else
             {
-                if (_hitBox.GetComponent<Collider>().enabled && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                if (_hitBox.GetComponent<Collider>().enabled &&
+                    other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    if (other != null) 
+                    if (other != null)
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(1);
                     }

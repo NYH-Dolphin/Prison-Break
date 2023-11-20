@@ -463,6 +463,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   animator: {fileID: 5508026801267989519}
+  zipping: 0
+  zipAngle: 0
+  nearEnemy: {x: 0, y: 0, z: 0}
 --- !u!114 &1367990922438294675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ff1a0eed643b5ad68f8401071d733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMultiplier: 20
   tHoldWeaponTransform: {fileID: 8683192385905444498}
   fWeaponGrabRange: 3
   lmWeapon:
@@ -487,6 +489,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   objLobRangeEffect: {fileID: 2093171180639650849}
+  animator: {fileID: 5508026801267989519}
+  fSwingTime: 0.5
+  lineMultiplier: 20
+  holdFirst: 1
 --- !u!195 &7013052082875629450
 NavMeshAgent:
   m_ObjectHideFlags: 0
