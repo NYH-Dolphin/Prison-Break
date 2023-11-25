@@ -145,9 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   surprisedTime: 0.5
   exclaim: {fileID: 7388873249069505855}
-  startWaitTime: 4
+  startWaitTime: 10
   startTimeToRotate: 0.04
-  speedWalk: 3
+  speedWalk: 0
   speedRun: 20
   acceleration: 40
   viewRadius: 10
@@ -177,6 +177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7826128463735596502}
+  strength: 40
+  delay: 0.25
   OnBegin:
     m_PersistentCalls:
       m_Calls:
