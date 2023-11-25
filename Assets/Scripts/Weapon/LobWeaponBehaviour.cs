@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Enemy;
 using UnityEngine;
 
@@ -16,9 +15,9 @@ namespace Weapon
         private Vector3 _vecHitPos;
         private bool _bLock;
         
-        Vector3 startPosition;
-        Vector3 targetPosition;
-        Vector3 midPosition;
+        Vector3 _startPosition;
+        Vector3 _targetPosition;
+        Vector3 _midPosition;
 
         public float radius;
 
@@ -61,12 +60,6 @@ namespace Weapon
                     }
                 }
             }
-
-            if(gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                int weapLayer = LayerMask.NameToLayer("Weapon");
-                gameObject.layer = weapLayer;
-            }
         }
 
         private void LobBehaviour()
@@ -80,27 +73,27 @@ namespace Weapon
 
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
-            startPosition = transform.position;
-            targetPosition = _vecHitPos;
+            _startPosition = transform.position;
+            _targetPosition = _vecHitPos;
 
-            Collider[] enemiesInsideArea = Physics.OverlapSphere(targetPosition, radius);
+            Collider[] enemiesInsideArea = Physics.OverlapSphere(_targetPosition, radius);
             foreach (var col in enemiesInsideArea)
             {
                 if (col.gameObject.tag == "Enemy") {
-                    targetPosition = col.gameObject.transform.position;
-                    targetPosition.y += 1f;
+                    _targetPosition = col.gameObject.transform.position;
+                    _targetPosition.y += 1f;
                     Coll.enabled = true;
                     break;
                 }
             }
 
-            midPosition = (startPosition + targetPosition) / 2.0f;
-            midPosition.y += arcHeight;
-            path[0] = startPosition;
-            path[1] = midPosition;
-            path[2] = targetPosition;
+            _midPosition = (_startPosition + _targetPosition) / 2.0f;
+            _midPosition.y += arcHeight;
+            path[0] = _startPosition;
+            path[1] = _midPosition;
+            path[2] = _targetPosition;
             Hashtable args = new Hashtable();
-            args.Add("position", targetPosition);
+            args.Add("position", _targetPosition);
             args.Add("path", path);
             args.Add("time", fTime);
             args.Add("easetype", iTween.EaseType.easeOutQuart);

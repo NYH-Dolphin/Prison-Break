@@ -4,40 +4,48 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Player
 {
     [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
     public class PlayerWeapon : MonoBehaviour
     {
-        [SerializeField] public Transform tHoldWeaponTransform;
-        [SerializeField] private float fWeaponGrabRange;
-        [SerializeField] private LayerMask lmWeapon;
-        [SerializeField] private float fEnemyDetectionRange;
-        [SerializeField] private float fHandMeleeRange; // without weapon
-        [SerializeField] private LayerMask lmEnemy;
-        [SerializeField] private GameObject objLobRangeEffect; // effect specifically for lob behaviour
+        [Header("Basic Component")]
+        
         [SerializeField] private Animator animator;
-        [SerializeField] private float fSwingTime = 1f;
 
-        [SerializeField] private float lineMultiplier;
+        [Header("Weapon and Enemy Detect")]
+        [SerializeField] private LayerMask lmWeapon;
+        [SerializeField] private LayerMask lmEnemy;
+        [SerializeField] private float fWeaponGrabRange;
+        [SerializeField] private float fEnemyDetectionRange;
+        
+        [Header("Holding Weapon")]
+        [SerializeField] public Transform tHoldWeaponTransform;
+        [SerializeField] [Range(0, 1)] private float fHoldWeaponSacle;
+        
+        [Header("Shiv Attack without Weapon")]
+        [SerializeField] private float fShivTime = 1f;
+        
+        [Header("Weapon Attack Effects")]
+        [SerializeField] private GameObject objLobRange;
+        [SerializeField] private GameObject objHitBox;
+        [SerializeField] private float fDirLineLength;
+        
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
-        private GameObject _enemyDetected; // current enemy detected
-        private GameObject _weaponSelected; // current weapon detected
-        private GameObject _weaponEquipped; // current weapon used
+        private GameObject _enemyDetected;
+        private GameObject _weaponSelected;
+        private GameObject _weaponEquipped;
         private InputControls _inputs;
-        private GameObject _hitBox;
-        public bool holdFirst = true;
-        private PlayerController Pc;
-        private bool bAttack;
+
+        private PlayerController _pc;
+        private bool _bShivAttack;
 
 
         private void Awake()
         {
             _lrDir = GetComponent<LineRenderer>();
-            _hitBox = GameObject.Find("[Player]/PlayerSprites/Player Hitbox");
-            Pc = GetComponent<PlayerController>();
+            _pc = GetComponent<PlayerController>();
         }
 
 
@@ -211,17 +219,10 @@ namespace Player
             {
                 _weaponEquipped = _weaponSelected;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
-                // Attach Weapon Position to User
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
-
-                if (holdFirst)
-                {
-                    _weaponEquipped.transform.localScale *= 0.6f;
-                    holdFirst = false;
-                }
-
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
+                _weaponEquipped.transform.localScale *= fHoldWeaponSacle;
             }
         }
 
@@ -229,8 +230,7 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                _weaponEquipped.transform.localScale *= 1 / 0.6f;
-                holdFirst = true;
+                _weaponEquipped.transform.localScale *= 1 / fHoldWeaponSacle;
                 Vector3 dropDir = transform.GetComponent<PlayerController>().vecDir;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
@@ -242,7 +242,7 @@ namespace Player
             _lrDir.positionCount = 2;
             Vector3 startPos = transform.position;
             startPos.y = 1f;
-            Vector3 endPos = startPos + dir * lineMultiplier;
+            Vector3 endPos = startPos + dir * fDirLineLength;
             _lrDir.SetPosition(0, startPos);
             _lrDir.SetPosition(1, endPos);
         }
@@ -255,15 +255,15 @@ namespace Player
 
         public void OnDisableLobPosition()
         {
-            objLobRangeEffect.SetActive(false);
+            objLobRange.SetActive(false);
         }
 
         public void OnDrawLobPosition(Vector3 position)
         {
-            objLobRangeEffect.SetActive(true);
+            objLobRange.SetActive(true);
             Vector3 pos = position;
             pos.y += 0.1f;
-            objLobRangeEffect.transform.position = pos;
+            objLobRange.transform.position = pos;
         }
 
         #endregion
@@ -275,23 +275,24 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack && !Input.GetMouseButtonUp(0))
+                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
                 {
                     _weaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
-                    bAttack = true;
-                    StartCoroutine(SwingCountdown(fSwingTime - 0.2f));
                 }
             }
             else
             {
-                OnAttackWithoutWeapon();
+                if (!_bShivAttack)
+                {
+                    OnAttackWithoutWeapon();
+                }
             }
 
-            if (_enemyDetected != null)
-            {
-                Pc.zipping = true;
-                Pc.nearEnemy = _enemyDetected.transform.position;
-            }
+            // if (_enemyDetected != null)
+            // {
+            //     _pc.zipping = true;
+            //     _pc.nearEnemy = _enemyDetected.transform.position;
+            // }
         }
 
 
@@ -300,31 +301,21 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
-            if (!Input.GetMouseButtonUp(0) && !bAttack)
-                ShivBehaviour();
+            ShivBehaviour();
         }
 
         private void ShivBehaviour()
         {
-            bAttack = true;
-            AudioControl.Instance.PlaySwing(); //change to shiv
-            animator.SetTrigger("Swing"); //change to shiv
-            StartCoroutine(SwingCountdown(fSwingTime));
+            _bShivAttack = true;
+            AudioControl.Instance.PlaySwing(); //TODO change to shiv
+            animator.SetTrigger("Swing"); //TODO change to shiv
+            StartCoroutine(ShivCountdown(fShivTime));
         }
 
-
-        /// <summary>
-        /// Get the direction the player face
-        /// </summary>
-        /// <returns></returns>
-        public Vector3 GetPlayerVecDir()
+        IEnumerator ShivCountdown(float time)
         {
-            return transform.GetComponent<PlayerController>().vecDir;
-        }
-
-        public GameObject GetEnemyDetected()
-        {
-            return _enemyDetected;
+            yield return new WaitForSeconds(time);
+            _bShivAttack = false;
         }
 
         #endregion
@@ -337,9 +328,6 @@ namespace Player
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, fEnemyDetectionRange);
-
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(tHoldWeaponTransform.position, fHandMeleeRange);
         }
 
 
@@ -352,12 +340,12 @@ namespace Player
                             && _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
             if (detected)
             {
-                if (_hitBox.GetComponent<Collider>().enabled &&
+                if (objHitBox.GetComponent<Collider>().enabled &&
                     other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
                     if (other != null)
                     {
-                        other.GetComponent<Knockback>().PlayFeedback(Pc.vecDir.normalized);
+                        other.GetComponent<Knockback>().PlayFeedback(_pc.vecDir.normalized);
                         if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                         else
@@ -369,7 +357,7 @@ namespace Player
             }
             else
             {
-                if (_hitBox.GetComponent<Collider>().enabled &&
+                if (objHitBox.GetComponent<Collider>().enabled &&
                     other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
                     if (other != null)
@@ -381,13 +369,5 @@ namespace Player
         }
 
         #endregion
-
-
-
-        IEnumerator SwingCountdown(float time)
-        {
-            yield return new WaitForSeconds(time);
-            bAttack = false;
-        }
     }
 }

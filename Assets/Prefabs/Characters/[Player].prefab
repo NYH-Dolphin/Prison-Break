@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 443516962366065147}
   - component: {fileID: 3441497149968159545}
   m_Layer: 0
-  m_Name: LobRange (1)
+  m_Name: LobRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!1 &4265247935063141411
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +366,6 @@ GameObject:
   - component: {fileID: 8852799467790402425}
   - component: {fileID: 3653830015024873192}
   - component: {fileID: 1367990922438294675}
-  - component: {fileID: 7013052082875629450}
   - component: {fileID: 2103403074783473378}
   - component: {fileID: 4220849116802496870}
   m_Layer: 7
@@ -413,10 +413,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.16
-  m_Height: 1.48
+  m_Radius: 0.5725205
+  m_Height: 2.5926962
   m_Direction: 1
-  m_Center: {x: 0, y: 0.62, z: 0}
+  m_Center: {x: 0.1, y: 1.176348, z: -0.011959314}
 --- !u!54 &8852799467790402425
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb4d6e790c10d4697619981085bf1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fMovementSpeed: 17
+  fMovementSpeed: 25
   fJumpSpeed: 20
   fGroundCheckRadius: 0.3
   lmGroundLayer:
@@ -478,43 +478,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ff1a0eed643b5ad68f8401071d733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tHoldWeaponTransform: {fileID: 8683192385905444498}
-  fWeaponGrabRange: 3
+  animator: {fileID: 5508026801267989519}
   lmWeapon:
     serializedVersion: 2
     m_Bits: 64
-  fEnemyDetectionRange: 12
-  fHandMeleeRange: 0
   lmEnemy:
     serializedVersion: 2
     m_Bits: 256
-  objLobRangeEffect: {fileID: 2093171180639650849}
-  animator: {fileID: 5508026801267989519}
-  fSwingTime: 0.5
-  lineMultiplier: 20
-  holdFirst: 1
---- !u!195 &7013052082875629450
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7192035207904120976}
-  m_Enabled: 0
-  m_AgentTypeID: -1372625422
-  m_Radius: 0.65
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  fWeaponGrabRange: 3
+  fEnemyDetectionRange: 12
+  tHoldWeaponTransform: {fileID: 8683192385905444498}
+  fHoldWeaponSacle: 0.6
+  fShivTime: 1
+  objLobRange: {fileID: 2093171180639650849}
+  objHitBox: {fileID: 3763116188017213914}
+  fDirLineLength: 20
 --- !u!114 &2103403074783473378
 MonoBehaviour:
   m_ObjectHideFlags: 0
