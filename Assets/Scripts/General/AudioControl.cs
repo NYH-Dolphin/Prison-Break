@@ -9,6 +9,7 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource hitSFX;
     [SerializeField] private AudioSource throwSFX;
     [SerializeField] private AudioSource lobSFX;
+    [SerializeField] private AudioSource thrustSFX;
 
     public static AudioControl Instance;
 
@@ -35,5 +36,10 @@ public class AudioControl : MonoBehaviour
     public void PlayLob()
     {
         lobSFX.Play();
+    }
+
+    public void PlayThrust()
+    {
+        thrustSFX.Play();
     }
 }

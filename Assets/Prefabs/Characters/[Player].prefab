@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 572395592796081630}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.35, z: 3.24}
+  m_LocalPosition: {x: 1.66, y: 7.05, z: 3.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -321,6 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsety: 0
+  offsetx: 0
 --- !u!1 &4265247935063141411
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,6 @@ GameObject:
   - component: {fileID: 8852799467790402425}
   - component: {fileID: 3653830015024873192}
   - component: {fileID: 1367990922438294675}
-  - component: {fileID: 7013052082875629450}
   - component: {fileID: 2103403074783473378}
   - component: {fileID: 4220849116802496870}
   m_Layer: 7
@@ -386,7 +387,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.11, z: -4.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2858190711638402726}
   - {fileID: 3767413852501519165}
@@ -413,10 +414,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.16
-  m_Height: 1.48
+  m_Radius: 0.5725205
+  m_Height: 2.5926962
   m_Direction: 1
-  m_Center: {x: 0, y: 0.62, z: 0}
+  m_Center: {x: 0.1, y: 1.176348, z: -0.011959314}
 --- !u!54 &8852799467790402425
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -456,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb4d6e790c10d4697619981085bf1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fMovementSpeed: 17
+  fMovementSpeed: 25
   fJumpSpeed: 20
   fGroundCheckRadius: 0.3
   lmGroundLayer:
@@ -493,28 +494,6 @@ MonoBehaviour:
   fSwingTime: 0.5
   lineMultiplier: 20
   holdFirst: 1
---- !u!195 &7013052082875629450
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7192035207904120976}
-  m_Enabled: 0
-  m_AgentTypeID: -1372625422
-  m_Radius: 0.65
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &2103403074783473378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8683192385905444498}
+  - component: {fileID: 5717272672555305356}
   m_Layer: 7
   m_Name: WeaponHoldingPoints
   m_TagString: Untagged
@@ -662,3 +642,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2858190711638402726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5717272672555305356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150126405346370112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0679113b8c3f3ce4389b5bb5602f8736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showing: 1

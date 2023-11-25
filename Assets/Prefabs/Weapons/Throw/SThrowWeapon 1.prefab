@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!65 &2438754630307028216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponInfo: {fileID: 11400000, guid: 255b673a4b74feb4d927b98230e675f6, type: 2}
   bAttack: 0
-  fThrowForce: 60
+  fThrowForce: 120
   fThrowTime: 0.3
   lmGround:
     serializedVersion: 2
