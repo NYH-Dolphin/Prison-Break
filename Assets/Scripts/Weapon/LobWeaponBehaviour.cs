@@ -88,7 +88,6 @@ namespace Weapon
                             }
                         }
                     }
-                    Debug.Log(largeRangeEnemies.Length + smallRangeEnemies.Length);
                 }
             }
         }
