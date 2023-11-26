@@ -51,6 +51,7 @@ public class Breakable : MonoBehaviour
         {
             Vector3 instPos = transform.position;
             instPos.x += Random.Range(-2.0f, 2.0f);
+            instPos.y = 1.45f;
             Instantiate(componentItem, instPos, transform.rotation);
         }
             
