@@ -26,20 +26,21 @@ namespace Player
         
         [Header("Shiv Attack without Weapon")]
         [SerializeField] private float fShivTime = 1f;
+        private bool _bShivAttack;
         
         [Header("Weapon Attack Effects")]
         [SerializeField] private GameObject objLobRange;
         [SerializeField] private GameObject objHitBox;
         [SerializeField] private float fDirLineLength;
         
+        // private properties
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
         private GameObject _weaponEquipped;
         private InputControls _inputs;
-
         private PlayerController _pc;
-        private bool _bShivAttack;
+        
 
 
         private void Awake()

@@ -1,17 +1,27 @@
-﻿using System;
+﻿using System.Collections;
+using Enemy;
 using UnityEngine;
 
 namespace Weapon
 {
     public class BoomerangWeaponBehaviour : WeaponBehaviour
     {
-        [SerializeField] private float fDistance = 10f;
         [SerializeField] private float fTime = 0.5f;
+        [SerializeField] private float fSpeed = 60f;
         [SerializeField] private LayerMask lmGround;
-        
-        private Vector3 _vecThrowDir;
+
+
+        private Vector3 _vecBoomerangDir;
         private bool _bLock;
-        
+        private bool _bBack;
+        private float _fTimeElapsed;
+        private bool _bHit;
+
+        Vector3 _startPosition;
+        Vector3 _targetPosition;
+        Vector3 _midPosition;
+
+
         public override void OnAttack()
         {
             BoomerangBehaviour();
@@ -36,21 +46,106 @@ namespace Weapon
                             hitGround.y = 0f;
                             Vector3 playerPos = Pc.transform.position;
                             playerPos.y = 0f;
-                            _vecThrowDir = (hitGround - playerPos).normalized;
-                            Pw.OnDrawWeaponDir(_vecThrowDir);
+                            _vecBoomerangDir = (hitGround - playerPos).normalized;
+                            Pw.OnDrawWeaponDir(_vecBoomerangDir);
                         }
                     }
                 }
                 else
                 {
                     Pw.OnCancelDrawWeaponDir();
+                    // BoomerangUpdate();
                 }
             }
         }
 
         private void BoomerangBehaviour()
         {
-            throw new System.NotImplementedException();
+            bAttack = true;
+            Rb.drag = 0f;
+            Rb.angularDrag = 0f;
+            Rb.constraints = RigidbodyConstraints.FreezePositionY;
+            StartCoroutine(BoomerangUpdateCor());
+        }
+
+
+        IEnumerator BoomerangUpdateCor()
+        {
+            while (true)
+            {
+                if (!_bBack)
+                {
+                    _fTimeElapsed += Time.deltaTime;
+
+                    if (_fTimeElapsed < fTime / 2.0f)
+                    {
+                        Rb.velocity = _vecBoomerangDir * fSpeed;
+                    }
+                    else
+                    {
+                        _bBack = true;
+                    }
+                }
+                else
+                {
+                    Vector3 backVector = Pw.tHoldWeaponTransform.position - transform.position;
+                    backVector.y = 0;
+                    backVector.Normalize();
+                    Quaternion targetRotation = Quaternion.LookRotation(backVector);
+                    Rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, 3f));
+                    Rb.velocity = backVector * fSpeed;
+
+                    if (Vector3.Distance(Pw.tHoldWeaponTransform.position, transform.position) < 1f)
+                    {
+                        break;
+                    }
+                }
+
+                yield return null;
+            }
+
+            OnBoomerangBack();
+        }
+
+        private void OnBoomerangBack()
+        {
+            if (_bHit) IDurability -= 1;
+
+            if (IDurability == 0)
+            {
+                Destroy(gameObject);
+            }
+            else if (IDurability > 0)
+            {
+                // Refresh all the attributes
+                bAttack = false;
+                gameObject.transform.position = Pw.tHoldWeaponTransform.position;
+                Rb.constraints = RigidbodyConstraints.FreezeAll;
+                _bBack = false;
+                _fTimeElapsed = 0f;
+                _bHit = false;
+            }
+        }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                _bHit = true;
+                if (weaponInfo.eSharpness == Sharpness.Blunt)
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                else
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
+            }
+            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                IDurability -= 1;
+                if (IDurability == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }
