@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3369506118529487586}
   - component: {fileID: 7826128463735596502}
   - component: {fileID: 4534064357708160319}
-  - component: {fileID: 8515791055630276574}
   - component: {fileID: 3290171322767483622}
+  - component: {fileID: -2480995425900114649}
   m_Layer: 8
   m_Name: Guard
   m_TagString: Enemy
@@ -59,8 +59,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3921828, y: 2.906281, z: 0.9845979}
-  m_Center: {x: 0.19609141, y: 0.24757624, z: -0.009995103}
+  m_Size: {x: 1.9723699, y: 4.3122797, z: 0.9845979}
+  m_Center: {x: 0.13233185, y: 0.9505755, z: -0.009995103}
 --- !u!114 &3369506118529487586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,39 +131,6 @@ NavMeshAgent:
   m_BaseOffset: 1.25
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8515791055630276574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3104829894990346509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b08f9d4c048614f8301a6a496c87c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  surprisedTime: 0.5
-  exclaim: {fileID: 7388873249069505855}
-  startWaitTime: 10
-  startTimeToRotate: 0.04
-  speedWalk: 0
-  speedRun: 20
-  acceleration: 40
-  viewRadius: 10
-  viewAngle: 360
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 512
-  meshResolution: 1
-  edgeIterations: 4
-  edgeDistance: 0.5
-  stunned: 0
-  isPatrol: 0
-  isSurprised: 0
 --- !u!114 &3290171322767483622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +161,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8515791055630276574}
+      - m_Target: {fileID: -2480995425900114649}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -221,7 +188,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8515791055630276574}
+      - m_Target: {fileID: -2480995425900114649}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -233,6 +200,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &-2480995425900114649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104829894990346509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a32c35bbf40274ea89e88cb0ba0965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surprisedTime: 0.5
+  exclaim: {fileID: 7388873249069505855}
+  acceleration: 40
+  speedRun: 12
+  unconscious: 0
+  viewRadius: 12
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
+  stunned: 0
+  isSurprised: 0
+  chasing: 0
 --- !u!1 &3967617849643433926
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,8 +255,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.241, y: 3.26, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5953758347472165871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -307,7 +301,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8249f5d3973400a4f81d122db233f193, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d9f7f57211b25744bab9ef8e13c7d3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -330,6 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsety: 0
+  offsetx: 0
 --- !u!1 &6001237927139152325
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsety: 0
+  offsetx: 0
 --- !u!1 &7720747554264006400
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsety: 0
+  offsetx: 0
 --- !u!1 &8045131639254063581
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource throwSFX;
     [SerializeField] private AudioSource lobSFX;
     [SerializeField] private AudioSource thrustSFX;
-
+    [SerializeField] private AudioSource surprisedSFX;
     public static AudioControl Instance;
 
     private void Awake()
@@ -41,5 +41,10 @@ public class AudioControl : MonoBehaviour
     public void PlayThrust()
     {
         thrustSFX.Play();
+    }
+
+    public void PlaySurprised()
+    {
+        surprisedSFX.Play();
     }
 }

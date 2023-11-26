@@ -52,6 +52,11 @@ namespace Weapon
                     Pw.OnCancelDrawWeaponDir();
                 }
             }
+
+            if (IDurability == 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
         #region BoomerangBehaviour
@@ -132,10 +137,17 @@ namespace Weapon
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 _bHit = true;
-                if (weaponInfo.eSharpness == Sharpness.Blunt)
+                if(weaponInfo.eSharpness == Sharpness.Blunt)
+                {
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    IDurability -= 1;
+                }
+                    
                 else
+                {
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    IDurability -= 1;
+                }
             }
             else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
