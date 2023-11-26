@@ -50,7 +50,7 @@ public class Breakable : MonoBehaviour
         for(int i = 0; i < componentNumber; i++)
         {
             Vector3 instPos = transform.position;
-            instPos.x += Random.Range(-2.0f, 2.0f);
+            instPos.x += Random.Range(-5.0f, 5.0f);
             instPos.y = 1.45f;
             Instantiate(componentItem, instPos, transform.rotation);
         }
