@@ -2896,6 +2896,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SLobWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: 472781d20ca9398489507615464432dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2996,6 +3001,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1224599559
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2108716387}
+    m_Modifications:
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+        type: 3}
+      propertyPath: m_Name
+      value: BSlamWeapon 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 360dd178e8f1e4e42a00ebe4936958f3, type: 3}
 --- !u!1 &1252490761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3542,6 +3615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BLobWeapon 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553995303318409865, guid: a094851a9f2570a49bc6ac9922b4917d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -78492,6 +78570,7 @@ MonoBehaviour:
   throwSFX: {fileID: 1842985870}
   lobSFX: {fileID: 1842985871}
   thrustSFX: {fileID: 0}
+  surprisedSFX: {fileID: 0}
 --- !u!82 &1842985867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -79420,6 +79499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2131430064}
   - {fileID: 1788981480}
   - {fileID: 917900776}
   - {fileID: 2078564500}
@@ -79538,6 +79618,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a094851a9f2570a49bc6ac9922b4917d, type: 3}
+--- !u!4 &2131430064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 589279046659175887, guid: 360dd178e8f1e4e42a00ebe4936958f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1224599559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2146625868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 589279046659175887, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
