@@ -22,7 +22,8 @@ namespace Weapon
         Lob,
         Swing,
         Thrust,
-        Slam
+        Slam,
+        Boomerang
     }
 
     [CreateAssetMenu(fileName = "WeaponInfo", menuName = "ScriptableObjects/WeaponInformation", order = 1)]

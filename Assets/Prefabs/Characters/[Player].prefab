@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 572395592796081630}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.66, y: 7.05, z: 3.24}
+  m_LocalPosition: {x: 0, y: 2.35, z: 3.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 443516962366065147}
   - component: {fileID: 3441497149968159545}
   m_Layer: 0
-  m_Name: LobRange (1)
+  m_Name: LobRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321,8 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsety: 0
-  offsetx: 0
+  offset: 0
 --- !u!1 &4265247935063141411
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +386,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.11, z: -4.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2858190711638402726}
   - {fileID: 3767413852501519165}
@@ -479,21 +478,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ff1a0eed643b5ad68f8401071d733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tHoldWeaponTransform: {fileID: 8683192385905444498}
-  fWeaponGrabRange: 3
+  animator: {fileID: 5508026801267989519}
   lmWeapon:
     serializedVersion: 2
     m_Bits: 64
-  fEnemyDetectionRange: 12
-  fHandMeleeRange: 0
   lmEnemy:
     serializedVersion: 2
     m_Bits: 256
-  objLobRangeEffect: {fileID: 2093171180639650849}
-  animator: {fileID: 5508026801267989519}
-  fSwingTime: 0.5
-  lineMultiplier: 20
-  holdFirst: 1
+  fWeaponGrabRange: 3
+  fEnemyDetectionRange: 12
+  tHoldWeaponTransform: {fileID: 8683192385905444498}
+  fHoldWeaponSacle: 0.6
+  fShivTime: 1
+  objLobRange: {fileID: 2093171180639650849}
+  objHitBox: {fileID: 3763116188017213914}
+  fDirLineLength: 20
 --- !u!114 &2103403074783473378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,7 +618,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8683192385905444498}
-  - component: {fileID: 5717272672555305356}
   m_Layer: 7
   m_Name: WeaponHoldingPoints
   m_TagString: Untagged
@@ -642,16 +640,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2858190711638402726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5717272672555305356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8150126405346370112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0679113b8c3f3ce4389b5bb5602f8736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showing: 1

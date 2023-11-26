@@ -68,7 +68,6 @@ public class Navigation : MonoBehaviour
         else if(stunned)
         {
             Stop();
-            Debug.Log("here");
         }
             
         else
