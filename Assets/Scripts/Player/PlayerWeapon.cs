@@ -11,30 +11,33 @@ namespace Player
     [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
     public class PlayerWeapon : MonoBehaviour
     {
-        [Header("Basic Component")]
-        
-        [SerializeField] private Animator animator;
+        [Header("Basic Component")] [SerializeField]
+        private Animator animator;
 
-        [Header("Weapon and Enemy Detect")]
-        [SerializeField] private LayerMask lmWeapon;
+        [Header("Weapon and Enemy Detect")] [SerializeField]
+        private LayerMask lmWeapon;
+
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private float fEnemyDetectionRange;
-        
-        [Header("Holding Weapon")]
-        [SerializeField] public Transform tHoldWeaponTransform;
+
+        [Header("Holding Weapon")] [SerializeField]
+        public Transform tHoldWeaponTransform;
+
         [SerializeField] [Range(0, 1)] private float fHoldWeaponSacle;
-        
-        [Header("Shiv Attack without Weapon")]
-        [SerializeField] private float fShivTime;
+
+        [Header("Shiv Attack without Weapon")] [SerializeField]
+        private float fShivTime;
+
         private bool _bShivAttack;
-        
-        [Header("Weapon Attack Effects")]
-        [SerializeField] private GameObject objLobRange;
+
+        [Header("Weapon Attack Effects")] [SerializeField]
+        private GameObject objLobRange;
+
         private GameObject _objLobRangeSprite;
         [SerializeField] private GameObject objHitBox;
         [SerializeField] private float fDirLineLength;
-        
+
         // private properties
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
@@ -42,7 +45,6 @@ namespace Player
         private GameObject _weaponEquipped;
         private InputControls _inputs;
         private PlayerController _pc;
-        
 
 
         private void Awake()
@@ -84,7 +86,7 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
-            EnemyDetectionUpdate();
+            // EnemyDetectionUpdate();
         }
 
 
@@ -93,11 +95,8 @@ namespace Player
         // Current weapon behaviour no longer need enemy detection
         private void EnemyDetectionUpdate()
         {
-            // TODO may alter the enemy detection, so far only lob need enemy detection
-            bool detected = true; //_weaponEquipped != null &&
-            //_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType ==
-            //AttackType.Lob;
-
+            // TODO the function of detection need to be re-designed
+            bool detected = true;
 
             Collider[] hitColliders = null;
             if (detected) hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
@@ -107,8 +106,8 @@ namespace Player
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy && enemy != null)
                 {
-                    //enemy.GetComponent<EnemyBehaviour>().OnSelected();
-                    //if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    enemy.GetComponent<EnemyBehaviour>().OnSelected();
+                    if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = enemy;
                 }
             }
@@ -116,7 +115,7 @@ namespace Player
             {
                 if (_enemyDetected != null)
                 {
-                    //_enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = null;
                 }
             }
@@ -241,6 +240,11 @@ namespace Player
             }
         }
 
+        #endregion
+
+
+        #region WeaponDirectionEffect
+
         public void OnDrawWeaponDir(Vector3 dir)
         {
             _lrDir.positionCount = 2;
@@ -256,6 +260,10 @@ namespace Player
             _lrDir.positionCount = 0;
         }
 
+        #endregion
+
+
+        #region LobRangeEffect
 
         public void OnDisableLobPosition()
         {
@@ -270,12 +278,18 @@ namespace Player
             objLobRange.transform.position = pos;
         }
 
-
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
+           
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
         }
 
+        // TODO developer only
+        public void DevShowLobRange()
+        {
+            objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange(); 
+        }
+        
         #endregion
 
 
@@ -297,12 +311,6 @@ namespace Player
                     OnAttackWithoutWeapon();
                 }
             }
-
-            // if (_enemyDetected != null)
-            // {
-            //     _pc.zipping = true;
-            //     _pc.nearEnemy = _enemyDetected.transform.position;
-            // }
         }
 
 

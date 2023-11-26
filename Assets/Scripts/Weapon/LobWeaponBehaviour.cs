@@ -34,6 +34,9 @@ namespace Weapon
         {
             if (Pw != null)
             {
+                // TODO Development only
+                Pw.DevShowLobRange();
+                
                 if (!bAttack)
                 {
                     if (Camera.main != null)

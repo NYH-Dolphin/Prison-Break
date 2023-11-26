@@ -10,6 +10,22 @@ namespace Weapon.Effects
         [SerializeField] private float fSmallRadius;
         [SerializeField] private LayerMask lmEnemy;
 
+        public void ShowLobRange()
+        {
+            Vector3 pos = transform.position;
+
+            // Large
+            Debug.DrawLine(pos, pos + Vector3.forward * fLargeRadius, Color.yellow);
+            Debug.DrawLine(pos, pos + Vector3.left * fLargeRadius, Color.yellow);
+            Debug.DrawLine(pos, pos + Vector3.right * fLargeRadius, Color.yellow);
+            Debug.DrawLine(pos, pos + Vector3.back * fLargeRadius, Color.yellow);
+            
+            Debug.DrawLine(pos, pos + Vector3.forward * fLargeRadius, Color.red);
+            Debug.DrawLine(pos, pos + Vector3.left * fSmallRadius, Color.red);
+            Debug.DrawLine(pos, pos + Vector3.right * fSmallRadius, Color.red);
+            Debug.DrawLine(pos, pos + Vector3.back * fSmallRadius, Color.red);
+        }
+        
 
         public (GameObject[], GameObject[]) GetDetectedEnemies()
         {
@@ -26,6 +42,7 @@ namespace Weapon.Effects
                     large.Add(obj);
                 }
             }
+
             return (large.ToArray(), smallHitCollidersSet.ToArray());
         }
 
