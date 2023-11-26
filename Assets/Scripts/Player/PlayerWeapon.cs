@@ -348,27 +348,20 @@ namespace Player
             bool detected = _weaponEquipped != null
                             && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                             && _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
-            if (detected)
+            if (detected && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                if (objHitBox.GetComponent<Collider>().enabled &&
-                    other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                {
-                    if (other != null)
-                    {
-                        other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
-                        if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
-                            other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                        else
-                            other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
-                    }
+                other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
+                if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                else
+                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
 
-                    if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
-                }
+                if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
             }
             else
             {
                 if (objHitBox.GetComponent<Collider>().enabled &&
-                    other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                    other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _weaponEquipped == null)
                 {
                     if (other != null)
                     {

@@ -6,10 +6,11 @@ public class Breakable : MonoBehaviour
 {
     private AudioControl SFX;
     private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-    public GameObject componentItem;
     protected Material Mat;
     protected SpriteRenderer Sr;
     [SerializeField] int componentNumber;
+
+    [SerializeField] private List<GameObject> componentItems;
 
     private void Awake()
     {
@@ -52,7 +53,8 @@ public class Breakable : MonoBehaviour
             Vector3 instPos = transform.position;
             instPos.x += Random.Range(-5.0f, 5.0f);
             instPos.y = 1.45f;
-            Instantiate(componentItem, instPos, transform.rotation);
+            foreach(GameObject ins in componentItems)
+                Instantiate(ins, instPos, transform.rotation);
         }
             
         Destroy(gameObject);

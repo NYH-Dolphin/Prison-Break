@@ -22,7 +22,7 @@ public class Navigation : MonoBehaviour
     public int edgeIterations = 4;
     public float edgeDistance = 0.5f;
 
-    private Transform waypoint;
+    //private Transform waypoint;
     private Transform player;
     int currentWaypointIndex;
     Vector3 playerLastPosition = Vector3.zero;
@@ -46,7 +46,7 @@ public class Navigation : MonoBehaviour
         playerInRange = false;
         waitTime = startWaitTime;
         timeToRotate = startTimeToRotate;
-        waypoint = this.transform;
+        //waypoint = this.transform;
 
         currentWaypointIndex = 0;
         agent = GetComponent<NavMeshAgent>();
@@ -54,7 +54,7 @@ public class Navigation : MonoBehaviour
         agent.isStopped = false;
         agent.speed = speedWalk;
         agent.acceleration = acceleration;
-        agent.SetDestination(waypoint.position);
+        //agent.SetDestination(waypoint.position);
         first = true;
     }
 
@@ -124,7 +124,7 @@ public class Navigation : MonoBehaviour
         {
             playerNear = false;
             playerLastPosition = Vector3.zero;
-            agent.SetDestination(waypoint.position);
+            //agent.SetDestination(waypoint.position);
             if(agent.remainingDistance <= agent.stoppingDistance)
             {
                 if(waitTime <= 0)
@@ -169,7 +169,7 @@ public class Navigation : MonoBehaviour
             {
                 playerNear = false;
                 Move(speedWalk);
-                agent.SetDestination(waypoint.position);
+                //agent.SetDestination(waypoint.position);
                 waitTime = startWaitTime;
                 timeToRotate = startTimeToRotate;
             }

@@ -20,9 +20,11 @@ namespace Enemy
         private AudioControl SFX;
         public Animator anim;
         public bool notStunned = true;
-        private Navigation nav;
+        //private Navigation nav;
+        private NewNav newNav;
         private int health = 2;
         public Transform deadGuard;
+
 
 
         private void Awake()
@@ -36,24 +38,20 @@ namespace Enemy
             player = GameObject.FindGameObjectWithTag("Player").transform;
             cool = startCool;
             SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
-            nav = this.GetComponent<Navigation>();
+            newNav = this.GetComponent<NewNav>();
         }
 
         void Update()
         {
             cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned && !nav.isPatrol && !nav.isSurprised)
+            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned && newNav.chasing)
             {
-                anim.SetBool("attacking", true);
+                if(!newNav.unconscious) anim.SetBool("attacking", true);
                 cool = startCool;
             }
             else{
-                anim.SetBool("attacking", false);
+                if(!newNav.unconscious) anim.SetBool("attacking", false);
             }
-        }
-
-        bool AnimatorIsPlaying(){
-            return anim.GetCurrentAnimatorStateInfo(0).length > anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
         }
 
         /// <summary>
@@ -71,12 +69,15 @@ namespace Enemy
         }
         
         
-        // TODO Current directly make enemy dead after being hit
         public void OnHit(int hit, bool melee)
         {
+            Debug.Log(health);
             SFX.PlayHit();
-            health -= hit;
-            if (health <= 0) 
+            if(hit == 1)
+                StartCoroutine(DecreaseHealth());
+                
+
+            if (hit == 2 || (!notStunned && hit == 1) || health <=0) 
             {
                 var dead = Instantiate(deadGuard, new Vector3(this.transform.position.x, 0.5f,this.transform.position.z), Quaternion.identity);
                 dead.transform.eulerAngles = new Vector3(0,90,0);
@@ -95,22 +96,26 @@ namespace Enemy
         {
             SFX.PlayHit();
             StartCoroutine(Blunt());
+            notStunned = false;
         }
 
         private IEnumerator Blunt()
         {
             notStunned = false;
-            this.GetComponent<Navigation>().stunned = true;
+            newNav.Stunned(stunTime);
             dizzy.enabled = true;
             anim.SetTrigger("stunned");
-            health--;
             yield return new WaitForSeconds(stunTime);
             notStunned = true;
-            this.GetComponent<Navigation>().stunned = false;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
-            health++;
 
+        }
+
+        private IEnumerator DecreaseHealth()
+        {
+            yield return new WaitForSeconds(0.2f);
+            health--;
         }
     }
 }
