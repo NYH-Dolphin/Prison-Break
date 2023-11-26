@@ -24,12 +24,6 @@ public class PlayerController : MonoBehaviour
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
     
-    // public bool zipping = false;
-    // public float zipAngle;
-    // public Vector3 nearEnemy;
-    // private float zipTime = 0f;
-
-
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -144,7 +138,6 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = moveVelocity;
     }
 
-
     #endregion
 
 
@@ -185,30 +178,25 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    
-    // public void Zip(GameObject en)
-    // {
-    //     Vector3 dir = (this.transform.position - en.transform.position).normalized;
-    //     ZipMove(en.transform.position);
-    // }
 
-    // void ZipMove(Vector3 enemy)
-    // {
-    //     zipping = true;
-    //     Vector3 yLessPos = transform.position;
-    //     yLessPos.y = 0;
-    //     Vector3 yLessEn = enemy;
-    //     yLessEn.y = 0;
-    //     float dis = Vector3.Distance(yLessPos, yLessEn);
-    //     Debug.Log(dis);
-    //     if (dis <= 0.3f)
-    //     {
-    //         zipping = false;
-    //     }
-    //
-    //     transform.position = Vector3.Lerp(transform.position, enemy, .1f * dis);
-    // }
+    public void SprintMove(Vector3 targetPos, float time)
+    {
+        Vector3 startPos = transform.position;
+        StartCoroutine(SprintMoveUpdateCor(startPos, targetPos, time));
+    }
 
+
+    IEnumerator SprintMoveUpdateCor(Vector3 startPos, Vector3 targetPos, float time)
+    {
+        float t = 0;
+        while (t < time)
+        {
+            t += Time.deltaTime;
+            float lerpFactor = t / time;
+            transform.position = Vector3.Lerp(startPos, targetPos, lerpFactor);
+            yield return null;
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {

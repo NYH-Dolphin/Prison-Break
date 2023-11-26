@@ -31,6 +31,10 @@ namespace Player
 
         private bool _bShivAttack;
 
+        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
+        [SerializeField] private float fSprintDistance;
+        [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
+
         [Header("Weapon Attack Effects")] [SerializeField]
         private GameObject objLobRange;
 
@@ -86,7 +90,7 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
-            // EnemyDetectionUpdate();
+            EnemyDetectionUpdate();
         }
 
 
@@ -95,19 +99,16 @@ namespace Player
         // Current weapon behaviour no longer need enemy detection
         private void EnemyDetectionUpdate()
         {
-            // TODO the function of detection need to be re-designed
-            bool detected = true;
+            Collider[] hitColliders;
+            hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
 
-            Collider[] hitColliders = null;
-            if (detected) hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
-
-            if (detected && hitColliders != null && hitColliders.Length != 0)
+            if (hitColliders != null && hitColliders.Length != 0)
             {
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy && enemy != null)
                 {
                     enemy.GetComponent<EnemyBehaviour>().OnSelected();
-                    if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    //if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = enemy;
                 }
             }
@@ -115,7 +116,7 @@ namespace Player
             {
                 if (_enemyDetected != null)
                 {
-                    _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
+                    //_enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = null;
                 }
             }
@@ -280,16 +281,15 @@ namespace Player
 
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
-           
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
         }
 
         // TODO developer only
         public void DevShowLobRange()
         {
-            objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange(); 
+            objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
         }
-        
+
         #endregion
 
 
@@ -311,8 +311,36 @@ namespace Player
                     OnAttackWithoutWeapon();
                 }
             }
+
+            SprintIn();
         }
 
+        private void SprintIn()
+        {
+            if (_enemyDetected != null)
+            {
+                if (_weaponEquipped == null ||
+                    _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+                {
+                    Vector3 playerPos = transform.position;
+                    Vector3 enemyPos = _enemyDetected.transform.position;
+                    float dist = Vector3.Distance(playerPos, enemyPos);
+                    if (dist < fSprintDetectionRange)
+                    {
+                        Vector3 dir = (enemyPos - playerPos).normalized;
+                        dir.y = 0;
+                        // if the desire position exceed the enemy position, will simply use enemy position
+                        Vector3 targetPos = playerPos + dir * fSprintDistance;
+                        if (dist < Vector3.Distance(playerPos, targetPos))
+                        {
+                            targetPos = enemyPos;
+                        }
+
+                        _pc.SprintMove(targetPos, fSprintTime);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Perform Melee Attack
@@ -373,7 +401,7 @@ namespace Player
                 {
                     if (other != null)
                     {
-                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(1, false);
+                        other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(1, false);
                     }
                 }
             }
