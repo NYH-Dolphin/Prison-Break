@@ -17,10 +17,6 @@ namespace Weapon
         private float _fTimeElapsed;
         private bool _bHit;
 
-        Vector3 _startPosition;
-        Vector3 _targetPosition;
-        Vector3 _midPosition;
-
 
         public override void OnAttack()
         {
@@ -54,10 +50,11 @@ namespace Weapon
                 else
                 {
                     Pw.OnCancelDrawWeaponDir();
-                    // BoomerangUpdate();
                 }
             }
         }
+
+        #region BoomerangBehaviour
 
         private void BoomerangBehaviour()
         {
@@ -73,6 +70,7 @@ namespace Weapon
         {
             while (true)
             {
+                // Force and Back
                 if (!_bBack)
                 {
                     _fTimeElapsed += Time.deltaTime;
@@ -127,7 +125,8 @@ namespace Weapon
             }
         }
 
-
+        #endregion
+        
         private void OnTriggerEnter(Collider other)
         {
             if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
