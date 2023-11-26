@@ -23,6 +23,7 @@ public class Navigation : MonoBehaviour
     public float edgeDistance = 0.5f;
 
     private Transform waypoint;
+    private Transform player;
     int currentWaypointIndex;
     Vector3 playerLastPosition = Vector3.zero;
     Vector3 playerPosition;
@@ -62,12 +63,15 @@ public class Navigation : MonoBehaviour
     {
         EnvironmentView();
 
-        if(isPatrol || stunned)
+        if(isPatrol || isSurprised)
             Patrolling();
+        else if(stunned)
+        {
+            Stop();
+        }
+            
         else
             Chasing();
-
-
 
     }
 
@@ -76,31 +80,29 @@ public class Navigation : MonoBehaviour
         playerNear = false;
         playerLastPosition = Vector3.zero;
 
-        if(!caughtPlayer)
-        {
-            Move(speedRun);
-            agent.SetDestination(playerPosition);
-        }
-        if(agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 3)
-            {
-                isPatrol = true;
-                playerNear = false;
-                Move(speedWalk);
-                timeToRotate = startTimeToRotate;
-                waitTime = startWaitTime;
-                agent.SetDestination(waypoint.position);
-            }
-            else
-            {
-                if(Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 2.5f)
-                {
-                    Stop();
-                }
-                waitTime -= Time.deltaTime;
-            }
-        }
+
+        Move(speedRun);
+        agent.SetDestination(playerPosition);
+        
+        // if(agent.remainingDistance <= agent.stoppingDistance)
+        // {
+        //     if(waitTime <= 0 && !caughtPlayer && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= viewRadius * 8)
+        //     {
+        //         isPatrol = true;
+        //         playerNear = false;
+        //         Move(speedWalk);
+        //         timeToRotate = startTimeToRotate;
+        //         waitTime = startWaitTime;
+        //     }
+        //     else
+        //     {
+        //         if(Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 2.5f)
+        //         {
+        //             Stop();
+        //         }
+        //         waitTime -= Time.deltaTime;
+        //     }
+        // }
     }
 
     private void Patrolling()
@@ -181,10 +183,10 @@ public class Navigation : MonoBehaviour
     void EnvironmentView()
     {
         Collider[] playersInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
-
+        
         for(int i = 0; i < playersInRange.Length; i++)
         {
-            Transform player = playersInRange[i].transform;
+            player = playersInRange[i].transform;
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
             if(Vector3.Angle(transform.forward, dirToPlayer)< viewAngle/2)
             {
@@ -209,10 +211,11 @@ public class Navigation : MonoBehaviour
             {
                 playerInRange = false;
             }
-            if(playerInRange)
-            {
-                playerPosition = player.transform.position;
-            }
+        }
+
+        if(!first)
+        {
+            playerPosition = player.transform.position;
         }
 
     }
@@ -220,10 +223,10 @@ public class Navigation : MonoBehaviour
     private IEnumerator Surprised()
     {
         exclaim.enabled = true;
+        isPatrol = false;
         isSurprised = true;
         yield return new WaitForSeconds(surprisedTime);
         exclaim.enabled = false;
-        isPatrol = false;
         isSurprised = false;
     }
 

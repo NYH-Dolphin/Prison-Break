@@ -1,8 +1,5 @@
-﻿using Enemy;
-using Player;
-using Unity.VisualScripting;
+﻿using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Weapon
 {

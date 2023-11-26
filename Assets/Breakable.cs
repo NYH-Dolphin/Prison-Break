@@ -9,6 +9,7 @@ public class Breakable : MonoBehaviour
     public GameObject componentItem;
     protected Material Mat;
     protected SpriteRenderer Sr;
+    [SerializeField] int componentNumber;
 
     private void Awake()
     {
@@ -46,7 +47,27 @@ public class Breakable : MonoBehaviour
     {
         SFX.PlayHit();
         Debug.Log("breaking");
-        Instantiate(componentItem, transform.position, transform.rotation);
+        for(int i = 0; i < componentNumber; i++)
+        {
+            Vector3 instPos = transform.position;
+            instPos.x += Random.Range(-5.0f, 5.0f);
+            instPos.y = 1.45f;
+            Instantiate(componentItem, instPos, transform.rotation);
+        }
+            
         Destroy(gameObject);
     }
+
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player") &&  GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
+        {
+            Debug.Log("here");
+            OnHit();
+        }
+            
+
+    }
+
 }

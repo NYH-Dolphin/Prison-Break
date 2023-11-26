@@ -70,7 +70,6 @@ namespace Weapon
 
             Pc.OnSetAttackDir(_vecThrowDir);
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            Pw.holdFirst = true;
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;

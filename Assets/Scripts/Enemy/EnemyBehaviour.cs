@@ -84,7 +84,7 @@ namespace Enemy
                 {
                     Knockback kb = dead.GetComponent<Knockback>();
                     PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
-                    kb.PlayFeedback(Pc.vecDir.normalized);
+                    kb.PlayFeedback(Pc.VecDir.normalized);
                 }
                 Destroy(gameObject);
             }
