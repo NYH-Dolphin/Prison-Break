@@ -703,7 +703,7 @@ Transform:
   m_GameObject: {fileID: 402599619}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4521153, y: 0.32406718, z: -0.18064274, w: 0.8111353}
-  m_LocalPosition: {x: 10.67618, y: 15.445341, z: -5.0514436}
+  m_LocalPosition: {x: 10.676181, y: 15.445341, z: -5.0514445}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -791,7 +791,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: 40c63115c39a67a419996401b2fa5e3a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2663,7 +2663,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.6
+      value: -1.42
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
@@ -2673,7 +2673,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.55
+      value: -5.97
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
@@ -2718,7 +2718,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5957305563076275459, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
@@ -3240,7 +3240,7 @@ Transform:
   m_GameObject: {fileID: 1252490761}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4521153, y: 0.32406718, z: -0.18064274, w: 0.8111353}
-  m_LocalPosition: {x: 10.67618, y: 15.445341, z: -5.0514436}
+  m_LocalPosition: {x: 10.676181, y: 15.445341, z: -5.0514445}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3886,7 +3886,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c4ba8dc9c434c54a83483a280df9cae, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78703,8 +78703,8 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.2
-  m_DeadZoneHeight: 0.2
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
@@ -79780,7 +79780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2111690176
 Transform:
   m_ObjectHideFlags: 0

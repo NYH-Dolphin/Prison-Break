@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Enemy;
 using UnityEngine;
 
@@ -10,12 +11,13 @@ namespace Weapon
         [SerializeField] private float fSpeed = 60f;
         [SerializeField] private LayerMask lmGround;
 
-
+        private GameObject _objBoomerangEffect;
         private Vector3 _vecBoomerangDir;
         private bool _bLock;
         private bool _bBack;
         private float _fTimeElapsed;
         private bool _bHit;
+        
 
 
         public override void OnAttack()
@@ -23,6 +25,7 @@ namespace Weapon
             BoomerangBehaviour();
         }
 
+        
 
         private void Update()
         {
@@ -70,7 +73,6 @@ namespace Weapon
             StartCoroutine(BoomerangUpdateCor());
         }
 
-
         IEnumerator BoomerangUpdateCor()
         {
             while (true)
@@ -107,10 +109,10 @@ namespace Weapon
                 yield return null;
             }
 
-            OnBoomerangBack();
+            OnBoomerangEnd();
         }
 
-        private void OnBoomerangBack()
+        private void OnBoomerangEnd()
         {
             if (_bHit) IDurability -= 1;
 

@@ -20,7 +20,5 @@ public class FaceToCamera : MonoBehaviour
         rotation.y += offsety;
         rotation.x += offsetx;
         transform.rotation = Quaternion.Euler(rotation);
-
-
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
+using UnityEngine.Serialization;
 using Weapon.Effects;
 
 namespace Player
@@ -20,11 +21,12 @@ namespace Player
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private float fEnemyDetectionRange;
+        [SerializeField] private GameObject objHitBox;
 
         [Header("Holding Weapon")] [SerializeField]
         public Transform tHoldWeaponTransform;
 
-        [SerializeField] [Range(0, 1)] private float fHoldWeaponSacle;
+        [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
         [Header("Shiv Attack without Weapon")] [SerializeField]
         private float fShivTime;
@@ -39,7 +41,7 @@ namespace Player
         private GameObject objLobRange;
 
         private GameObject _objLobRangeSprite;
-        [SerializeField] private GameObject objHitBox;
+        [SerializeField] private GameObject objBoomerangWeaponEffect;
         [SerializeField] private float fDirLineLength;
 
         // private properties
@@ -82,13 +84,13 @@ namespace Player
 
         private void Start()
         {
-            OnCancelDrawWeaponDir();
-            OnDisableLobPosition();
+            DisableWeaponEffects();
         }
 
 
         private void Update()
         {
+            WeaponEffectUpdate();
             WeaponDetectionUpdate();
             EnemyDetectionUpdate();
         }
@@ -226,7 +228,7 @@ namespace Player
                 Vector3 pos = tHoldWeaponTransform.position;
                 _weaponEquipped.transform.position = pos;
                 _weaponEquipped.transform.parent = tHoldWeaponTransform;
-                _weaponEquipped.transform.localScale *= fHoldWeaponSacle;
+                _weaponEquipped.transform.localScale *= fHoldWeaponScale;
             }
         }
 
@@ -234,7 +236,7 @@ namespace Player
         {
             if (_weaponEquipped != null)
             {
-                _weaponEquipped.transform.localScale *= 1 / fHoldWeaponSacle;
+                _weaponEquipped.transform.localScale *= 1 / fHoldWeaponScale;
                 Vector3 dropDir = transform.GetComponent<PlayerController>().VecDir;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
@@ -243,6 +245,33 @@ namespace Player
 
         #endregion
 
+
+        #region WeaponEffect
+
+        private void WeaponEffectUpdate()
+        {
+            if (_weaponEquipped == null)
+            {
+                DisableWeaponEffects();
+            }
+            else
+            {
+                switch (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType)
+                {
+                    case AttackType.Boomerang:
+                        if(!objBoomerangWeaponEffect.activeSelf) objBoomerangWeaponEffect.SetActive(true);
+                        objBoomerangWeaponEffect.transform.position = _weaponEquipped.transform.position;
+                        break;
+                }
+            }
+        }
+
+        void DisableWeaponEffects()
+        {
+            OnCancelDrawWeaponDir();
+            OnDisableLobPosition();
+            OnDisableBoomerangWeaponEffect();
+        }
 
         #region WeaponDirectionEffect
 
@@ -262,7 +291,6 @@ namespace Player
         }
 
         #endregion
-
 
         #region LobRangeEffect
 
@@ -289,6 +317,17 @@ namespace Player
         {
             objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
         }
+
+        #endregion
+
+        #region BoomerangWeaponEffect
+
+        private void OnDisableBoomerangWeaponEffect()
+        {
+            objBoomerangWeaponEffect.SetActive(false);
+        }
+
+        #endregion
 
         #endregion
 
