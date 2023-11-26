@@ -9,25 +9,25 @@ using Weapon;
 [RequireComponent(typeof(Rigidbody), typeof(PlayerWeapon))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float fMovementSpeed = 10f;
-    [SerializeField] private float fJumpSpeed = 10f;
-    [SerializeField] private float fGroundCheckRadius = 0.3f;
+    [SerializeField] private float fMovementSpeed;
+    [SerializeField] private float fJumpSpeed;
+    [SerializeField] private float fGroundCheckRadius;
     [SerializeField] private LayerMask lmGroundLayer;
     [SerializeField] private Animator animator;
 
-    public Vector3 vecDir => _vecDir;
+    public Vector3 VecDir { get; private set; } = new(0, 0, 1);
 
     private Rigidbody _rb;
     private PlayerWeapon _pw;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
-    private Vector3 _vecDir = new Vector3(0, 0, 1); // player facing direction
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
-    public bool zipping = false;
-    public float zipAngle;
-    public Vector3 nearEnemy;
-    private float zipTime = 0f;
+    
+    // public bool zipping = false;
+    // public float zipAngle;
+    // public Vector3 nearEnemy;
+    // private float zipTime = 0f;
 
 
     private void Awake()
@@ -73,11 +73,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if(!zipping)
-            MovementUpdate();
-        //else
-        //    ZipMove(nearEnemy);
-
+        MovementUpdate();
     }
 
 
@@ -99,6 +95,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case AttackType.Thrust:
                 animator.SetTrigger("Thrust");
+                break;
+            case AttackType.Boomerang:
+                animator.SetTrigger("Boomerang");
                 break;
         }
     }
@@ -129,7 +128,7 @@ public class PlayerController : MonoBehaviour
         vecRight = vecRight.normalized;
         Vector3 vecIsoMove = vecRight * inputMove.x + vecFront * inputMove.y;
         _vecMove = vecIsoMove.normalized;
-        _vecDir = _vecMove;
+        VecDir = _vecMove;
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext value)
@@ -145,12 +144,6 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = moveVelocity;
     }
 
-    public void Zip(GameObject en)
-    {
-        Vector3 dir = (this.transform.position - en.transform.position).normalized;
-        ZipMove(en.transform.position);
-        
-    }
 
     #endregion
 
@@ -192,22 +185,29 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    void ZipMove(Vector3 enemy)
-    {
-        zipping = true;
-        Vector3 yLessPos = transform.position;
-        yLessPos.y = 0;
-        Vector3 yLessEn = enemy;
-        yLessEn.y = 0;
-        float dis = Vector3.Distance(yLessPos, yLessEn);
-        Debug.Log(dis);
-        if(dis <=0.3f)
-        {
-            zipping = false;
-        }
-        transform.position = Vector3.Lerp(transform.position, enemy, .1f * dis);
-        
-    }
+    
+    // public void Zip(GameObject en)
+    // {
+    //     Vector3 dir = (this.transform.position - en.transform.position).normalized;
+    //     ZipMove(en.transform.position);
+    // }
+
+    // void ZipMove(Vector3 enemy)
+    // {
+    //     zipping = true;
+    //     Vector3 yLessPos = transform.position;
+    //     yLessPos.y = 0;
+    //     Vector3 yLessEn = enemy;
+    //     yLessEn.y = 0;
+    //     float dis = Vector3.Distance(yLessPos, yLessEn);
+    //     Debug.Log(dis);
+    //     if (dis <= 0.3f)
+    //     {
+    //         zipping = false;
+    //     }
+    //
+    //     transform.position = Vector3.Lerp(transform.position, enemy, .1f * dis);
+    // }
 
 
     private void OnDrawGizmosSelected()
@@ -215,6 +215,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
-
-    
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
+using Weapon.Effects;
 
 namespace Player
 {
@@ -25,11 +26,12 @@ namespace Player
         [SerializeField] [Range(0, 1)] private float fHoldWeaponSacle;
         
         [Header("Shiv Attack without Weapon")]
-        [SerializeField] private float fShivTime = 0.5f;
+        [SerializeField] private float fShivTime;
         private bool _bShivAttack;
         
         [Header("Weapon Attack Effects")]
         [SerializeField] private GameObject objLobRange;
+        private GameObject _objLobRangeSprite;
         [SerializeField] private GameObject objHitBox;
         [SerializeField] private float fDirLineLength;
         
@@ -47,6 +49,7 @@ namespace Player
         {
             _lrDir = GetComponent<LineRenderer>();
             _pc = GetComponent<PlayerController>();
+            _objLobRangeSprite = objLobRange.transform.GetChild(0).gameObject;
         }
 
 
@@ -232,7 +235,7 @@ namespace Player
             if (_weaponEquipped != null)
             {
                 _weaponEquipped.transform.localScale *= 1 / fHoldWeaponSacle;
-                Vector3 dropDir = transform.GetComponent<PlayerController>().vecDir;
+                Vector3 dropDir = transform.GetComponent<PlayerController>().VecDir;
                 _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 _weaponEquipped = null;
             }
@@ -256,15 +259,21 @@ namespace Player
 
         public void OnDisableLobPosition()
         {
-            objLobRange.SetActive(false);
+            _objLobRangeSprite.SetActive(false);
         }
 
         public void OnDrawLobPosition(Vector3 position)
         {
-            objLobRange.SetActive(true);
+            _objLobRangeSprite.SetActive(true);
             Vector3 pos = position;
             pos.y += 0.1f;
             objLobRange.transform.position = pos;
+        }
+
+
+        public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
+        {
+            return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
         }
 
         #endregion
@@ -346,7 +355,7 @@ namespace Player
                 {
                     if (other != null)
                     {
-                        other.GetComponent<Knockback>().PlayFeedback(_pc.vecDir.normalized);
+                        other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
                         if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                             other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                         else

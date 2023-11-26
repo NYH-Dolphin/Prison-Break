@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
 
@@ -12,14 +13,15 @@ namespace Weapon
         [SerializeField] private LayerMask lmGround;
         [SerializeField] private float arcHeight;
 
-        private Vector3 _vecHitPos;
+        private Vector3 _hitPos;
         private bool _bLock;
+        private HashSet<GameObject> _setLobEnemies = new();
         
-        Vector3 _startPosition;
-        Vector3 _targetPosition;
-        Vector3 _midPosition;
+        private Vector3 _startPosition;
+        private Vector3 _targetPosition;
+        private Vector3 _midPosition;
 
-        public float radius;
+        
 
 
         public override void OnAttack()
@@ -46,18 +48,47 @@ namespace Weapon
                             // draw the lob position with a specific range
                             if ((hitGround - objPos).magnitude < fMaxDistance)
                             {
-                                _vecHitPos = hitGround;
+                                _hitPos = hitGround;
                                 Pw.OnDrawLobPosition(hitGround);
                             }
                             else
                             {
                                 Vector3 dir = Vector3.Normalize(hitGround - objPos);
                                 Vector3 maxPos = objPos + dir * fMaxDistance;
-                                _vecHitPos = maxPos;
+                                _hitPos = maxPos;
                                 Pw.OnDrawLobPosition(maxPos);
                             }
                         }
                     }
+                }
+                else
+                {
+                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();;
+                    foreach (var enemies in largeRangeEnemies)
+                    {
+                        if (!_setLobEnemies.Contains(enemies))
+                        {
+                            _setLobEnemies.Add(enemies);
+                            enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                        }
+                    }
+                    
+                    foreach (var enemies in smallRangeEnemies)
+                    {
+                        if (!_setLobEnemies.Contains(enemies))
+                        {
+                            _setLobEnemies.Add(enemies);
+                            if (weaponInfo.eSharpness == Sharpness.Blunt)
+                            {
+                                enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                            }
+                            else
+                            {
+                                enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                            }
+                        }
+                    }
+                    Debug.Log(largeRangeEnemies.Length + smallRangeEnemies.Length);
                 }
             }
         }
@@ -66,27 +97,15 @@ namespace Weapon
         {
             bAttack = true;
             Coll.enabled = false;
-            //Coll.enabled = true;
             AudioControl.Instance.PlayLob();
             Pw.OnDisableLobPosition();
             _bLock = true;
+            _setLobEnemies.Clear();
 
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
             _startPosition = transform.position;
-            _targetPosition = _vecHitPos;
-
-            Collider[] enemiesInsideArea = Physics.OverlapSphere(_targetPosition, radius);
-            foreach (var col in enemiesInsideArea)
-            {
-                if (col.gameObject.tag == "Enemy") {
-                    _targetPosition = col.gameObject.transform.position;
-                    _targetPosition.y += 1f;
-                    Coll.enabled = true;
-                    break;
-                }
-            }
-
+            _targetPosition = _hitPos;
             _midPosition = (_startPosition + _targetPosition) / 2.0f;
             _midPosition.y += arcHeight;
             path[0] = _startPosition;
@@ -100,8 +119,6 @@ namespace Weapon
             iTween.MoveTo(gameObject, args);
             StartCoroutine(DestroyCountDown(fTime)); // Start this countdown in case weapon doesn't hit the enemy
         }
-
-
 
         IEnumerator DestroyCountDown(float time)
         {
@@ -138,25 +155,26 @@ namespace Weapon
 
         private void OnTriggerEnter(Collider other)
         {
-            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                if(weaponInfo.eSharpness == Sharpness.Blunt)
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                else
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
-            }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
-                     Rb.velocity != Vector3.zero)
+            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
+                Rb.velocity != Vector3.zero)
             {
                 if (_bLock)
                 {
+                    _bLock = false;
+                    
                     IDurability -= 1;
                     if (IDurability == 0)
                     {
                         Destroy(gameObject);
                     }
 
-                    _bLock = false;
+                    if (IDurability > 0)
+                    {
+                        bAttack = false;
+                        iTween.Stop();
+                        Rb.constraints = RigidbodyConstraints.FreezeAll;
+                        gameObject.transform.position = Pw.tHoldWeaponTransform.position;
+                    }
                 }
             }
         }
