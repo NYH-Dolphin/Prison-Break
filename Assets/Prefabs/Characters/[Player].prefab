@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 1367990922438294675}
   - component: {fileID: 2103403074783473378}
   - component: {fileID: 4220849116802496870}
+  - component: {fileID: 296844362591662393}
   m_Layer: 7
   m_Name: '[Player]'
   m_TagString: Player
@@ -536,15 +537,14 @@ MonoBehaviour:
     m_Bits: 256
   fWeaponGrabRange: 3
   fEnemyDetectionRange: 12
+  objHitBox: {fileID: 3763116188017213914}
   tHoldWeaponTransform: {fileID: 8683192385905444498}
-  fHoldWeaponSacle: 0.6
+  fHoldWeaponScale: 0.4
   fShivTime: 0.5
   fSprintDetectionRange: 8
   fSprintDistance: 3
   fSprintTime: 0.05
   objLobRange: {fileID: 1286391602236039000}
-  objBoomerangWeaponEffect: {fileID: 7815747683764725483}
-  objHitBox: {fileID: 3763116188017213914}
   fDirLineLength: 20
 --- !u!114 &2103403074783473378
 MonoBehaviour:
@@ -662,6 +662,21 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &296844362591662393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7192035207904120976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4426f3ed82b14fd9bb30fcca55d39b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objBoomerangWeaponEffect: {fileID: 7815747683764725483}
+  objLobWeaponEffectPrefab: {fileID: 100008, guid: 9b0349c78c5e2f34f97117959cc1beae,
+    type: 3}
 --- !u!1 &8150126405346370112
 GameObject:
   m_ObjectHideFlags: 0

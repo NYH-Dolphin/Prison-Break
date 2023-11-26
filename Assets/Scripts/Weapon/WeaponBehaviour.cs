@@ -73,7 +73,9 @@ namespace Weapon
             Pc = null;
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
-            Rb.constraints = RigidbodyConstraints.None;
+            Rb.constraints = RigidbodyConstraints.FreezeRotation;
+            Rb.drag = 1f;
+            Rb.angularDrag = 0.05f;
         }
 
 

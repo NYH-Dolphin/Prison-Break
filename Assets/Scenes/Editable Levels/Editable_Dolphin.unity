@@ -791,7 +791,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: 40c63115c39a67a419996401b2fa5e3a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2663,7 +2663,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -5.92
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
@@ -2673,7 +2673,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.97
+      value: 0.78
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: 4569a3498efa5c24197f65636df921a1,
         type: 3}
@@ -2976,7 +2976,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: 472781d20ca9398489507615464432dd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3144,7 +3144,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: 360dd178e8f1e4e42a00ebe4936958f3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79705,7 +79705,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7672394465991862977, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
@@ -79809,7 +79809,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.94
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
@@ -79819,7 +79819,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.22
+      value: -1.04
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
@@ -79864,7 +79864,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79891,6 +79891,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1286391602236039000, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1367990922438294675, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: startCool
@@ -79956,10 +79961,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6165757588850891907, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7192035207904120976, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: m_Name
       value: '[Player]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7815747683764725483, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8941831765425694239, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
@@ -79982,6 +79997,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1252490764}
   - {fileID: 1653845540}
+  - {fileID: 402599621}
   - {fileID: 6078512249154466041}
   - {fileID: 2108716387}
   - {fileID: 704651285}
@@ -79991,4 +80007,3 @@ SceneRoots:
   - {fileID: 1102575119}
   - {fileID: 1842985868}
   - {fileID: 463552132}
-  - {fileID: 402599621}

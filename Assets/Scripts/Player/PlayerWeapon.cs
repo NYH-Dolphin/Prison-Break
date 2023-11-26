@@ -41,14 +41,14 @@ namespace Player
         private GameObject objLobRange;
 
         private GameObject _objLobRangeSprite;
-        [SerializeField] private GameObject objBoomerangWeaponEffect;
         [SerializeField] private float fDirLineLength;
 
         // private properties
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
-        private GameObject _weaponEquipped;
+        public GameObject WeaponEquipped { get; private set; }
+
         private InputControls _inputs;
         private PlayerController _pc;
 
@@ -127,8 +127,8 @@ namespace Player
         private void WeaponDetectionUpdate()
         {
             // when player is holding the weapon and the weapon is on attack, can not detect the weapon
-            bool detected = _weaponEquipped == null ||
-                            (_weaponEquipped != null && !_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack);
+            bool detected = WeaponEquipped == null ||
+                            (WeaponEquipped != null && !WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack);
 
             Collider[] hitColliders = null;
             if (detected) hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmWeapon);
@@ -178,7 +178,7 @@ namespace Player
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
             // Can not switch weapon during the attack phase
-            if (_weaponEquipped != null && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
+            if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
             OnSwitchWeapon();
         }
 
@@ -186,7 +186,7 @@ namespace Player
         {
             if (_weaponSelected != null)
             {
-                if (_weaponEquipped != null)
+                if (WeaponEquipped != null)
                 {
                     FusionCheck();
                     OnDropWeapon();
@@ -196,7 +196,7 @@ namespace Player
             }
             else
             {
-                if (_weaponEquipped != null)
+                if (WeaponEquipped != null)
                 {
                     OnDropWeapon();
                 }
@@ -205,15 +205,15 @@ namespace Player
 
         private void FusionCheck()
         {
-            WeaponInfo weaponEquippedInfo = _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
+            WeaponInfo weaponEquippedInfo = WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
             // use a basic weapon
             if (!weaponEquippedInfo.bFused)
             {
-                GameObject fusedWeapon = FusionSystem.Instance.GetFusionWeapon(_weaponEquipped, _weaponSelected);
+                GameObject fusedWeapon = FusionSystem.Instance.GetFusionWeapon(WeaponEquipped, _weaponSelected);
                 if (fusedWeapon != null)
                 {
                     Destroy(_weaponSelected);
-                    Destroy(_weaponEquipped);
+                    Destroy(WeaponEquipped);
                     _weaponSelected = fusedWeapon;
                 }
             }
@@ -223,23 +223,23 @@ namespace Player
         {
             if (_weaponSelected != null)
             {
-                _weaponEquipped = _weaponSelected;
-                _weaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
+                WeaponEquipped = _weaponSelected;
+                WeaponEquipped.GetComponent<WeaponBehaviour>().OnHold(this);
                 Vector3 pos = tHoldWeaponTransform.position;
-                _weaponEquipped.transform.position = pos;
-                _weaponEquipped.transform.parent = tHoldWeaponTransform;
-                _weaponEquipped.transform.localScale *= fHoldWeaponScale;
+                WeaponEquipped.transform.position = pos;
+                WeaponEquipped.transform.parent = tHoldWeaponTransform;
+                WeaponEquipped.transform.localScale *= fHoldWeaponScale;
             }
         }
 
         private void OnDropWeapon()
         {
-            if (_weaponEquipped != null)
+            if (WeaponEquipped != null)
             {
-                _weaponEquipped.transform.localScale *= 1 / fHoldWeaponScale;
+                WeaponEquipped.transform.localScale *= 1 / fHoldWeaponScale;
                 Vector3 dropDir = transform.GetComponent<PlayerController>().VecDir;
-                _weaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
-                _weaponEquipped = null;
+                WeaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
+                WeaponEquipped = null;
             }
         }
 
@@ -247,22 +247,13 @@ namespace Player
 
 
         #region WeaponEffect
-
+        
+        
         private void WeaponEffectUpdate()
         {
-            if (_weaponEquipped == null)
+            if (WeaponEquipped == null)
             {
                 DisableWeaponEffects();
-            }
-            else
-            {
-                switch (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eAttackType)
-                {
-                    case AttackType.Boomerang:
-                        if(!objBoomerangWeaponEffect.activeSelf) objBoomerangWeaponEffect.SetActive(true);
-                        objBoomerangWeaponEffect.transform.position = _weaponEquipped.transform.position;
-                        break;
-                }
             }
         }
 
@@ -270,7 +261,6 @@ namespace Player
         {
             OnCancelDrawWeaponDir();
             OnDisableLobPosition();
-            OnDisableBoomerangWeaponEffect();
         }
 
         #region WeaponDirectionEffect
@@ -319,15 +309,7 @@ namespace Player
         }
 
         #endregion
-
-        #region BoomerangWeaponEffect
-
-        private void OnDisableBoomerangWeaponEffect()
-        {
-            objBoomerangWeaponEffect.SetActive(false);
-        }
-
-        #endregion
+        
 
         #endregion
 
@@ -336,11 +318,11 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            if (_weaponEquipped != null)
+            if (WeaponEquipped != null)
             {
-                if (!_weaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
+                if (!WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
                 {
-                    _weaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
+                    WeaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
             }
             else
@@ -358,8 +340,8 @@ namespace Player
         {
             if (_enemyDetected != null)
             {
-                if (_weaponEquipped == null ||
-                    _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+                if (WeaponEquipped == null ||
+                    WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
                 {
                     Vector3 playerPos = transform.position;
                     Vector3 enemyPos = _enemyDetected.transform.position;
@@ -420,23 +402,23 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            bool detected = _weaponEquipped != null
-                            && _weaponEquipped.GetComponent<WeaponBehaviour>().bAttack
-                            && _weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
+            bool detected = WeaponEquipped != null
+                            && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
+                            && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
             if (detected && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
-                if (_weaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                 else
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
 
-                if (_weaponEquipped) _weaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+                if (WeaponEquipped) WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
             }
             else
             {
                 if (objHitBox.GetComponent<Collider>().enabled &&
-                    other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _weaponEquipped == null)
+                    other.gameObject.layer == LayerMask.NameToLayer("Enemy") && WeaponEquipped == null)
                 {
                     if (other != null)
                     {
