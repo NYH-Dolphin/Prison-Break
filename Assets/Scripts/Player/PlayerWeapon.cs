@@ -25,7 +25,7 @@ namespace Player
         [SerializeField] [Range(0, 1)] private float fHoldWeaponSacle;
         
         [Header("Shiv Attack without Weapon")]
-        [SerializeField] private float fShivTime = 1f;
+        [SerializeField] private float fShivTime = 0.5f;
         private bool _bShivAttack;
         
         [Header("Weapon Attack Effects")]
