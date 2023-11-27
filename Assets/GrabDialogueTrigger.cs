@@ -7,7 +7,7 @@ public class GrabDialogueTrigger : MonoBehaviour
     public Message[] messages;
     public Actor[] actors;
     private bool pauseDone = false;
-    private bool first;
+    private bool first = true;
 
     public void StartDialogue()
     {

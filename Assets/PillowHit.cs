@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class PillowHit : MonoBehaviour
 {
-    public DialogueTrigger trigger;
+    public Message[] messages;
+    public Actor[] actors;
+    private bool pauseDone = false;
     private bool enter = true;
+
+    public void StartDialogue()
+    {
+        FindObjectOfType<DialogueManager>().OpenDialogue(messages,actors);
+    }
 
     void Update()
     {
         if(this.transform.parent.tag == "Player" && enter)
         {
-            trigger.StartDialogue();
+            StartDialogue();
             enter = false;
         }
     }
 
-    // void OnTriggerEnter(Collider col)
-    // {
-    //     if(col.tag == "Breakable");
-    //         Destroy(gameObject);
-    // }
 }
+

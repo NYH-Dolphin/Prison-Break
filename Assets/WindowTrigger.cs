@@ -21,24 +21,10 @@ public class WindowTrigger : MonoBehaviour
         if(col.tag == "Player" && first)
         {
             StartDialogue();
-            StartCoroutine(ShortPause(col.gameObject.GetComponent<PlayerController>()));
             collider.enabled = false;
             this.GetComponent<SpriteRenderer>().sprite = sprite;
             first = false;
         }
 
-    }
-
-    void Update()
-    {
-        if(this.tag == "Tutorial" && pauseDone) Destroy(gameObject);
-    }
-
-    private IEnumerator ShortPause(PlayerController pc)
-    {
-        pc.enabled = false;
-        yield return new WaitForSeconds(1.5f);
-        pauseDone = true;
-        pc.enabled = true;
     }
 }
