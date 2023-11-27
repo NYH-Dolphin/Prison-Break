@@ -68,7 +68,7 @@ namespace Weapon
                 }
                 else
                 {
-                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();;
+                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
                     foreach (var enemies in largeRangeEnemies)
                     {
                         if (!_setLobEnemies.Contains(enemies))
