@@ -968,7 +968,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c4ba8dc9c434c54a83483a280df9cae, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6952,7 +6952,7 @@ MonoBehaviour:
   m_Follow: {fileID: 653892010}
   m_Lens:
     FieldOfView: 60.000004
-    OrthographicSize: 17.49
+    OrthographicSize: 10.96
     NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
@@ -7457,7 +7457,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c4ba8dc9c434c54a83483a280df9cae, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22037,7 +22037,7 @@ Camera:
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 17.49
+  orthographic size: 10.96
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -25297,6 +25297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9067ae221a7444cc850741055c9f87b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  csvFusionWeaponList: {fileID: 0}
+  csvFusionPairList: {fileID: 0}
+  baseWeaponTypePrefabs: []
   pairs:
   - rangeWeapon: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
       type: 3}
