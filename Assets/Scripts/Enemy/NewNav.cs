@@ -40,6 +40,7 @@ public class NewNav : MonoBehaviour
         first = true;
         enBe = this.GetComponent<EnemyBehaviour>();
         SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
+        player = GameObject.Find("[Player]").transform;
     }
 
 
@@ -71,22 +72,25 @@ public class NewNav : MonoBehaviour
 
     void EnvironmentView()
     {
-        Collider[] playersInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
+        Collider[] inRange = Physics.OverlapSphere(transform.position, viewRadius); //NEEDS TO BE CHANGED
         
-        for(int i = 0; i < playersInRange.Length; i++)
+        for(int i = 0; i < inRange.Length; i++)
         {
-            player = playersInRange[i].transform;
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float dstToPlayer = Vector3.Distance(transform.position, player.position);
-
-            if(!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
+            if(inRange[i].gameObject.name.Equals("[Player]"))
             {
-                if(first && !unconscious)
+                Vector3 dirToPlayer = (player.position - transform.position).normalized;
+                float dstToPlayer = Vector3.Distance(transform.position, player.position);
+
+                if(!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
                 {
-                    StartCoroutine(Surprised());
-                    first = false;
+                    if(first && !unconscious)
+                    {
+                        StartCoroutine(Surprised());
+                        first = false;
+                    }
                 }
             }
+            
         }
         if(player != null){
             if(Vector3.Distance(player.transform.position, this.transform.position) > viewRadius * 4f)
@@ -101,7 +105,7 @@ public class NewNav : MonoBehaviour
         chasing = true;
         agent.isStopped = false;
         agent.speed = speedRun;
-        agent.SetDestination(player.transform.position);
+        if(player != null) agent.SetDestination(player.transform.position);
     }
 
 

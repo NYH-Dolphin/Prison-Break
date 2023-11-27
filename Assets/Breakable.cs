@@ -5,6 +5,7 @@ using UnityEngine;
 public class Breakable : MonoBehaviour
 {
     private AudioControl SFX;
+    private GameObject player;
     private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
     protected Material Mat;
     protected SpriteRenderer Sr;
@@ -23,6 +24,7 @@ public class Breakable : MonoBehaviour
     void Start()
     {
         SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
+        player = GameObject.Find("[Player]");
     }
 
     // Update is called once per frame
@@ -47,11 +49,10 @@ public class Breakable : MonoBehaviour
     public void OnHit()
     {
         SFX.PlayHit();
-        Debug.Log("breaking");
         for(int i = 0; i < componentNumber; i++)
         {
-            Vector3 instPos = transform.position;
-            instPos.x += Random.Range(-5.0f, 5.0f);
+            Vector3 instPos = player.transform.position;
+            instPos.x += Random.Range(-2.5f, 2.5f);
             instPos.y = 1.45f;
             foreach(GameObject ins in componentItems)
                 Instantiate(ins, instPos, transform.rotation);
@@ -65,7 +66,6 @@ public class Breakable : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player") &&  GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
         {
-            Debug.Log("here");
             OnHit();
         }
             
