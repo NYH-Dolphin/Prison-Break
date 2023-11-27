@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enemy;
+using Player;
 using UnityEngine;
 
 namespace Weapon
@@ -20,8 +21,7 @@ namespace Weapon
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
         private Vector3 _midPosition;
-
-        
+        private PlayerWeaponEffect _effect;
 
 
         public override void OnAttack()
@@ -34,6 +34,9 @@ namespace Weapon
         {
             if (Pw != null)
             {
+                // TODO Development only
+                Pw.DevShowLobRange();
+                
                 if (!bAttack)
                 {
                     if (Camera.main != null)
@@ -49,6 +52,7 @@ namespace Weapon
                             if ((hitGround - objPos).magnitude < fMaxDistance)
                             {
                                 _hitPos = hitGround;
+                                _hitPos.y = 0.01f;
                                 Pw.OnDrawLobPosition(hitGround);
                             }
                             else
@@ -56,6 +60,7 @@ namespace Weapon
                                 Vector3 dir = Vector3.Normalize(hitGround - objPos);
                                 Vector3 maxPos = objPos + dir * fMaxDistance;
                                 _hitPos = maxPos;
+                                _hitPos.y = 0.01f;
                                 Pw.OnDrawLobPosition(maxPos);
                             }
                         }
@@ -63,7 +68,7 @@ namespace Weapon
                 }
                 else
                 {
-                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();;
+                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
                     foreach (var enemies in largeRangeEnemies)
                     {
                         if (!_setLobEnemies.Contains(enemies))
@@ -88,9 +93,13 @@ namespace Weapon
                             }
                         }
                     }
-                    Debug.Log(largeRangeEnemies.Length + smallRangeEnemies.Length);
                 }
             }
+        }
+
+        public void RegisterPlayerWeaponEffect(PlayerWeaponEffect effect)
+        {
+            if (_effect == null) _effect = effect;
         }
 
         private void LobBehaviour()
@@ -101,7 +110,7 @@ namespace Weapon
             Pw.OnDisableLobPosition();
             _bLock = true;
             _setLobEnemies.Clear();
-
+            
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
             _startPosition = transform.position;
@@ -123,7 +132,13 @@ namespace Weapon
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time - 0.2f);
-
+            
+            // Play the effect in the end, a little before the death calculation
+            _effect.PlayLobEffect(this, _targetPosition);
+            
+            yield return new WaitForSeconds(0.1f);
+            
+            
             if (_bLock)
             {
                 _bLock = false;
