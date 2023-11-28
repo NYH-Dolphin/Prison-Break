@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2966bc23df48a69421c67c8e7fb9ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fLargeRadius: 4
-  fSmallRadius: 1.5
+  fLargeRadius: 5.5
+  fSmallRadius: 0.7
   lmEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -109,7 +109,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.010000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6391531620045852948}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -539,9 +539,9 @@ MonoBehaviour:
   fEnemyDetectionRange: 12
   objHitBox: {fileID: 3763116188017213914}
   tHoldWeaponTransform: {fileID: 8683192385905444498}
-  fHoldWeaponScale: 0.4
+  fHoldWeaponScale: 0.626
   fShivTime: 0.5
-  fSprintDetectionRange: 8
+  fSprintDetectionRange: 1
   fSprintDistance: 3
   fSprintTime: 0.05
   objLobRange: {fileID: 1286391602236039000}

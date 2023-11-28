@@ -19,7 +19,7 @@ public class DialogueTrigger : MonoBehaviour
         if(col.tag == "Player" && first)
         {
             StartDialogue();
-            StartCoroutine(ShortPause(col.gameObject.GetComponent<PlayerController>()));
+            //StartCoroutine(ShortPause(col.gameObject.GetComponent<PlayerController>()));
             first = false;
         }
 

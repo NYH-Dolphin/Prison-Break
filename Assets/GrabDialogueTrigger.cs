@@ -21,18 +21,10 @@ public class GrabDialogueTrigger : MonoBehaviour
             if(this.transform.parent.tag == "Player" && first)
             {
                 StartDialogue();
-                StartCoroutine(ShortPause(GameObject.Find("[Player]").GetComponent<PlayerController>()));
+                //StartCoroutine(ShortPause(GameObject.Find("[Player]").GetComponent<PlayerController>()));
                 first = false;
             }
         }
         
-    }
-
-    private IEnumerator ShortPause(PlayerController pc)
-    {
-        pc.enabled = false;
-        yield return new WaitForSeconds(0.5f);
-        pauseDone = true;
-        pc.enabled = true;
     }
 }

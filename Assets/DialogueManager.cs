@@ -16,12 +16,14 @@ public class DialogueManager : MonoBehaviour
     Message[] currentMessages;
     Actor[] currentActors;
     int activeMessage = 0;
+    private PlayerController pc;
 
     public static bool isActive = false;
 
     void Start()
     {
         backgroundBox.transform.localScale = Vector3.zero;
+        pc = GameObject.Find("[Player]").gameObject.GetComponent<PlayerController>();
     }
 
     public void OpenDialogue(Message[] messages, Actor[] actors)
@@ -32,6 +34,7 @@ public class DialogueManager : MonoBehaviour
         isActive = true;
         DisplayMessage();
         backgroundBox.LeanScale(Vector3.one,0.25f);
+        pc.enabled = false;
     }
 
     public void NextMessage()
@@ -45,6 +48,7 @@ public class DialogueManager : MonoBehaviour
         {
             backgroundBox.LeanScale(Vector3.zero, 0.25f);
             isActive = false;
+            pc.enabled = true;
         }
             
     }
