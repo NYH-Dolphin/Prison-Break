@@ -4,6 +4,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerWeapon))]
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _vecMove = Vector3.zero; // player movement direction
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
-    
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();

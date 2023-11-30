@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3290171322767483622}
   m_Layer: 9
   m_Name: DeadGuard
-  m_TagString: Enemy
+  m_TagString: obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4353021958716883362}
   m_Layer: 9
   m_Name: Guard_Sprites
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,3 +201,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsety: 0
+  offsetx: 0
