@@ -60,6 +60,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             ThrowBehaviour(_vecThrowDir);
         }
 

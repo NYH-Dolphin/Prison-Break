@@ -26,6 +26,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             LobBehaviour();
         }
 
@@ -35,7 +36,7 @@ namespace Weapon
             if (Pw != null)
             {
                 // TODO Development only
-                Pw.DevShowLobRange();
+                // Pw.DevShowLobRange();
                 
                 if (!bAttack)
                 {

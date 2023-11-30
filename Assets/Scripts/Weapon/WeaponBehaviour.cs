@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Weapon
@@ -7,22 +8,21 @@ namespace Weapon
     public class WeaponBehaviour : MonoBehaviour
     {
         public WeaponInfo weaponInfo;
+        protected int IDurability;
+        private readonly float _fDropForce = 3f;
+        
+        // basic components
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
-        protected Material Mat; // require material "2d Sprite Glow"
-        [HideInInspector] public bool bAttack;
+        protected Material Mat;
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
         protected Collider Coll;
-        protected int IDurability;
-
-
+        
+        [HideInInspector] public bool bAttack; // whether the weapon is under attack
+        public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-
-        // TODO will be modified later by each weapon's behaviour
-        private float _fDropForce = 3f;
-
-
+        
         private void Awake()
         {
             if (weaponInfo == null)
@@ -36,6 +36,7 @@ namespace Weapon
             Rb = GetComponent<Rigidbody>();
             Coll = GetComponent<Collider>();
             Mat = Sr.material;
+            setEnemyAttacked = new();
             OnNotSelected();
         }
 
@@ -95,6 +96,7 @@ namespace Weapon
 
         public virtual void OnAttack()
         {
+            setEnemyAttacked.Clear();
         }
 
 
