@@ -59,13 +59,8 @@ namespace Weapon
         {
             Pw = pw;
             Pc = pw.gameObject.GetComponent<PlayerController>();
-            
-            // detect player
             Coll.isTrigger = true;
-            
-            
             gameObject.layer = LayerMask.NameToLayer("Player");
-            
             OnNotSelected();
             Rb.constraints = RigidbodyConstraints.FreezeAll;
         }
@@ -77,10 +72,8 @@ namespace Weapon
         {
             Pw = null;
             Pc = null;
-            
             // ignore player collision when drop
             Coll.isTrigger = false;
-            
             gameObject.layer = LayerMask.NameToLayer("Weapon");
             transform.parent = GameObject.Find("[Weapon]").transform;
             Rb.constraints = RigidbodyConstraints.FreezeRotation;
