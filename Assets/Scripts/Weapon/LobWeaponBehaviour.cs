@@ -11,7 +11,6 @@ namespace Weapon
         // maximum distance between the player and the enemy, so the lob weapon will tracking the enemy's position
         [SerializeField] private float fMaxDistance = 10f;
         [SerializeField] private float fTime = 0.5f; // Lobbing time
-        [SerializeField] private LayerMask lmGround;
         [SerializeField] private float arcHeight;
 
         private Vector3 _hitPos;

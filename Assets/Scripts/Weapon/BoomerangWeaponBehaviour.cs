@@ -9,7 +9,6 @@ namespace Weapon
     {
         [SerializeField] private float fTime = 0.5f;
         [SerializeField] private float fSpeed = 60f;
-        [SerializeField] private LayerMask lmGround;
 
         private GameObject _objBoomerangEffect;
         private Vector3 _vecBoomerangDir;

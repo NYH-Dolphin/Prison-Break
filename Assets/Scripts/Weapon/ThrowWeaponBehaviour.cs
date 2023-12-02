@@ -8,7 +8,6 @@ namespace Weapon
     {
         [SerializeField] private float fThrowForce = 20f;
         [SerializeField] private float fThrowTime = 1f;
-        [SerializeField] private LayerMask lmGround;
 
         private Vector3 _vecThrowDir;
         private bool _bLock;

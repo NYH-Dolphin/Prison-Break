@@ -312,6 +312,7 @@ namespace Player
             _bShivAttack = true;
             AudioControl.Instance.PlaySwing(); //TODO change to shiv
             animator.SetTrigger("Swing"); //TODO change to shiv
+            _pc.SetPlayerAttackPosition();
             StartCoroutine(ShivCountdown(fShivTime));
         }
 

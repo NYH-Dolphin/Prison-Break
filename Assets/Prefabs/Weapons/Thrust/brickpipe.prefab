@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2438754630307028216}
   - component: {fileID: 7773926056730166994}
   - component: {fileID: -852032227818585313}
-  - component: {fileID: 1354555469845191205}
   m_Layer: 6
   m_Name: brickpipe
   m_TagString: Untagged
@@ -164,31 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponInfo: {fileID: 11400000, guid: 1cb67df8f7c658c449d87806c0841bd4, type: 2}
+  lmGround:
+    serializedVersion: 2
+    m_Bits: 8
   bAttack: 0
   fThrustTime: 0.5
---- !u!114 &1354555469845191205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5553995303318409865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1eaccb2b57d23c4884c5c753b503b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messages:
-  - actorID: 0
-    message: Hmm...
-  - actorID: 0
-    message: Yeah, that'll work
-  - actorID: 1
-    message: Ranged and melee weapons can be fused together
-  - actorID: 1
-    message: fused items have more durability and can change weapon behavior
-  actors:
-  - name: Player
-    sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
-  - name: Guide
-    sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
