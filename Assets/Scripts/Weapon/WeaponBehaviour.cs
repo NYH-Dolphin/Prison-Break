@@ -19,7 +19,7 @@ namespace Weapon
         protected Collider Coll;
         protected int IDurability;
         [SerializeField] protected LayerMask lmGround;
-        
+
         [HideInInspector] public bool bAttack;
         [HideInInspector] public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
@@ -101,11 +101,11 @@ namespace Weapon
 
         public virtual void OnAttack()
         {
-            setEnemyAttacked.Clear();
+            setEnemyAttacked = new();
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
             Pc.SetPlayerAttackPosition();
         }
-        
+
 
         public void OnUseMeleeWeapon()
         {

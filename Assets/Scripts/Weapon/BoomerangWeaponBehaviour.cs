@@ -70,6 +70,7 @@ namespace Weapon
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
+            AudioControl.Instance.PlayThrow();
             StartCoroutine(BoomerangUpdateCor());
         }
 

@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Vector3 pos = transform.position;
+        pos.y = 0.01f;
+        transform.position = pos;
         GroundDetectUpdate();
     }
 

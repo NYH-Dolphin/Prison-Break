@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 using Weapon.Effects;
 
 namespace Player
@@ -23,16 +24,17 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private GameObject objHitBox;
 
-        [Header("Holding Weapon")] 
-        [SerializeField] public Transform tHoldWeaponTransform;
+        [Header("Holding Weapon")] [SerializeField]
+        public Transform tHoldWeaponTransform;
+
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [Header("Shiv Attack without Weapon")] 
-        [SerializeField] private float fShivTime;
-        private bool _bShivAttack;
+        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] [SerializeField]
+        private float fStompTime;
 
-        [Header("Sprint")] 
-        [SerializeField] private float fSprintDetectionRange;
+        private bool _bStompAttack;
+
+        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
         [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
 
@@ -96,8 +98,6 @@ namespace Player
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy && enemy != null)
                 {
-                    // enemy.GetComponent<EnemyBehaviour>().OnSelected();
-                    //if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = enemy;
                 }
             }
@@ -105,7 +105,6 @@ namespace Player
             {
                 if (_enemyDetected != null)
                 {
-                    //_enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = null;
                 }
             }
@@ -253,22 +252,16 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            if (WeaponEquipped != null)
+            
+            if (!StompAttackCheck() && WeaponEquipped != null)
             {
                 if (!WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
                 {
                     WeaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
-            }
-            else
-            {
-                if (!_bShivAttack)
-                {
-                    OnAttackWithoutWeapon();
-                }
-            }
 
-            SprintIn();
+                SprintIn();
+            }
         }
 
         private void SprintIn()
@@ -298,29 +291,50 @@ namespace Player
             }
         }
 
-        /// <summary>
-        /// Perform Melee Attack
-        /// </summary>
-        private void OnAttackWithoutWeapon()
-        {
-            setEnemyAttackedWithoutWeapon = new();
-            ShivBehaviour();
-        }
 
-        private void ShivBehaviour()
+        #region Stomp
+
+
+        private bool StompAttackCheck()
         {
-            _bShivAttack = true;
-            AudioControl.Instance.PlaySwing(); //TODO change to shiv
-            animator.SetTrigger("Swing"); //TODO change to shiv
+            // stomp attack specific
+            if (_enemyDetected != null && !_enemyDetected.GetComponent<EnemyBehaviour>().notStunned && !_bStompAttack)
+            {
+                Vector3 playerPos = transform.position;
+                Vector3 enemyPos = _enemyDetected.transform.position;
+                float dist = Vector3.Distance(playerPos, enemyPos);
+                if (dist < fSprintDetectionRange)
+                {
+                    if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
+                    {
+                        return false;
+                    }
+                    StompBehaviour();
+                    SprintIn();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+
+        private void StompBehaviour()
+        {
+            _bStompAttack = true;
+            // TODO set the trigger to stomp after the animation is finished 
+            animator.SetTrigger("Swing");
             _pc.SetPlayerAttackPosition();
-            StartCoroutine(ShivCountdown(fShivTime));
+            StartCoroutine(StompCountdown(fStompTime));
         }
 
-        IEnumerator ShivCountdown(float time)
+        IEnumerator StompCountdown(float time)
         {
             yield return new WaitForSeconds(time);
-            _bShivAttack = false;
+            _bStompAttack = false;
         }
+
+        #endregion
 
         #endregion
 
@@ -335,9 +349,7 @@ namespace Player
         }
 
 
-        #region MeleeWeaponDetection
-
-        private HashSet<GameObject> setEnemyAttackedWithoutWeapon;
+        #region MeleeDetection
 
         // the trigger enter will be calculate when the hit box is activated
         private void OnTriggerEnter(Collider other)
@@ -348,8 +360,8 @@ namespace Player
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
 
-            bool meleeWithoutWeapon = !WeaponEquipped && objHitBox.GetComponent<Collider>().enabled &&
-                                      other.gameObject.layer == LayerMask.NameToLayer("Enemy");
+            bool stump = objHitBox.GetComponent<Collider>().enabled &&
+                         other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _bStompAttack;
 
             if (meleeWeapon)
             {
@@ -366,12 +378,14 @@ namespace Player
 
                 WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
             }
-            else if (meleeWithoutWeapon)
+            else if (stump)
             {
-                if (!setEnemyAttackedWithoutWeapon.Contains(other.gameObject))
+                if (other.gameObject != null)
                 {
-                    setEnemyAttackedWithoutWeapon.Add(other.gameObject);
-                    other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(1, false);
+                    if (!other.gameObject.GetComponent<EnemyBehaviour>().notStunned)
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(2, true);
+                    }
                 }
             }
         }
