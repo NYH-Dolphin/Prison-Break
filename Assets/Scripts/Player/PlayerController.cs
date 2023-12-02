@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger(Throw);
                 break;
             case AttackType.Lob:
+                animator.SetTrigger(Throw);
                 // animator.SetTrigger("Lob");
                 break;
             case AttackType.Slam:
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger(Thrust);
                 break;
             case AttackType.Boomerang:
+                animator.SetTrigger(Throw);
                 // animator.SetTrigger("Boomerang");
                 break;
         }
