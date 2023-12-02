@@ -282,9 +282,6 @@ namespace Player
 
         #endregion
 
-        #region LobRangeEffect
-
-        
         
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
@@ -296,8 +293,7 @@ namespace Player
         {
             objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
         }
-
-        #endregion
+        
         
 
         #endregion

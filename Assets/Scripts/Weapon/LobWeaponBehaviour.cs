@@ -67,40 +67,7 @@ namespace Weapon
                         }
                     }
                 }
-                else
-                {
-                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
-                    foreach (var enemies in largeRangeEnemies)
-                    {
-                        if (!_setLobEnemies.Contains(enemies))
-                        {
-                            _setLobEnemies.Add(enemies);
-                            enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                        }
-                    }
-
-                    foreach (var enemies in smallRangeEnemies)
-                    {
-                        if (!_setLobEnemies.Contains(enemies))
-                        {
-                            _setLobEnemies.Add(enemies);
-                            if (weaponInfo.eSharpness == Sharpness.Blunt)
-                            {
-                                enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                            }
-                            else
-                            {
-                                enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                            }
-                        }
-                    }
-                }
             }
-        }
-
-        public void RegisterPlayerWeaponEffect(PlayerWeaponEffect effect)
-        {
-            if (_effect == null) _effect = effect;
         }
 
         private void LobBehaviour()
@@ -134,6 +101,8 @@ namespace Weapon
         {
             yield return new WaitForSeconds(time - 0.2f);
 
+            // Calculate the enemy in the range and apply damage to them
+            RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation
             Effect.PlayLobEffect(_targetPosition);
 
@@ -156,6 +125,36 @@ namespace Weapon
                 iTween.Stop();
                 Rb.constraints = RigidbodyConstraints.FreezeAll;
                 gameObject.transform.position = Pw.tHoldWeaponTransform.position;
+            }
+        }
+
+
+        void RangeEffectCalculation()
+        {
+            (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
+            foreach (var enemies in largeRangeEnemies)
+            {
+                if (!_setLobEnemies.Contains(enemies))
+                {
+                    _setLobEnemies.Add(enemies);
+                    enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                }
+            }
+
+            foreach (var enemies in smallRangeEnemies)
+            {
+                if (!_setLobEnemies.Contains(enemies))
+                {
+                    _setLobEnemies.Add(enemies);
+                    if (weaponInfo.eSharpness == Sharpness.Blunt)
+                    {
+                        enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    }
+                    else
+                    {
+                        enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    }
+                }
             }
         }
 
