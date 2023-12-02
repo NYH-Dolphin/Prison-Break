@@ -17,7 +17,6 @@ namespace Weapon
         {
             bAttack = true;
             AudioControl.Instance.PlaySwing();
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(SwingCountdown(fSwingTime));
         }
 

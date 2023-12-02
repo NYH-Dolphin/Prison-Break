@@ -8,6 +8,7 @@ namespace Weapon
     public class WeaponBehaviour : MonoBehaviour
     {
         public WeaponInfo weaponInfo;
+
         // basic components
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
@@ -17,12 +18,10 @@ namespace Weapon
         protected PlayerController Pc;
         protected Collider Coll;
         protected int IDurability;
-        
-        [HideInInspector] public bool bAttack;
-        public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
-        private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-        private float _fDropForce = 3f;
 
+        [HideInInspector] public bool bAttack;
+        [HideInInspector] public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
+        private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
 
         private void Awake()
         {
@@ -30,6 +29,7 @@ namespace Weapon
             {
                 Debug.LogError("Weapon Info is not set! Make Sure you specify a correct weapon info");
             }
+
 
             // weaponInfo is a serializable object, we need to use runtime variable 
             IDurability = weaponInfo.iDurability;
@@ -75,6 +75,7 @@ namespace Weapon
         {
             Pw = null;
             Pc = null;
+            Effect.OnCancelAllEffect();
             Effect = null;
             // ignore player collision when drop
             Coll.isTrigger = false;
@@ -93,13 +94,37 @@ namespace Weapon
         public virtual void OnDrop(Vector3 dropDir)
         {
             OnDrop();
-            Rb.AddForce(dropDir * _fDropForce, ForceMode.Impulse);
+            Rb.AddForce(dropDir * 3f, ForceMode.Impulse);
         }
 
 
         public virtual void OnAttack()
         {
             setEnemyAttacked.Clear();
+            Pc.OnAttackPerformed(weaponInfo.eAttackType);
+            SetPlayerAttackPosition();
+        }
+
+
+        void SetPlayerAttackPosition()
+        {
+            if (Camera.main != null)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 3))
+                {
+                    Debug.Log("set");
+                    // The ray hit an object on the ground layer
+                    Vector3 hitGround = hit.point;
+                    hitGround.y = 0f;
+                    Vector3 playerPos = Pc.transform.position;
+                    playerPos.y = 0f;
+                    Vector3 attackDir = (hitGround - playerPos).normalized;
+                    Debug.Log(attackDir);
+                    Pc.OnSetAttackDir(attackDir);
+                }
+            }
         }
 
 

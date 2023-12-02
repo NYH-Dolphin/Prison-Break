@@ -384,7 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 110143538}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7672394465991862977, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
@@ -1321,6 +1321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prison Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1355,7 +1360,6 @@ GameObject:
   - component: {fileID: 692944577}
   - component: {fileID: 692944579}
   - component: {fileID: 692944578}
-  - component: {fileID: 692944580}
   - component: {fileID: 692944581}
   m_Layer: 0
   m_Name: Spot Light (14)
@@ -1464,18 +1468,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &692944580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692944576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &692944581
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1806,6 +1798,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prison Wall (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2051,7 +2048,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7672394465991862977, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
         type: 3}
@@ -2142,6 +2139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prison Wall (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2220,6 +2222,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prison Wall (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2630,6 +2637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prison Wall (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3513,7 +3525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1160993163}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: '[Hall]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79160,6 +79172,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prison Wall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79575,7 +79592,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: f392a749feb1853488eacda2f89e823f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79695,6 +79712,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: bars
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879912731862652157, guid: eb34e1d20a867cf4dace7df0300222a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79966,7 +79988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2111690176
 Transform:
   m_ObjectHideFlags: 0
@@ -80050,7 +80072,7 @@ PrefabInstance:
     - target: {fileID: 5553995303318409865, guid: a094851a9f2570a49bc6ac9922b4917d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

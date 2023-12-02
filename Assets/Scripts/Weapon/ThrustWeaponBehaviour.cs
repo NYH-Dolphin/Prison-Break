@@ -16,9 +16,7 @@ namespace Weapon
         {
             base.OnAttack();
             bAttack = true;
-            // TODO doesn't contain this function yet
             AudioControl.Instance.PlayThrust();
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(ThrustCountdown(fThrustTime));
         }
 

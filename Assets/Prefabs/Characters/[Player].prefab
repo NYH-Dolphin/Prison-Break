@@ -96,7 +96,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8108328010319318252
 Transform:
   m_ObjectHideFlags: 0
@@ -642,9 +642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f395a62caa64ea9b56a79cbf186da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lmEnemy:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &7192035207904120976
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +781,6 @@ MonoBehaviour:
   fSprintDistance: 5
   fSprintTime: 0.05
   objLobRange: {fileID: 1286391602236039000}
-  fDirLineLength: 20
 --- !u!120 &4220849116802496870
 LineRenderer:
   serializedVersion: 2
@@ -963,10 +959,6 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_Name
       value: BoomerangEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_LocalPosition.x

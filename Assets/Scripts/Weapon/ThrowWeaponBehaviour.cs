@@ -53,6 +53,7 @@ namespace Weapon
             base.OnAttack();
             ThrowBehaviour(_vecThrowDir);
         }
+        
 
 
         private void ThrowBehaviour(Vector3 facingDir)
@@ -61,9 +62,6 @@ namespace Weapon
             Coll.enabled = false;
             Coll.enabled = true;
             AudioControl.Instance.PlayThrow();
-
-            Pc.OnSetAttackDir(_vecThrowDir);
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;

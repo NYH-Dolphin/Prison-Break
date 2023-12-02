@@ -19,7 +19,6 @@ namespace Weapon
             bAttack = true;
             // TODO doesn't contain this function yet
             // AudioControl.Instance.PlaySlam();
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(SlamCountdown(fSlamTime));
         }
 
