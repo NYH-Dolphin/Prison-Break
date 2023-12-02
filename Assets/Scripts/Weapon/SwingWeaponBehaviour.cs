@@ -9,6 +9,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             SwingBehaviour();
         }
 

@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Weapon
@@ -7,9 +8,10 @@ namespace Weapon
     public class WeaponBehaviour : MonoBehaviour
     {
         public WeaponInfo weaponInfo;
+        // basic components
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
-        protected Material Mat; // require material "2d Sprite Glow"
+        protected Material Mat;
         protected PlayerWeaponEffect Effect;
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
@@ -17,6 +19,7 @@ namespace Weapon
         protected int IDurability;
         
         [HideInInspector] public bool bAttack;
+        public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
         private float _fDropForce = 3f;
 
@@ -34,6 +37,7 @@ namespace Weapon
             Rb = GetComponent<Rigidbody>();
             Coll = GetComponent<Collider>();
             Mat = Sr.material;
+            setEnemyAttacked = new();
             OnNotSelected();
         }
 
@@ -95,6 +99,7 @@ namespace Weapon
 
         public virtual void OnAttack()
         {
+            setEnemyAttacked.Clear();
         }
 
 

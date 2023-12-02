@@ -17,7 +17,7 @@ namespace Weapon
         private Vector3 _hitPos;
         private bool _bLock;
         private HashSet<GameObject> _setLobEnemies = new();
-
+        
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
         private Vector3 _midPosition;
@@ -26,6 +26,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             LobBehaviour();
         }
 
@@ -36,7 +37,7 @@ namespace Weapon
             {
                 // TODO Development only
                 // Pw.DevShowLobRange();
-
+                
                 if (!bAttack)
                 {
                     if (Camera.main != null)
@@ -97,6 +98,10 @@ namespace Weapon
             }
         }
 
+        public void RegisterPlayerWeaponEffect(PlayerWeaponEffect effect)
+        {
+            if (_effect == null) _effect = effect;
+        }
 
         private void LobBehaviour()
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
+using System.Collections.Generic;
 using Weapon.Effects;
 
 namespace Player
@@ -248,8 +249,7 @@ namespace Player
 
 
         #region WeaponEffect
-        
-        
+
         private void WeaponEffectUpdate()
         {
             if (WeaponEquipped == null)
@@ -291,7 +291,7 @@ namespace Player
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
         }
 
-        // TODO developer only
+
         public void DevShowLobRange()
         {
             objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
@@ -357,6 +357,7 @@ namespace Player
         /// </summary>
         private void OnAttackWithoutWeapon()
         {
+            setEnemyAttackedWithoutWeapon = new();
             ShivBehaviour();
         }
 
@@ -389,30 +390,41 @@ namespace Player
 
         #region MeleeWeaponDetection
 
+        private HashSet<GameObject> setEnemyAttackedWithoutWeapon;
+
+        // the trigger enter will be calculate when the hit box is activated
         private void OnTriggerEnter(Collider other)
         {
-            bool detected = WeaponEquipped != null
-                            && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
-                            && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
-            if (detected && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
-                if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                else
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
 
-                if (WeaponEquipped) WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
-            }
-            else
+            bool meleeWeapon = WeaponEquipped
+                               && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
+                               && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
+
+            bool meleeWithoutWeapon = !WeaponEquipped && objHitBox.GetComponent<Collider>().enabled &&
+                                      other.gameObject.layer == LayerMask.NameToLayer("Enemy");
+            
+            if (meleeWeapon)
             {
-                if (objHitBox.GetComponent<Collider>().enabled &&
-                    other.gameObject.layer == LayerMask.NameToLayer("Enemy") && WeaponEquipped == null)
+                // check the whether the enemy has been attacked yet
+                if (!WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Contains(other.gameObject))
                 {
-                    if (other != null)
-                    {
-                        other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(1, false);
-                    }
+                    other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
+                    WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Add(other.gameObject);
+                    if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    else
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
+                }
+
+                WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+            }
+            else if (meleeWithoutWeapon)
+            {
+                if (!setEnemyAttackedWithoutWeapon.Contains(other.gameObject))
+                {
+                    setEnemyAttackedWithoutWeapon.Add(other.gameObject);
+                    other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(1, false);
                 }
             }
         }

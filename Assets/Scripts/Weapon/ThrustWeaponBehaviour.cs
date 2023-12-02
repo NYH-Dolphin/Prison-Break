@@ -14,6 +14,7 @@ namespace Weapon
 
         private void ThrustBehaviour()
         {
+            base.OnAttack();
             bAttack = true;
             // TODO doesn't contain this function yet
             AudioControl.Instance.PlayThrust();
