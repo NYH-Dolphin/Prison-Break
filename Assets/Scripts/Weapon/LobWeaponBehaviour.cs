@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enemy;
+using MyCameraEffect;
 using Player;
 using UnityEngine;
 
@@ -104,6 +105,7 @@ namespace Weapon
             RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation
             Effect.PlayLobEffect(_targetPosition);
+            CameraEffect.Instance.GenerateImpulse();
 
             yield return new WaitForSeconds(0.1f);
 
