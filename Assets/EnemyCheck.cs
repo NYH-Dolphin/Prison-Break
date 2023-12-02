@@ -17,7 +17,6 @@ public class EnemyCheck : MonoBehaviour
     {
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(enemies.Length);
         if(enemies.Length == 0)
         {
             this.GetComponent<Collider>().isTrigger = true;

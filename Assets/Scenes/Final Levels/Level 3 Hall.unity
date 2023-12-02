@@ -443,9 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 100
-  lowerIntensity: 10
-  rate: 0.2
 --- !u!114 &288275151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,8 +1089,8 @@ Transform:
   m_GameObject: {fileID: 571667544}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54.7062, y: -15.973944, z: 38.0125}
-  m_LocalScale: {x: 62.77163, y: 1, z: 98.344475}
+  m_LocalPosition: {x: 114.4616, y: -15.9739, z: 29.557}
+  m_LocalScale: {x: 138.27551, y: 1, z: 6.298557}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 634629090}
@@ -1374,7 +1371,7 @@ PrefabInstance:
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1985,8 +1982,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 54.821144, y: 29.700352, z: 0}
-  m_Center: {x: 44.645187, y: -25.813658, z: -5.7426203e-11}
+  m_Size: {x: 83.960335, y: 8.979026, z: 0}
+  m_Center: {x: 59.214855, y: -36.174477, z: -4.0379373e-11}
 --- !u!114 &845304340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2046,7 +2043,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -5883,9 +5880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 100
-  lowerIntensity: 10
-  rate: 0.2
 --- !u!114 &959524565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6175,7 +6169,7 @@ PrefabInstance:
     - target: {fileID: 3062547926352740398, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8447557736355959010, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -6245,7 +6239,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.07
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 893b199ec4a04b147b5993d7dfeda783, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 908ed9259d40d73419f4e1702de8efc9, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1216405510
 Transform:
@@ -7381,9 +7375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 100
-  lowerIntensity: 10
-  rate: 0.2
 --- !u!114 &1719706287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7612,9 +7603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 0
-  lowerIntensity: 0
-  rate: 0
 --- !u!114 &1724210534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7939,9 +7927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 100
-  lowerIntensity: 10
-  rate: 0.2
 --- !u!114 &1986991459
 MonoBehaviour:
   m_ObjectHideFlags: 0

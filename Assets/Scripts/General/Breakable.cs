@@ -53,6 +53,7 @@ public class Breakable : MonoBehaviour
         {
             Vector3 instPos = player.transform.position;
             instPos.x += Random.Range(-2.5f, 2.5f);
+            instPos.z += Random.Range(-2f, 2f);
             instPos.y = 1.45f;
             foreach(GameObject ins in componentItems)
                 Instantiate(ins, instPos, transform.rotation);

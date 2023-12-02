@@ -209,7 +209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4087979762327704908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 096ab349953faef40ac48fec200dab45, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b167d7e5f11eec42a8cab9b94688212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1605102340060279642}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1341290611718773591}
   - component: {fileID: 3008610953313432496}
-  - component: {fileID: 1722741300326266724}
+  - component: {fileID: 8398803057213330548}
   m_Layer: 0
   m_Name: NextScene
   m_TagString: Untagged
@@ -268,7 +268,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3.8466556, z: 4.741105}
   m_Center: {x: 0, y: 1.4233278, z: -0.41626966}
---- !u!114 &1722741300326266724
+--- !u!114 &8398803057213330548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,6 +277,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5877641227805579039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db6e62bcb880b444e891c9cb9a0c0dc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e4eb61c5ce940a43a444db825ccecc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
