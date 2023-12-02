@@ -43,6 +43,7 @@ namespace Weapon.Effects
                 }
             }
 
+            Debug.Log("get enemy:" + largeHitColliders.Length);
             return (large.ToArray(), smallHitCollidersSet.ToArray());
         }
 
