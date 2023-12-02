@@ -10,16 +10,14 @@ namespace Weapon
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
         protected Material Mat; // require material "2d Sprite Glow"
-        [HideInInspector] public bool bAttack;
+        protected PlayerWeaponEffect Effect;
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
         protected Collider Coll;
         protected int IDurability;
-
-
+        
+        [HideInInspector] public bool bAttack;
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-
-        // TODO will be modified later by each weapon's behaviour
         private float _fDropForce = 3f;
 
 
@@ -59,6 +57,7 @@ namespace Weapon
         {
             Pw = pw;
             Pc = pw.gameObject.GetComponent<PlayerController>();
+            Effect = pw.gameObject.GetComponent<PlayerWeaponEffect>();
             Coll.isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer("Player");
             OnNotSelected();
@@ -72,6 +71,7 @@ namespace Weapon
         {
             Pw = null;
             Pc = null;
+            Effect = null;
             // ignore player collision when drop
             Coll.isTrigger = false;
             gameObject.layer = LayerMask.NameToLayer("Weapon");

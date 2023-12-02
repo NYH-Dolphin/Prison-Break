@@ -8,6 +8,7 @@ namespace Player
     {
         [Header("Weapon Effects")] 
         [SerializeField]private GameObject objBoomerangWeaponEffect;
+        [SerializeField] private GameObject objLobRange;
         [SerializeField] private GameObject objLobWeaponEffectPrefab;
         
         private PlayerWeapon _pw;
@@ -24,6 +25,7 @@ namespace Player
             if (_pw.WeaponEquipped == null)
             {
                 objBoomerangWeaponEffect.SetActive(false);
+                DisableLobPosition();
             }
             else
             {
@@ -33,21 +35,30 @@ namespace Player
                         if (!objBoomerangWeaponEffect.activeSelf) SetBoomerangWeaponEffect(true);
                         objBoomerangWeaponEffect.transform.position = _pw.WeaponEquipped.transform.position;
                         break;
-                    case AttackType.Lob:
-                        _pw.WeaponEquipped.GetComponent<LobWeaponBehaviour>().RegisterPlayerWeaponEffect(this);
-                        break;
                 }
             }
         }
 
-        public void PlayLobEffect(LobWeaponBehaviour behaviour, Vector3 position)
+        public void PlayLobEffect(Vector3 position)
         {
+            
             // Play the effect in the end, a little before the death calculation
             GameObject lobEffect = Instantiate(objLobWeaponEffectPrefab);
             lobEffect.transform.position = position;
-            
         }
 
+        public void DisableLobPosition()
+        {
+            objLobRange.SetActive(false);
+        }
+        
+        public void DrawLobPosition(Vector3 position)
+        {
+            objLobRange.SetActive(true);
+            Vector3 pos = position;
+            pos.y += 0.1f;
+            objLobRange.transform.position = pos;
+        }
 
         private void SetBoomerangWeaponEffect(bool able)
         {

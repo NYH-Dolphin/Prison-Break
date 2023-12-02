@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6391531620045852948
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +418,6 @@ GameObject:
   - component: {fileID: 8852799467790402425}
   - component: {fileID: 3653830015024873192}
   - component: {fileID: 1367990922438294675}
-  - component: {fileID: 2103403074783473378}
   - component: {fileID: 4220849116802496870}
   - component: {fileID: 296844362591662393}
   m_Layer: 7
@@ -546,18 +545,6 @@ MonoBehaviour:
   fSprintTime: 0.05
   objLobRange: {fileID: 1286391602236039000}
   fDirLineLength: 20
---- !u!114 &2103403074783473378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7192035207904120976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172d666c3951d904da9e1dde1a810f70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!120 &4220849116802496870
 LineRenderer:
   serializedVersion: 2
@@ -675,6 +662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objBoomerangWeaponEffect: {fileID: 7815747683764725483}
+  objLobRange: {fileID: 1286391602236039000}
   objLobWeaponEffectPrefab: {fileID: 100008, guid: 9b0349c78c5e2f34f97117959cc1beae,
     type: 3}
 --- !u!1 &8150126405346370112
@@ -733,6 +721,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_Name
       value: BoomerangEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_LocalPosition.x

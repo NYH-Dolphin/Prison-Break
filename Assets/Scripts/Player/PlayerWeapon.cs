@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
-using UnityEngine.Serialization;
 using Weapon.Effects;
 
 namespace Player
@@ -44,6 +43,7 @@ namespace Player
         [SerializeField] private float fDirLineLength;
 
         // private properties
+        private PlayerWeaponEffect _effect;
         private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
@@ -58,6 +58,7 @@ namespace Player
             _lrDir = GetComponent<LineRenderer>();
             _pc = GetComponent<PlayerController>();
             _objLobRangeSprite = objLobRange.transform.GetChild(0).gameObject;
+            _effect = GetComponent<PlayerWeaponEffect>();
         }
 
 
@@ -260,7 +261,6 @@ namespace Player
         void DisableWeaponEffects()
         {
             OnCancelDrawWeaponDir();
-            OnDisableLobPosition();
         }
 
         #region WeaponDirectionEffect
@@ -284,19 +284,8 @@ namespace Player
 
         #region LobRangeEffect
 
-        public void OnDisableLobPosition()
-        {
-            _objLobRangeSprite.SetActive(false);
-        }
-
-        public void OnDrawLobPosition(Vector3 position)
-        {
-            _objLobRangeSprite.SetActive(true);
-            Vector3 pos = position;
-            pos.y += 0.1f;
-            objLobRange.transform.position = pos;
-        }
-
+        
+        
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
