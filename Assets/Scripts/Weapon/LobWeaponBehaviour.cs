@@ -17,7 +17,7 @@ namespace Weapon
         private Vector3 _hitPos;
         private bool _bLock;
         private HashSet<GameObject> _setLobEnemies = new();
-        
+
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
         private Vector3 _midPosition;
@@ -37,7 +37,7 @@ namespace Weapon
             {
                 // TODO Development only
                 // Pw.DevShowLobRange();
-                
+
                 if (!bAttack)
                 {
                     if (Camera.main != null)
@@ -100,7 +100,7 @@ namespace Weapon
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time - 0.2f);
-
+            AudioControl.Instance.PlayBoom();
             // Calculate the enemy in the range and apply damage to them
             RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation
