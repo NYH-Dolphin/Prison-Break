@@ -9,7 +9,10 @@ namespace Player
         [Header("Weapon Effects")] 
         [SerializeField]private GameObject objBoomerangWeaponEffect;
         [SerializeField] private GameObject objLobRange;
+        [SerializeField] private GameObject objDirHint;
+        [SerializeField] private GameObject objDirHintAngle;
         [SerializeField] private GameObject objLobWeaponEffectPrefab;
+        
         
         private PlayerWeapon _pw;
         private GameObject _weaponEquipped;
@@ -24,8 +27,9 @@ namespace Player
         {
             if (_pw.WeaponEquipped == null)
             {
+                objDirHint.SetActive(false);
+                objLobRange.SetActive(false);
                 objBoomerangWeaponEffect.SetActive(false);
-                DisableLobPosition();
             }
             else
             {
@@ -41,7 +45,6 @@ namespace Player
 
         public void PlayLobEffect(Vector3 position)
         {
-            
             // Play the effect in the end, a little before the death calculation
             GameObject lobEffect = Instantiate(objLobWeaponEffectPrefab);
             lobEffect.transform.position = position;
@@ -58,6 +61,28 @@ namespace Player
             Vector3 pos = position;
             pos.y += 0.1f;
             objLobRange.transform.position = pos;
+        }
+
+        
+        public void DrawDirHint(Vector3 dir)
+        {
+            objDirHint.SetActive(true);
+            Vector3 pos = transform.position + dir * 3.5f;
+            pos.y += 0.1f;
+            
+            // rotate the angle object based on the intersection angle
+            float angle = Vector3.Angle(Vector3.forward, dir);
+            if (dir.x > 0)
+            {
+                angle = -angle;
+            }
+            objDirHintAngle.transform.rotation = Quaternion.Euler(new Vector3(90, 0, angle));
+            objDirHintAngle.transform.position = pos;
+        }
+
+        public void DisableDirHint()
+        {
+            objDirHint.SetActive(false);
         }
 
         private void SetBoomerangWeaponEffect(bool able)

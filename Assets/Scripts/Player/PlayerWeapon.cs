@@ -23,29 +23,23 @@ namespace Player
         [SerializeField] private float fEnemyDetectionRange;
         [SerializeField] private GameObject objHitBox;
 
-        [Header("Holding Weapon")] [SerializeField]
-        public Transform tHoldWeaponTransform;
-
+        [Header("Holding Weapon")] 
+        [SerializeField] public Transform tHoldWeaponTransform;
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [Header("Shiv Attack without Weapon")] [SerializeField]
-        private float fShivTime;
-
+        [Header("Shiv Attack without Weapon")] 
+        [SerializeField] private float fShivTime;
         private bool _bShivAttack;
 
-        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
+        [Header("Sprint")] 
+        [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
         [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
 
         [Header("Weapon Attack Effects")] [SerializeField]
         private GameObject objLobRange;
 
-        private GameObject _objLobRangeSprite;
-        [SerializeField] private float fDirLineLength;
-
         // private properties
-        private PlayerWeaponEffect _effect;
-        private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
         public GameObject WeaponEquipped { get; private set; }
@@ -56,10 +50,7 @@ namespace Player
 
         private void Awake()
         {
-            _lrDir = GetComponent<LineRenderer>();
             _pc = GetComponent<PlayerController>();
-            _objLobRangeSprite = objLobRange.transform.GetChild(0).gameObject;
-            _effect = GetComponent<PlayerWeaponEffect>();
         }
 
 
@@ -84,15 +75,9 @@ namespace Player
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
         }
 
-        private void Start()
-        {
-            DisableWeaponEffects();
-        }
-
 
         private void Update()
         {
-            WeaponEffectUpdate();
             WeaponDetectionUpdate();
             EnemyDetectionUpdate();
         }
@@ -250,39 +235,6 @@ namespace Player
 
         #region WeaponEffect
 
-        private void WeaponEffectUpdate()
-        {
-            if (WeaponEquipped == null)
-            {
-                DisableWeaponEffects();
-            }
-        }
-
-        void DisableWeaponEffects()
-        {
-            OnCancelDrawWeaponDir();
-        }
-
-        #region WeaponDirectionEffect
-
-        public void OnDrawWeaponDir(Vector3 dir)
-        {
-            _lrDir.positionCount = 2;
-            Vector3 startPos = transform.position;
-            startPos.y = 1f;
-            Vector3 endPos = startPos + dir * fDirLineLength;
-            _lrDir.SetPosition(0, startPos);
-            _lrDir.SetPosition(1, endPos);
-        }
-
-        public void OnCancelDrawWeaponDir()
-        {
-            _lrDir.positionCount = 0;
-        }
-
-        #endregion
-
-        
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
@@ -293,8 +245,6 @@ namespace Player
         {
             objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
         }
-        
-        
 
         #endregion
 
@@ -399,7 +349,7 @@ namespace Player
 
             bool meleeWithoutWeapon = !WeaponEquipped && objHitBox.GetComponent<Collider>().enabled &&
                                       other.gameObject.layer == LayerMask.NameToLayer("Enemy");
-            
+
             if (meleeWeapon)
             {
                 // check the whether the enemy has been attacked yet

@@ -32,13 +32,13 @@ namespace Weapon
                             Vector3 playerPos = Pc.transform.position;
                             playerPos.y = 0f;
                             _vecThrowDir = (hitGround - playerPos).normalized;
-                            Pw.OnDrawWeaponDir(_vecThrowDir);
+                            Effect.DrawDirHint(_vecThrowDir);
                         }
                     }
                 }
                 else
                 {
-                    Pw.OnCancelDrawWeaponDir();
+                    Effect.DisableDirHint();
                 }
             }
 
@@ -47,17 +47,7 @@ namespace Weapon
                 Destroy(gameObject);
             }
         }
-
-        /// <summary>
-        /// Drop with a specific direction
-        /// </summary>
-        /// <param name="dropDir"></param>
-        public override void OnDrop(Vector3 dropDir)
-        {
-            Pw.OnCancelDrawWeaponDir();
-            base.OnDrop(dropDir);
-        }
-
+        
         public override void OnAttack()
         {
             base.OnAttack();

@@ -46,13 +46,13 @@ namespace Weapon
                             Vector3 playerPos = Pc.transform.position;
                             playerPos.y = 0f;
                             _vecBoomerangDir = (hitGround - playerPos).normalized;
-                            Pw.OnDrawWeaponDir(_vecBoomerangDir);
+                            Effect.DrawDirHint(_vecBoomerangDir);
                         }
                     }
                 }
                 else
                 {
-                    Pw.OnCancelDrawWeaponDir();
+                    Effect.DisableDirHint();
                 }
             }
 
