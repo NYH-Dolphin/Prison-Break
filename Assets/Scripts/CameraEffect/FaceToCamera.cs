@@ -6,6 +6,7 @@ public class FaceToCamera : MonoBehaviour
     private float _eulerAngleZ;
     [SerializeField] private float offsety;
     [SerializeField] private float offsetx;
+    [SerializeField] private float offsetz;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class FaceToCamera : MonoBehaviour
         rotation.z = _eulerAngleZ;
         rotation.y += offsety;
         rotation.x += offsetx;
+        rotation.z += offsetz;
         transform.rotation = Quaternion.Euler(rotation);
     }
 }
