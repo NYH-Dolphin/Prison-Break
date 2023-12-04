@@ -7,22 +7,27 @@ public class ExplosionTrigger : MonoBehaviour
     public int charges = 0;
     public GameObject ExplosionEffect;
     public GameObject Roadblock;
+    public GameObject flamingMetal;
     // Update is called once per frame
     void Update()
     {
         if(charges == 2 && NoEnemies())
         {
             Explode();
-            charges++;
         }
 
     }
 
-    void Explode()
+    public void Explode()
     {
         for(int i = 0; i < 4; i++)
+        {
             Instantiate(ExplosionEffect, this.gameObject.transform.GetChild(i).transform.position, Quaternion.identity);
+            Instantiate(flamingMetal, this.gameObject.transform.GetChild(i).transform.position, Quaternion.identity);
+        }
+            
         Roadblock.SetActive(false);
+        Destroy(gameObject);
         
     }
 
