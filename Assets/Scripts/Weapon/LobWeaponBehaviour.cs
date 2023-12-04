@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enemy;
+using MyCameraEffect;
 using Player;
 using UnityEngine;
 
@@ -11,13 +12,12 @@ namespace Weapon
         // maximum distance between the player and the enemy, so the lob weapon will tracking the enemy's position
         [SerializeField] private float fMaxDistance = 10f;
         [SerializeField] private float fTime = 0.5f; // Lobbing time
-        [SerializeField] private LayerMask lmGround;
         [SerializeField] private float arcHeight;
 
         private Vector3 _hitPos;
         private bool _bLock;
         private HashSet<GameObject> _setLobEnemies = new();
-        
+
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
         private Vector3 _midPosition;
@@ -26,6 +26,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             LobBehaviour();
         }
 
@@ -35,8 +36,8 @@ namespace Weapon
             if (Pw != null)
             {
                 // TODO Development only
-                Pw.DevShowLobRange();
-                
+                // Pw.DevShowLobRange();
+
                 if (!bAttack)
                 {
                     if (Camera.main != null)
@@ -53,7 +54,7 @@ namespace Weapon
                             {
                                 _hitPos = hitGround;
                                 _hitPos.y = 0.01f;
-                                Pw.OnDrawLobPosition(hitGround);
+                                Effect.DrawLobPosition(hitGround);
                             }
                             else
                             {
@@ -61,35 +62,7 @@ namespace Weapon
                                 Vector3 maxPos = objPos + dir * fMaxDistance;
                                 _hitPos = maxPos;
                                 _hitPos.y = 0.01f;
-                                Pw.OnDrawLobPosition(maxPos);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
-                    foreach (var enemies in largeRangeEnemies)
-                    {
-                        if (!_setLobEnemies.Contains(enemies))
-                        {
-                            _setLobEnemies.Add(enemies);
-                            enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                        }
-                    }
-                    
-                    foreach (var enemies in smallRangeEnemies)
-                    {
-                        if (!_setLobEnemies.Contains(enemies))
-                        {
-                            _setLobEnemies.Add(enemies);
-                            if (weaponInfo.eSharpness == Sharpness.Blunt)
-                            {
-                                enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                            }
-                            else
-                            {
-                                enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                                Effect.DrawLobPosition(maxPos);
                             }
                         }
                     }
@@ -97,20 +70,15 @@ namespace Weapon
             }
         }
 
-        public void RegisterPlayerWeaponEffect(PlayerWeaponEffect effect)
-        {
-            if (_effect == null) _effect = effect;
-        }
-
         private void LobBehaviour()
         {
             bAttack = true;
             Coll.enabled = false;
             AudioControl.Instance.PlayLob();
-            Pw.OnDisableLobPosition();
+            Effect.DisableLobPosition();
             _bLock = true;
             _setLobEnemies.Clear();
-            
+
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
             _startPosition = transform.position;
@@ -132,13 +100,16 @@ namespace Weapon
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time - 0.2f);
-            
+            AudioControl.Instance.PlayBoom();
+            // Calculate the enemy in the range and apply damage to them
+            RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation
-            _effect.PlayLobEffect(this, _targetPosition);
-            
+            Effect.PlayLobEffect(_targetPosition);
+            CameraEffect.Instance.GenerateImpulse();
+
             yield return new WaitForSeconds(0.1f);
-            
-            
+
+
             if (_bLock)
             {
                 _bLock = false;
@@ -158,13 +129,43 @@ namespace Weapon
             }
         }
 
+
+        void RangeEffectCalculation()
+        {
+            (GameObject[] largeRangeEnemies, GameObject[] smallRangeEnemies) = Pw.OnGetLobRangeEnemy();
+            foreach (var enemies in largeRangeEnemies)
+            {
+                if (!_setLobEnemies.Contains(enemies))
+                {
+                    _setLobEnemies.Add(enemies);
+                    enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                }
+            }
+
+            foreach (var enemies in smallRangeEnemies)
+            {
+                if (!_setLobEnemies.Contains(enemies))
+                {
+                    _setLobEnemies.Add(enemies);
+                    if (weaponInfo.eSharpness == Sharpness.Blunt)
+                    {
+                        enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    }
+                    else
+                    {
+                        enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Drop with a specific direction
         /// </summary>
         /// <param name="dropDir"></param>
         public override void OnDrop(Vector3 dropDir)
         {
-            Pw.OnDisableLobPosition();
+            Effect.DisableLobPosition();
             base.OnDrop(dropDir);
         }
 
@@ -176,7 +177,7 @@ namespace Weapon
                 if (_bLock)
                 {
                     _bLock = false;
-                    
+
                     IDurability -= 1;
                     if (IDurability == 0)
                     {

@@ -9,6 +9,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             SwingBehaviour();
         }
 
@@ -16,7 +17,6 @@ namespace Weapon
         {
             bAttack = true;
             AudioControl.Instance.PlaySwing();
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             StartCoroutine(SwingCountdown(fSwingTime));
         }
 

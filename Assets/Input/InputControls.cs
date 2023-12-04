@@ -62,8 +62,8 @@ namespace GameInputSystem
                     ""id"": ""d2da35b6-23b6-4502-a08d-2aa45ea2e48b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -201,9 +201,9 @@ namespace GameInputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1da9d0ba-c20c-49cf-a0d2-cb4d12279139"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""id"": ""4a424bd0-b814-43d3-9c6f-bcaf40b902d3"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",

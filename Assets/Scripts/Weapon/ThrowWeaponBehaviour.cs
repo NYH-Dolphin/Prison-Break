@@ -8,7 +8,6 @@ namespace Weapon
     {
         [SerializeField] private float fThrowForce = 20f;
         [SerializeField] private float fThrowTime = 1f;
-        [SerializeField] private LayerMask lmGround;
 
         private Vector3 _vecThrowDir;
         private bool _bLock;
@@ -32,13 +31,13 @@ namespace Weapon
                             Vector3 playerPos = Pc.transform.position;
                             playerPos.y = 0f;
                             _vecThrowDir = (hitGround - playerPos).normalized;
-                            Pw.OnDrawWeaponDir(_vecThrowDir);
+                            Effect.DrawDirHint(_vecThrowDir);
                         }
                     }
                 }
                 else
                 {
-                    Pw.OnCancelDrawWeaponDir();
+                    Effect.DisableDirHint();
                 }
             }
 
@@ -47,21 +46,13 @@ namespace Weapon
                 Destroy(gameObject);
             }
         }
-
-        /// <summary>
-        /// Drop with a specific direction
-        /// </summary>
-        /// <param name="dropDir"></param>
-        public override void OnDrop(Vector3 dropDir)
-        {
-            Pw.OnCancelDrawWeaponDir();
-            base.OnDrop(dropDir);
-        }
-
+        
         public override void OnAttack()
         {
+            base.OnAttack();
             ThrowBehaviour(_vecThrowDir);
         }
+        
 
 
         private void ThrowBehaviour(Vector3 facingDir)
@@ -70,9 +61,6 @@ namespace Weapon
             Coll.enabled = false;
             Coll.enabled = true;
             AudioControl.Instance.PlayThrow();
-
-            Pc.OnSetAttackDir(_vecThrowDir);
-            Pc.OnAttackPerformed(weaponInfo.eAttackType);
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;

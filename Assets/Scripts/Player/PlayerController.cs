@@ -1,5 +1,6 @@
 using System.Collections;
 using GameInputSystem;
+using MyCameraEffect;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,16 +20,22 @@ public class PlayerController : MonoBehaviour
     public Vector3 VecDir { get; private set; } = new(0, 0, 1);
 
     private Rigidbody _rb;
-    private PlayerWeapon _pw;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
     private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
+    
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+    private static readonly int Vertical = Animator.StringToHash("Vertical");
+    private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int Swing = Animator.StringToHash("Swing");
+    private static readonly int Throw = Animator.StringToHash("Throw");
+    private static readonly int Slam = Animator.StringToHash("Slam");
+    private static readonly int Thrust = Animator.StringToHash("Thrust");
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _pw = GetComponent<PlayerWeapon>();
     }
 
 
@@ -62,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Vector3 pos = transform.position;
+        pos.y = 0.01f;
+        transform.position = pos;
         GroundDetectUpdate();
     }
 
@@ -77,42 +87,46 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case AttackType.Swing:
-                animator.SetTrigger("Swing");
+                animator.SetTrigger(Swing);
                 break;
             case AttackType.Throwable:
-                animator.SetTrigger("Throw");
+                animator.SetTrigger(Throw);
                 break;
             case AttackType.Lob:
-                animator.SetTrigger("Lob");
+                animator.SetTrigger(Throw);
+                // animator.SetTrigger("Lob");
                 break;
             case AttackType.Slam:
-                animator.SetTrigger("Slam");
+                animator.SetTrigger(Slam);
                 break;
             case AttackType.Thrust:
-                animator.SetTrigger("Thrust");
+                animator.SetTrigger(Thrust);
                 break;
             case AttackType.Boomerang:
-                animator.SetTrigger("Boomerang");
+                animator.SetTrigger(Throw);
+                // animator.SetTrigger("Boomerang");
                 break;
         }
     }
 
-    public void OnSetAttackDir(Vector3 dir)
+    public void OnSetAttackDir(Vector2 dir)
     {
         dir = dir.normalized;
-        animator.SetFloat("Horizontal", dir.x);
-        animator.SetFloat("Vertical", dir.y);
+        animator.SetFloat(Horizontal, dir.x);
+        animator.SetFloat(Vertical, dir.y);
     }
 
     #region Movement
 
+    private Vector2 _inputMove;
+
+
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
-        Vector2 inputMove = value.ReadValue<Vector2>();
-        animator.SetFloat("Horizontal", inputMove.x);
-        animator.SetFloat("Vertical", inputMove.y);
-        animator.SetFloat("Speed", inputMove.magnitude);
-
+        _inputMove = value.ReadValue<Vector2>();
+        animator.SetFloat(Horizontal, _inputMove.x);
+        animator.SetFloat(Vertical, _inputMove.y);
+        animator.SetFloat(Speed, _inputMove.magnitude);
         // player moving direction is based on the view of camera
         Transform cameraTransform = Camera.main.transform;
         Vector3 vecFront = cameraTransform.forward;
@@ -121,7 +135,7 @@ public class PlayerController : MonoBehaviour
         Vector3 vecRight = cameraTransform.right;
         vecRight.y = 0;
         vecRight = vecRight.normalized;
-        Vector3 vecIsoMove = vecRight * inputMove.x + vecFront * inputMove.y;
+        Vector3 vecIsoMove = vecRight * _inputMove.x + vecFront * _inputMove.y;
         _vecMove = vecIsoMove.normalized;
         VecDir = _vecMove;
     }
@@ -129,11 +143,17 @@ public class PlayerController : MonoBehaviour
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         _vecMove = Vector3.zero;
-        animator.SetFloat("Speed", 0f);
+        animator.SetFloat(Speed, 0f);
     }
 
     private void MovementUpdate()
     {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Movement"))
+        {
+            animator.SetFloat(Horizontal, _inputMove.x);
+            animator.SetFloat(Vertical, _inputMove.y);
+        }
         Vector3 moveVelocity = _vecMove * fMovementSpeed;
         moveVelocity.y = _rb.velocity.y;
         _rb.velocity = moveVelocity;
@@ -184,6 +204,43 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         StartCoroutine(SprintMoveUpdateCor(startPos, targetPos, time));
+    }
+    
+    public void SetPlayerAttackPosition()
+    {
+        if (Camera.main != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, lmGroundLayer))
+            {
+                // The ray hit an object on the ground layer
+                Vector3 hitGround = hit.point;
+                hitGround.y = 0f;
+                Vector3 playerPos = transform.position;
+                playerPos.y = 0f;
+                Vector3 dir = (hitGround - playerPos).normalized;
+                Vector2 attackDir = new Vector2(dir.x, dir.z);
+                // rotate counterclockwise because this is the isometric view
+                attackDir = RotateVector(attackDir, 45);
+                OnSetAttackDir(attackDir);
+            }
+        }
+    }
+    
+    private Vector2 RotateVector(Vector2 v, float degrees)
+    {
+        float radians = degrees * Mathf.Deg2Rad;
+        float sin = Mathf.Sin(radians);
+        float cos = Mathf.Cos(radians);
+
+        float tx = v.x;
+        float ty = v.y;
+
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+
+        return v;
     }
 
 

@@ -1287,8 +1287,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 564063709}
-  m_Layer: 0
-  m_Name: '[Weapons]'
+  m_Layer: 6
+  m_Name: '[Weapon]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1303,7 +1303,7 @@ Transform:
   m_GameObject: {fileID: 564063708}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.128649, y: -18.024607, z: 45.442535}
+  m_LocalPosition: {x: 2.008648, y: -2.640688, z: 13.142536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1319,7 +1319,7 @@ Transform:
   - {fileID: 926184781}
   - {fileID: 747061523}
   - {fileID: 733972205}
-  m_Father: {fileID: 634629090}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &565486931
 PrefabInstance:
@@ -1627,9 +1627,7 @@ Transform:
   - {fileID: 571667545}
   - {fileID: 1518520698}
   - {fileID: 1637765718}
-  - {fileID: 564063709}
   - {fileID: 7726369}
-  - {fileID: 637313204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &637313203
@@ -1657,14 +1655,14 @@ Transform:
   m_GameObject: {fileID: 637313203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.84365, y: -18.024607, z: 45.442535}
+  m_LocalPosition: {x: -1.27635, y: -2.640688, z: 13.142536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 337413671}
   - {fileID: 454779534}
   - {fileID: 4969180519294667226}
-  m_Father: {fileID: 634629090}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &637805132
 GameObject:
@@ -2480,7 +2478,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -16350,9 +16348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperIntensity: 0
-  lowerIntensity: 0
-  rate: 0
 --- !u!114 &1724210534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16627,7 +16622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1774321227
 Transform:
   m_ObjectHideFlags: 0
@@ -17453,6 +17448,8 @@ SceneRoots:
   - {fileID: 1363241426}
   - {fileID: 1310135491}
   - {fileID: 1774321227}
+  - {fileID: 564063709}
+  - {fileID: 637313204}
   - {fileID: 634629090}
   - {fileID: 669067906}
   - {fileID: 1206504483}

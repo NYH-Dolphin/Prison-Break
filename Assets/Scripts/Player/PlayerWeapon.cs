@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Serialization;
 using Weapon.Effects;
 
@@ -28,10 +29,10 @@ namespace Player
 
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [Header("Shiv Attack without Weapon")] [SerializeField]
-        private float fShivTime;
+        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] [SerializeField]
+        private float fStompTime;
 
-        private bool _bShivAttack;
+        private bool _bStompAttack;
 
         [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
@@ -40,11 +41,7 @@ namespace Player
         [Header("Weapon Attack Effects")] [SerializeField]
         private GameObject objLobRange;
 
-        private GameObject _objLobRangeSprite;
-        [SerializeField] private float fDirLineLength;
-
         // private properties
-        private LineRenderer _lrDir; // TODO might change the way to indicate the direction
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
         public GameObject WeaponEquipped { get; private set; }
@@ -55,9 +52,7 @@ namespace Player
 
         private void Awake()
         {
-            _lrDir = GetComponent<LineRenderer>();
             _pc = GetComponent<PlayerController>();
-            _objLobRangeSprite = objLobRange.transform.GetChild(0).gameObject;
         }
 
 
@@ -82,15 +77,9 @@ namespace Player
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
         }
 
-        private void Start()
-        {
-            DisableWeaponEffects();
-        }
-
 
         private void Update()
         {
-            WeaponEffectUpdate();
             WeaponDetectionUpdate();
             EnemyDetectionUpdate();
         }
@@ -109,8 +98,6 @@ namespace Player
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_enemyDetected != enemy && enemy != null)
                 {
-                    // enemy.GetComponent<EnemyBehaviour>().OnSelected();
-                    //if (_enemyDetected != null) _enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = enemy;
                 }
             }
@@ -118,7 +105,6 @@ namespace Player
             {
                 if (_enemyDetected != null)
                 {
-                    //_enemyDetected.GetComponent<EnemyBehaviour>().OnNotSelected();
                     _enemyDetected = null;
                 }
             }
@@ -247,69 +233,17 @@ namespace Player
 
 
         #region WeaponEffect
-        
-        
-        private void WeaponEffectUpdate()
-        {
-            if (WeaponEquipped == null)
-            {
-                DisableWeaponEffects();
-            }
-        }
-
-        void DisableWeaponEffects()
-        {
-            OnCancelDrawWeaponDir();
-            OnDisableLobPosition();
-        }
-
-        #region WeaponDirectionEffect
-
-        public void OnDrawWeaponDir(Vector3 dir)
-        {
-            _lrDir.positionCount = 2;
-            Vector3 startPos = transform.position;
-            startPos.y = 1f;
-            Vector3 endPos = startPos + dir * fDirLineLength;
-            _lrDir.SetPosition(0, startPos);
-            _lrDir.SetPosition(1, endPos);
-        }
-
-        public void OnCancelDrawWeaponDir()
-        {
-            _lrDir.positionCount = 0;
-        }
-
-        #endregion
-
-        #region LobRangeEffect
-
-        public void OnDisableLobPosition()
-        {
-            _objLobRangeSprite.SetActive(false);
-        }
-
-        public void OnDrawLobPosition(Vector3 position)
-        {
-            _objLobRangeSprite.SetActive(true);
-            Vector3 pos = position;
-            pos.y += 0.1f;
-            objLobRange.transform.position = pos;
-        }
 
         public (GameObject[], GameObject[]) OnGetLobRangeEnemy()
         {
             return objLobRange.GetComponent<LobRangeWeaponEffect>().GetDetectedEnemies();
         }
 
-        // TODO developer only
+
         public void DevShowLobRange()
         {
             objLobRange.GetComponent<LobRangeWeaponEffect>().ShowLobRange();
         }
-
-        #endregion
-        
 
         #endregion
 
@@ -318,22 +252,16 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            if (WeaponEquipped != null)
+            
+            if (!StompAttackCheck() && WeaponEquipped != null)
             {
                 if (!WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
                 {
                     WeaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
-            }
-            else
-            {
-                if (!_bShivAttack)
-                {
-                    OnAttackWithoutWeapon();
-                }
-            }
 
-            SprintIn();
+                SprintIn();
+            }
         }
 
         private void SprintIn()
@@ -363,27 +291,50 @@ namespace Player
             }
         }
 
-        /// <summary>
-        /// Perform Melee Attack
-        /// </summary>
-        private void OnAttackWithoutWeapon()
+
+        #region Stomp
+
+
+        private bool StompAttackCheck()
         {
-            ShivBehaviour();
+            // stomp attack specific
+            if (_enemyDetected != null && !_enemyDetected.GetComponent<EnemyBehaviour>().notStunned && !_bStompAttack)
+            {
+                Vector3 playerPos = transform.position;
+                Vector3 enemyPos = _enemyDetected.transform.position;
+                float dist = Vector3.Distance(playerPos, enemyPos);
+                if (dist < fSprintDetectionRange)
+                {
+                    if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
+                    {
+                        return false;
+                    }
+                    StompBehaviour();
+                    SprintIn();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+
+        private void StompBehaviour()
+        {
+            _bStompAttack = true;
+            // TODO set the trigger to stomp after the animation is finished 
+            animator.SetTrigger("Swing");
+            _pc.SetPlayerAttackPosition();
+            StartCoroutine(StompCountdown(fStompTime));
         }
 
-        private void ShivBehaviour()
-        {
-            _bShivAttack = true;
-            AudioControl.Instance.PlaySwing(); //TODO change to shiv
-            animator.SetTrigger("Swing"); //TODO change to shiv
-            StartCoroutine(ShivCountdown(fShivTime));
-        }
-
-        IEnumerator ShivCountdown(float time)
+        IEnumerator StompCountdown(float time)
         {
             yield return new WaitForSeconds(time);
-            _bShivAttack = false;
+            _bStompAttack = false;
         }
+
+        #endregion
 
         #endregion
 
@@ -398,31 +349,42 @@ namespace Player
         }
 
 
-        #region MeleeWeaponDetection
+        #region MeleeDetection
 
+        // the trigger enter will be calculate when the hit box is activated
         private void OnTriggerEnter(Collider other)
         {
-            bool detected = WeaponEquipped != null
-                            && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
-                            && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
-            if (detected && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
-                if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                else
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
 
-                if (WeaponEquipped) WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
-            }
-            else
+            bool meleeWeapon = WeaponEquipped
+                               && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
+                               && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
+
+            bool stump = objHitBox.GetComponent<Collider>().enabled &&
+                         other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _bStompAttack;
+
+            if (meleeWeapon)
             {
-                if (objHitBox.GetComponent<Collider>().enabled &&
-                    other.gameObject.layer == LayerMask.NameToLayer("Enemy") && WeaponEquipped == null)
+                // check the whether the enemy has been attacked yet
+                if (!WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Contains(other.gameObject))
                 {
-                    if (other != null)
+                    other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
+                    WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Add(other.gameObject);
+                    if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    else
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
+                }
+
+                WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
+            }
+            else if (stump)
+            {
+                if (other.gameObject != null)
+                {
+                    if (!other.gameObject.GetComponent<EnemyBehaviour>().notStunned)
                     {
-                        other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(1, false);
+                        other.gameObject.GetComponent<EnemyBehaviour>()?.OnHit(2, true);
                     }
                 }
             }
