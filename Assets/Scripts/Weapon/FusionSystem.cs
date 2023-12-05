@@ -6,100 +6,39 @@ using UnityEngine;
 namespace Weapon
 {
     [Serializable]
-    public class FusionPair
+    public class FusionData
     {
-        [SerializeField] public GameObject rangeWeapon;
-        [SerializeField] public GameObject meleeWeapon;
         [SerializeField] public GameObject fusionWeapon;
+        [SerializeField] public string fusionSpritePath;
+        [SerializeField] public WeaponInfo weaponInfo;
     }
 
-    [Serializable]
-    public class BaseWeapon
-    {
-        [SerializeField] public AttackType type;
-        [SerializeField] public GameObject baseWeaponPrefab;
-    }
 
 
     public class FusionSystem : MonoBehaviour
     {
-        [SerializeField] private TextAsset csvFusionWeaponList;
-        [SerializeField] private TextAsset csvFusionPairList;
-        [SerializeField] private List<BaseWeapon> baseWeaponTypePrefabs;
-
-        private Dictionary<string, WeaponInfo> _dicFusionWeaponInfos;
-        private Dictionary<AttackType, GameObject> _dicBaseWeaponPrefabs;
-        private Dictionary<string, string> _dicFusionPair;
+        [SerializeField] private TextAsset FusionCsv;
+        private Dictionary<string, FusionData> fusionDict;
         public static FusionSystem Instance;
 
-
-        [SerializeField] private List<FusionPair> pairs;
-        private Dictionary<string, GameObject> _dicFusion;
 
 
         private void Awake()
         {
-            LoadBaseWeapon();
-            ReadFusionWeaponCSV();
-            ReadFusionPairCSV();
-
-            _dicFusion = new();
-            for (int i = 0; i < pairs.Count; i++)
-            {
-                string key =
-                    $"{pairs[i].rangeWeapon.GetComponent<SpriteRenderer>().sprite.name}" +
-                    $"-" +
-                    $"{pairs[i].meleeWeapon.GetComponent<SpriteRenderer>().sprite.name}";
-                _dicFusion[key] = pairs[i].fusionWeapon;
-            }
+            fusionDict = new();
+            ReadFusionCSV();
 
             Instance = this;
         }
 
-
-        private void LoadBaseWeapon()
+        private void ReadFusionCSV()
         {
-            _dicBaseWeaponPrefabs = new Dictionary<AttackType, GameObject>();
-            foreach (BaseWeapon baseWeapon in baseWeaponTypePrefabs)
+            if (FusionCsv == null)
             {
-                _dicBaseWeaponPrefabs[baseWeapon.type] = baseWeapon.baseWeaponPrefab;
-            }
-        }
-
-        private void ReadFusionPairCSV()
-        {
-            if (csvFusionPairList == null)
-            {
-                Debug.LogError("Fusion pair CSV file is required to provide");
+                Debug.LogError("Fusion weapon CSV file is required");
             }
 
-            _dicFusionPair = new Dictionary<string, string>();
-            string[] data = csvFusionPairList.text.Replace("\r", "").Split('\n');
-            data = data.Skip(1).ToArray(); // skip the first row (for name)
-            foreach (string line in data)
-            {
-                string[] fields = line.Split(',');
-                if (fields.Length != 3) // remove redundant line
-                {
-                    continue;
-                }
-
-                string weapon1 = fields[0];
-                string weapon2 = fields[1];
-                string fusionWeapon = fields[2];
-                _dicFusionPair[weapon1 + "-" + weapon2] = fusionWeapon;
-            }
-        }
-
-        private void ReadFusionWeaponCSV()
-        {
-            if (csvFusionWeaponList == null)
-            {
-                Debug.LogError("Fusion weapon CSV file is required to provide");
-            }
-
-            _dicFusionWeaponInfos = new Dictionary<string, WeaponInfo>();
-            string[] data = csvFusionWeaponList.text.Split('\n');
+            string[] data = FusionCsv.text.Split('\n');
             data = data.Skip(1).ToArray();
             foreach (string line in data)
             {
@@ -110,47 +49,56 @@ namespace Weapon
                 }
 
                 string weaponName = fields[0];
-                string range = fields[1];
-                string attackType = fields[2];
-                string sharpness = fields[3];
+                string meleeWeaponName = fields[1];
+                string rangedWeaponName = fields[2];
+                string spritePath = $"FusionWeaponSprites/{meleeWeaponName}-{rangedWeaponName}";
+                string attackBehavior = fields[5];
+                string sharpness = fields[6];
 
                 // Set up the weaponInfo
                 WeaponInfo weaponInfo = ScriptableObject.CreateInstance<WeaponInfo>();
-                weaponInfo.name = weaponName;
+
                 weaponInfo.bFused = true;
                 weaponInfo.iDurability = 3;
-                switch (range)
-                {
-                    case "melee":
-                        weaponInfo.eRange = Range.Melee;
-                        break;
-                    case "ranged":
-                        weaponInfo.eRange = Range.Ranged;
-                        break;
-                }
 
-                switch (attackType)
+                string weaponPrefabPath = "FusionWeaponPrefabs/SwingWeapon";
+
+                // Determine the range, attack type, and prefab path from the attack type column
+                switch (attackBehavior)
                 {
                     case "slam":
                         weaponInfo.eAttackType = AttackType.Slam;
+                        weaponInfo.eRange = Range.Melee;
+                        weaponPrefabPath = "FusionWeaponPrefabs/SlamWeapon";
                         break;
                     case "swing":
                         weaponInfo.eAttackType = AttackType.Swing;
+                        weaponInfo.eRange = Range.Melee;
+                        weaponPrefabPath = "FusionWeaponPrefabs/SwingWeapon";
                         break;
                     case "thrust":
                         weaponInfo.eAttackType = AttackType.Thrust;
+                        weaponInfo.eRange = Range.Melee;
+                        weaponPrefabPath = "FusionWeaponPrefabs/ThrustWeapon";
                         break;
                     case "throw":
                         weaponInfo.eAttackType = AttackType.Throwable;
+                        weaponInfo.eRange = Range.Ranged;
+                        weaponPrefabPath = "FusionWeaponPrefabs/ThrowWeapon";
                         break;
                     case "boomerang":
                         weaponInfo.eAttackType = AttackType.Boomerang;
+                        weaponInfo.eRange = Range.Ranged;
+                        weaponPrefabPath = "FusionWeaponPrefabs/BoomerangWeapon";
                         break;
                     case "lob":
                         weaponInfo.eAttackType = AttackType.Lob;
+                        weaponInfo.eRange = Range.Ranged;
+                        weaponPrefabPath = "FusionWeaponPrefabs/LobWeapon";
                         break;
                 }
 
+                // Determine the weapon sharpness from the sharpness column
                 switch (sharpness)
                 {
                     case "sharp":
@@ -161,28 +109,52 @@ namespace Weapon
                         break;
                 }
 
-                _dicFusionWeaponInfos[weaponName] = weaponInfo;
+                // Create two keys - melee weapon first or ranged weapon first
+                string key1 = $"{meleeWeaponName}-{rangedWeaponName}";
+                string key2 = $"{rangedWeaponName}-{meleeWeaponName}";
+
+                // Create the weapon prefab based on the attack type
+                GameObject weaponPrefab = Resources.Load<GameObject>(weaponPrefabPath);
+
+                // create fusion data and assign the weapon prefab and weapon info
+                FusionData fd = new FusionData();
+                fd.fusionWeapon = weaponPrefab;
+                fd.weaponInfo = weaponInfo;
+                fd.fusionSpritePath = spritePath;
+
+                // add fusion data to dict under both keys
+                fusionDict[key1] = fd;
+                fusionDict[key2] = fd;
             }
         }
 
         public GameObject GetFusionWeapon(GameObject w1, GameObject w2)
-        {
-            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange ==
-                w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange) return null;
-            string key = w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Ranged
-                ? $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}"
-                : $"{w2.GetComponent<SpriteRenderer>().sprite.name}-{w1.GetComponent<SpriteRenderer>().sprite.name}";
-            if (_dicFusionPair.TryGetValue(key, out var weaponName))
-            {
-                WeaponInfo weaponInfo = _dicFusionWeaponInfos[weaponName];
-                GameObject weaponPrefab = _dicBaseWeaponPrefabs[weaponInfo.eAttackType];
-                weaponPrefab.GetComponent<WeaponBehaviour>().weaponInfo = weaponInfo;
-                string spritePath = $"FusionWeapon/{weaponName}";
-                Sprite newSprite = Resources.Load<Sprite>(spritePath);
-                weaponPrefab.GetComponent<SpriteRenderer>().sprite = newSprite;
-                return Instantiate(weaponPrefab);
+        { 
+            // Cant fuse ranged and melee weapons
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange){
+                return null;
             }
+            string sprite1_name = w1.GetComponent<SpriteRenderer>().sprite.name;
+            string sprite2_name = w2.GetComponent<SpriteRenderer>().sprite.name;
 
+            string key = $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
+
+            if (fusionDict.TryGetValue(key, out FusionData fusionData))
+            {
+                // Create instance of the weapon prefab and the weapon info
+                WeaponInfo weaponInfo = Instantiate(fusionData.weaponInfo);
+                GameObject weaponPrefabInstance = Instantiate(fusionData.fusionWeapon);
+
+                // set the prefabs weapon info to the fusions weapon info
+                weaponPrefabInstance.GetComponent<WeaponBehaviour>().weaponInfo = weaponInfo;
+
+                // Set the sprite of the prefab to the fusion sprite
+                Sprite newSprite = Resources.Load<Sprite>(fusionData.fusionSpritePath);
+                weaponPrefabInstance.GetComponent<SpriteRenderer>().sprite = newSprite;
+
+                return weaponPrefabInstance;
+            }
+            Debug.Log($"Fusion not found for key: {key}");
             return null;
         }
     }
