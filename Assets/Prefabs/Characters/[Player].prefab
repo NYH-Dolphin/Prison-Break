@@ -469,6 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!1 &4265247935063141411
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +840,7 @@ MonoBehaviour:
   objHitBox: {fileID: 3763116188017213914}
   tHoldWeaponTransform: {fileID: 8683192385905444498}
   fHoldWeaponScale: 0.626
-  fShivTime: 0.5
+  fStompTime: 0.5
   fSprintDetectionRange: 8
   fSprintDistance: 5
   fSprintTime: 0.05
@@ -1048,6 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8683192385905444498}
   - component: {fileID: 5349394492868652621}
+  - component: {fileID: 458917607573525548}
   m_Layer: 7
   m_Name: WeaponHoldingPoints
   m_TagString: Untagged
@@ -1083,6 +1085,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showing: 1
+--- !u!114 &458917607573525548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150126405346370112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 709b88e87c6e86e4a869048e044e3a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7815747683764756557
 PrefabInstance:
   m_ObjectHideFlags: 0

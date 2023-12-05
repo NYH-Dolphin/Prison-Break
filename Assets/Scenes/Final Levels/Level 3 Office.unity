@@ -2432,6 +2432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!114 &804979537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: -4.9
   offsetx: 12.5
+  offsetz: 0
 --- !u!212 &804979538
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7053,7 +7055,7 @@ PrefabInstance:
     - target: {fileID: 8977182004175760883, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
       propertyPath: m_Name
-      value: Tutorial
+      value: UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7908,6 +7910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: -4.9
   offsetx: 12.5
+  offsetz: 0
 --- !u!212 &1678132334
 SpriteRenderer:
   m_ObjectHideFlags: 0
