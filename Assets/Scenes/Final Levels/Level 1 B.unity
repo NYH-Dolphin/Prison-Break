@@ -381,12 +381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &315575989 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5553995303318409865, guid: 6a91c61232372f64ba334f2191bed99f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1259154677}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &315575995 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 589279046659175887, guid: 6a91c61232372f64ba334f2191bed99f,
@@ -957,7 +951,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 898731837}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &552910499
+--- !u!114 &552910502
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -966,12 +960,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 552910495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f261fb52a3e78b246a1ed170b2188434, type: 3}
+  m_Script: {fileID: 11500000, guid: 763899adee1e2cc44a89b7a12bff9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   messages:
   - actorID: 0
-    message: HAH! GOOD LUCK REACHING ME WITH THAT!
+    message: HAH! Good luck getting me through there
   actors:
   - name: Enemy
     sprite: {fileID: 21300000, guid: 461fddd02d8255443a6429d50893dee9, type: 3}
@@ -1516,7 +1510,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 758840920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3edbaaeaf892c8a459746ac6f6d75798, type: 3}
+  m_Script: {fileID: 11500000, guid: 17324b628ed755341b598a9cbd153077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openSFX: {fileID: 758840923}
@@ -2148,7 +2142,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1607032935637350613, guid: af19f2dbd8b53394d91ba0369eb26562,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 552910499}
+      addedObject: {fileID: 552910502}
   m_SourcePrefab: {fileID: 100100000, guid: af19f2dbd8b53394d91ba0369eb26562, type: 3}
 --- !u!4 &937789099 stripped
 Transform:
@@ -4226,7 +4220,6 @@ GameObject:
   - component: {fileID: 1724210531}
   - component: {fileID: 1724210535}
   - component: {fileID: 1724210534}
-  - component: {fileID: 1724210533}
   - component: {fileID: 1724210532}
   m_Layer: 0
   m_Name: Spot Light (14)
@@ -4261,7 +4254,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b192f121867d393459ff92e0c8a0e53e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.623
   m_Pitch: 1
   Loop: 1
@@ -4346,21 +4339,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1724210533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724210530}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upperIntensity: 0
-  lowerIntensity: 0
-  rate: 0
 --- !u!114 &1724210534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4476,12 +4454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9067ae221a7444cc850741055c9f87b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pairs:
-  - rangeWeapon: {fileID: 5553995303318409865, guid: bfb7f57fdf5ef034dbbe996e8fcde0e6,
-      type: 3}
-    meleeWeapon: {fileID: 315575989}
-    fusionWeapon: {fileID: 5553995303318409865, guid: 8dbb59531e6ce784098af2256405b2ce,
-      type: 3}
+  FusionCsv: {fileID: 0}
 --- !u!114 &1729991937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4532,7 +4505,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c9bad4296a89fb3489b5d34fbc8432fe, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4624,9 +4597,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795371329}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a713b932ad14f14b8e846463f515f5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 233b8e79284f42e46b804ef4b8384f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openSFX: {fileID: 1795371339}
@@ -8097,7 +8070,7 @@ PrefabInstance:
     - target: {fileID: 7064141900000305433, guid: 1b95264253c3847448dac17e15185d4a,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7064141900000305433, guid: 1b95264253c3847448dac17e15185d4a,
         type: 3}
@@ -8128,6 +8101,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1367990922438294675, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: fSprintDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367990922438294675, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: fSprintDetectionRange
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3339951385850833052, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: m_LocalPosition.x
