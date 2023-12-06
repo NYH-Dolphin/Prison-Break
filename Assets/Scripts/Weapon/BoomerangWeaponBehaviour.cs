@@ -9,7 +9,6 @@ namespace Weapon
     {
         [SerializeField] private float fTime = 0.5f;
         [SerializeField] private float fSpeed = 60f;
-        [SerializeField] private LayerMask lmGround;
 
         private GameObject _objBoomerangEffect;
         private Vector3 _vecBoomerangDir;
@@ -22,6 +21,7 @@ namespace Weapon
 
         public override void OnAttack()
         {
+            base.OnAttack();
             BoomerangBehaviour();
         }
 
@@ -46,13 +46,13 @@ namespace Weapon
                             Vector3 playerPos = Pc.transform.position;
                             playerPos.y = 0f;
                             _vecBoomerangDir = (hitGround - playerPos).normalized;
-                            Pw.OnDrawWeaponDir(_vecBoomerangDir);
+                            Effect.DrawDirHint(_vecBoomerangDir);
                         }
                     }
                 }
                 else
                 {
-                    Pw.OnCancelDrawWeaponDir();
+                    Effect.DisableDirHint();
                 }
             }
 
@@ -70,6 +70,7 @@ namespace Weapon
             Rb.drag = 0f;
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
+            AudioControl.Instance.PlayThrow();
             StartCoroutine(BoomerangUpdateCor());
         }
 
