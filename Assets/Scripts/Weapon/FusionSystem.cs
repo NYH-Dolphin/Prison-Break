@@ -134,9 +134,6 @@ namespace Weapon
             if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange){
                 return null;
             }
-            string sprite1_name = w1.GetComponent<SpriteRenderer>().sprite.name;
-            string sprite2_name = w2.GetComponent<SpriteRenderer>().sprite.name;
-
             string key = $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
 
             if (fusionDict.TryGetValue(key, out FusionData fusionData))
