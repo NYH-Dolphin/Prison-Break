@@ -945,7 +945,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 423194463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fe5f904e838a044b8fb2b3297263036, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e8bf5aa548fd174b8457fbc964ab888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &430200073
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 669653705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09699cb4b1d591a4f9df28ae5bb20279, type: 3}
+  m_Script: {fileID: 11500000, guid: 067b6d6fb54c1064e99efec4e352600a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &669653708
@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102575117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8ee6efec5ba79428d8bb7aa26812f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 27b6431fe0ff4774884017d23ad3c187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1160993162
@@ -2503,12 +2503,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1468993789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b62786bc66ada841b575d46a6961338, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b00398d5b249a84ab3911ba45b53e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   messages:
   - actorID: 0
-    message: Hit The Bars
+    message: Hit The Bars (LMB)
   actors:
   - name: Guide
     sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
@@ -6322,7 +6322,6 @@ GameObject:
   - component: {fileID: 1573733563}
   - component: {fileID: 1573733567}
   - component: {fileID: 1573733566}
-  - component: {fileID: 1573733565}
   - component: {fileID: 1573733564}
   m_Layer: 0
   m_Name: Spot Light (14)
@@ -6442,21 +6441,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1573733565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573733562}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e1b24a117e1c94eb800b8f94bcee40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upperIntensity: 0
-  lowerIntensity: 0
-  rate: 0
 --- !u!114 &1573733566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6689,7 +6673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1637052501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1423a4219f88267439db6c05264e8348, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a44b3bc1328ef74096838a5692de784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   componentNumber: 0
@@ -7222,7 +7206,7 @@ PrefabInstance:
     - target: {fileID: 3653830015024873192, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: fMovementSpeed
-      value: 15
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3767413852501519165, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
