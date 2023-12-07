@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,12 +26,6 @@ public class Breakable : MonoBehaviour
         player = GameObject.Find("[Player]");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Item is selected and can be destroyed
     /// </summary>
@@ -49,28 +42,26 @@ public class Breakable : MonoBehaviour
     public void OnHit()
     {
         SFX.PlayHit();
-        for(int i = 0; i < componentNumber; i++)
+        for (int i = 0; i < componentNumber; i++)
         {
             Vector3 instPos = player.transform.position;
             instPos.x += Random.Range(-2.5f, 2.5f);
             instPos.z += Random.Range(-2f, 2f);
             instPos.y = 1.45f;
-            foreach(GameObject ins in componentItems)
+            foreach (GameObject ins in componentItems)
                 Instantiate(ins, instPos, transform.rotation);
         }
-            
+
         Destroy(gameObject);
     }
 
-    
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player") &&  GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
+            GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
         {
             OnHit();
         }
-            
-
     }
-
 }

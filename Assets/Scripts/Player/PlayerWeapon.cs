@@ -19,6 +19,7 @@ namespace Player
         [Header("Weapon and Enemy Detect")] [SerializeField]
         private LayerMask lmWeapon;
 
+        [SerializeField] private LayerMask lmBreakableObj;
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private float fEnemyDetectionRange;
@@ -44,6 +45,7 @@ namespace Player
         // private properties
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
+        private GameObject _breakableObjectDetected;
         public GameObject WeaponEquipped { get; private set; }
 
         private InputControls _inputs;
@@ -75,13 +77,6 @@ namespace Player
             _inputs.Gameplay.Weapon.performed -= OnWeaponPerformed;
             _inputs.Gameplay.Attack.Disable();
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
-        }
-
-
-        private void Update()
-        {
-            WeaponDetectionUpdate();
-            EnemyDetectionUpdate();
         }
 
 
@@ -139,6 +134,22 @@ namespace Player
             }
         }
 
+
+        private void BreakableObjectDetectionUpdate()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmBreakableObj);
+
+            if (hitColliders != null && hitColliders.Length != 0)
+            {
+                GameObject breakable = GetMinimumDistanceCollider(hitColliders).gameObject;
+                _breakableObjectDetected = breakable;
+            }
+            else
+            {
+                _breakableObjectDetected = null;
+            }
+        }
+
         private Collider GetMinimumDistanceCollider(Collider[] hitColliders)
         {
             Collider minCollider = hitColliders[0];
@@ -163,6 +174,9 @@ namespace Player
 
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
+            // detection
+            WeaponDetectionUpdate();
+            
             // Can not switch weapon during the attack phase
             if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
             OnSwitchWeapon();
@@ -252,6 +266,8 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
+            EnemyDetectionUpdate();
+            BreakableObjectDetectionUpdate();
             
             if (!StompAttackCheck() && WeaponEquipped != null)
             {
@@ -261,6 +277,13 @@ namespace Player
                 }
 
                 SprintIn();
+            }
+            else
+            {
+                if (_breakableObjectDetected != null)
+                {
+                    StompBehaviour();
+                }
             }
         }
 
@@ -294,7 +317,6 @@ namespace Player
 
         #region Stomp
 
-
         private bool StompAttackCheck()
         {
             // stomp attack specific
@@ -309,6 +331,7 @@ namespace Player
                     {
                         return false;
                     }
+
                     StompBehaviour();
                     SprintIn();
                     return true;
@@ -317,7 +340,7 @@ namespace Player
 
             return false;
         }
-        
+
 
         private void StompBehaviour()
         {

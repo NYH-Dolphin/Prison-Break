@@ -7,7 +7,7 @@ public class HitPlayer : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "hitbox")
+        if (col.tag == "hitbox")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
