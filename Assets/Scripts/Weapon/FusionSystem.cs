@@ -14,8 +14,6 @@ namespace Weapon
         [SerializeField] public WeaponInfo weaponInfo;
     }
 
-
-
     public class FusionSystem : MonoBehaviour
     {
         [SerializeField] private TextAsset fusionCsv;
@@ -56,11 +54,9 @@ namespace Weapon
 
                 // Set up the weaponInfo
                 WeaponInfo weaponInfo = ScriptableObject.CreateInstance<WeaponInfo>();
-
                 weaponInfo.bFused = true;
                 weaponInfo.iDurability = 3;
-
-                string weaponPrefabPath = "FusionWeaponPrefabs/SwingWeapon";
+                string weaponPrefabPath = string.Empty;
 
                 // Determine the range, attack type, and prefab path from the attack type column
                 switch (attackBehavior)
