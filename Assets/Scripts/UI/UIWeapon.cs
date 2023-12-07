@@ -47,7 +47,7 @@ namespace UI
                 GameObject weapon = _pw.WeaponEquipped;
                 WeaponBehaviour wb = weapon.GetComponent<WeaponBehaviour>();
                 Sprite wsr = weapon.GetComponent<SpriteRenderer>().sprite;
-                
+
                 // weapon durability
                 for (int i = 0; i < 3; i++)
                 {
@@ -60,7 +60,7 @@ namespace UI
                         uiWeaponNums[i].sprite = texNull;
                     }
                 }
-                
+
                 if (uiWeaponName.text != wsr.name)
                 {
                     // weapon name

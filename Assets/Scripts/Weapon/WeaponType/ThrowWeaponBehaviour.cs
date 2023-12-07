@@ -10,7 +10,8 @@ namespace Weapon
         [SerializeField] private float fThrowTime = 1f;
 
         private Vector3 _vecThrowDir;
-        private bool _bLock;
+        private bool _bHit;
+        private IEnumerator _thread;
 
         private void Update()
         {
@@ -35,24 +36,15 @@ namespace Weapon
                         }
                     }
                 }
-                else
-                {
-                    Effect.DisableDirHint();
-                }
-            }
-
-            if (iDurability == 0)
-            {
-                Destroy(gameObject);
             }
         }
-        
+
         public override void OnAttack()
         {
             base.OnAttack();
+            Effect.DisableDirHint();
             ThrowBehaviour(_vecThrowDir);
         }
-        
 
 
         private void ThrowBehaviour(Vector3 facingDir)
@@ -65,59 +57,75 @@ namespace Weapon
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             Rb.AddForce(facingDir * fThrowForce, ForceMode.Impulse);
-            _bLock = true;
-
-            StartCoroutine(DestroyCountDown(fThrowTime));
+            _thread = DestroyCountDown(fThrowTime);
+            StartCoroutine(_thread);
         }
 
 
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time);
+            OnThrowEnd();
+        }
 
-            if (_bLock)
+        void OnThrowEnd()
+        {
+            iDurability -= 1;
+            if (iDurability == 0)
             {
-                _bLock = false;
-                iDurability -= 1;
-                if (iDurability == 0)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
-
-            if (iDurability > 0)
+            else if (iDurability > 0)
             {
+                // Refresh all the attributes
                 bAttack = false;
                 Rb.constraints = RigidbodyConstraints.FreezeAll;
                 gameObject.transform.position = Pw.tHoldWeaponTransform.position;
+                _bHit = false;
             }
         }
 
-
         private void OnTriggerEnter(Collider other)
         {
-            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (bAttack)
             {
-                if(weaponInfo.eSharpness == Sharpness.Blunt)
+                bool enemy = other.gameObject.layer == LayerMask.NameToLayer("Enemy") &&
+                             !setEnemyAttacked.Contains(other.gameObject);
+
+                if (enemy)
                 {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                    iDurability -= 1;
+                    _bHit = true;
+                    setEnemyAttacked.Add(other.gameObject);
+                    if (weaponInfo.eSharpness == Sharpness.Blunt)
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    }
+
+                    // once hit the enemy, throw weapon will be ereased
+                    if (_thread != null)
+                    {
+                        StopCoroutine(_thread);
+                        _thread = null;
+                    }
+
+                    OnThrowEnd();
                 }
-                    
-                else
+
+                bool obstacle = other.gameObject.layer == LayerMask.NameToLayer("Obstacle");
+                if (obstacle)
                 {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                    iDurability -= 1;
-                }
-                    
-            }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle") &&
-                     Rb.velocity != Vector3.zero)
-            {
-                if (_bLock)
-                {
-                    _bLock = false;
-                    iDurability -= 1;
+                    _bHit = true;
+                    if (_thread != null)
+                    {
+                        StopCoroutine(_thread);
+                        _thread = null;
+                    }
+
+                    OnThrowEnd();
                 }
             }
         }

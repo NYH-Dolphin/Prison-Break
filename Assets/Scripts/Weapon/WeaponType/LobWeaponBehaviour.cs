@@ -123,7 +123,7 @@ namespace Weapon
             if (iDurability > 0)
             {
                 bAttack = false;
-                iTween.Stop();
+                iTween.Stop(gameObject);
                 Rb.constraints = RigidbodyConstraints.FreezeAll;
                 gameObject.transform.position = Pw.tHoldWeaponTransform.position;
             }

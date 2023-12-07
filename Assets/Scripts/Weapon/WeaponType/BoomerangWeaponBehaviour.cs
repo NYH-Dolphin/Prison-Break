@@ -16,6 +16,7 @@ namespace Weapon
         private bool _bBack;
         private float _fTimeElapsed;
         private bool _bHit;
+        private IEnumerator _thread;
 
 
         public override void OnAttack()
@@ -61,7 +62,8 @@ namespace Weapon
             Rb.angularDrag = 0f;
             Rb.constraints = RigidbodyConstraints.FreezePositionY;
             AudioControl.Instance.PlayThrow();
-            StartCoroutine(BoomerangUpdateCor());
+            _thread = BoomerangUpdateCor();
+            StartCoroutine(_thread);
         }
 
         IEnumerator BoomerangUpdateCor()
@@ -106,8 +108,6 @@ namespace Weapon
         private void OnBoomerangEnd()
         {
             if (_bHit) iDurability -= 1;
-
-            Debug.Log(iDurability);
             if (iDurability == 0)
             {
                 Destroy(gameObject);
@@ -137,6 +137,7 @@ namespace Weapon
                 {
                     _bHit = true;
                     setEnemyAttacked.Add(other.gameObject);
+                    
                     if (weaponInfo.eSharpness == Sharpness.Blunt)
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
@@ -151,6 +152,11 @@ namespace Weapon
                 if (obstacle)
                 {
                     _bHit = true;
+                    if (_thread != null)
+                    {
+                        StopCoroutine(_thread);
+                        _thread = null;
+                    }
                     OnBoomerangEnd();
                 }
             }

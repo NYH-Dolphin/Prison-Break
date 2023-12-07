@@ -391,6 +391,7 @@ namespace Player
                 // check the whether the enemy has been attacked yet
                 if (!WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Contains(other.gameObject))
                 {
+                    // Todo this bug comes from enemy
                     other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
                     WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Add(other.gameObject);
                     if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
