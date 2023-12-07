@@ -16,9 +16,8 @@ namespace Player
         [Header("Basic Component")] [SerializeField]
         private Animator animator;
 
-        [Header("Weapon and Enemy Detect")] [SerializeField]
-        private LayerMask lmWeapon;
-
+        [Header("Weapon and Enemy Detect")] 
+        [SerializeField] private LayerMask lmWeapon;
         [SerializeField] private LayerMask lmBreakableObj;
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
@@ -30,12 +29,12 @@ namespace Player
 
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] [SerializeField]
-        private float fStompTime;
-
+        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] 
+        [SerializeField] private float fStompTime;
         private bool _bStompAttack;
 
-        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
+        [Header("Sprint")] 
+        [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
         [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
 
@@ -377,7 +376,7 @@ namespace Player
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
+            
             bool meleeWeapon = WeaponEquipped
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
@@ -385,6 +384,8 @@ namespace Player
             bool stump = objHitBox.GetComponent<Collider>().enabled &&
                          other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _bStompAttack;
 
+            
+            // TODO detect enemy has dead or not
             if (meleeWeapon)
             {
                 // check the whether the enemy has been attacked yet

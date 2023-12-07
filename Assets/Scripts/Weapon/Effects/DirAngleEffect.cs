@@ -10,7 +10,7 @@ namespace Weapon.Effects
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                Debug.Log("detect: " + other.gameObject.name);
+                // Debug.Log("detect: " + other.gameObject.name);
             }
         }
 
@@ -18,7 +18,7 @@ namespace Weapon.Effects
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                Debug.Log("exit: " + other.gameObject.name);
+                // Debug.Log("exit: " + other.gameObject.name);
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -139,7 +138,9 @@ namespace Weapon
 
                 // set the prefabs weapon info to the fusions weapon info
                 weaponPrefabInstance.GetComponent<WeaponBehaviour>().weaponInfo = weaponInfo;
-
+                weaponPrefabInstance.GetComponent<WeaponBehaviour>().iDurability = weaponInfo.iDurability;
+                
+                
                 // Set the sprite of the prefab to the fusion sprite
                 Sprite newSprite = Resources.Load<Sprite>(fusionData.fusionSpritePath);
                 weaponPrefabInstance.GetComponent<SpriteRenderer>().sprite = newSprite;

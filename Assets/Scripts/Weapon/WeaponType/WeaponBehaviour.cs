@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -8,7 +9,8 @@ namespace Weapon
     public class WeaponBehaviour : MonoBehaviour
     {
         public WeaponInfo weaponInfo;
-
+        [SerializeField] protected LayerMask lmGround;
+        
         // basic components
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
@@ -17,9 +19,8 @@ namespace Weapon
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
         protected Collider Coll;
-        protected int IDurability;
-        [SerializeField] protected LayerMask lmGround;
-
+        
+        [HideInInspector] public int iDurability;
         [HideInInspector] public bool bAttack;
         [HideInInspector] public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
         private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
@@ -33,7 +34,7 @@ namespace Weapon
 
 
             // weaponInfo is a serializable object, we need to use runtime variable 
-            IDurability = weaponInfo.iDurability;
+            iDurability = weaponInfo.iDurability;
             Sr = GetComponent<SpriteRenderer>();
             Rb = GetComponent<Rigidbody>();
             Coll = GetComponent<Collider>();
@@ -109,9 +110,9 @@ namespace Weapon
 
         public void OnUseMeleeWeapon()
         {
-            IDurability -= 1;
+            iDurability -= 1;
 
-            if (IDurability == 0)
+            if (iDurability == 0)
             {
                 Destroy(gameObject);
             }

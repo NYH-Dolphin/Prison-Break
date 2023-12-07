@@ -41,7 +41,7 @@ namespace Weapon
                 }
             }
 
-            if (IDurability == 0)
+            if (iDurability == 0)
             {
                 Destroy(gameObject);
             }
@@ -78,14 +78,14 @@ namespace Weapon
             if (_bLock)
             {
                 _bLock = false;
-                IDurability -= 1;
-                if (IDurability == 0)
+                iDurability -= 1;
+                if (iDurability == 0)
                 {
                     Destroy(gameObject);
                 }
             }
 
-            if (IDurability > 0)
+            if (iDurability > 0)
             {
                 bAttack = false;
                 Rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -101,13 +101,13 @@ namespace Weapon
                 if(weaponInfo.eSharpness == Sharpness.Blunt)
                 {
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                    IDurability -= 1;
+                    iDurability -= 1;
                 }
                     
                 else
                 {
                     other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                    IDurability -= 1;
+                    iDurability -= 1;
                 }
                     
             }
@@ -117,7 +117,7 @@ namespace Weapon
                 if (_bLock)
                 {
                     _bLock = false;
-                    IDurability -= 1;
+                    iDurability -= 1;
                 }
             }
         }

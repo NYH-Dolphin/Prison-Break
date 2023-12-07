@@ -16,16 +16,15 @@ namespace Weapon
         private bool _bBack;
         private float _fTimeElapsed;
         private bool _bHit;
-        
 
 
         public override void OnAttack()
         {
             base.OnAttack();
             BoomerangBehaviour();
+            Effect.DisableDirHint();
         }
 
-        
 
         private void Update()
         {
@@ -50,15 +49,6 @@ namespace Weapon
                         }
                     }
                 }
-                else
-                {
-                    Effect.DisableDirHint();
-                }
-            }
-
-            if (IDurability == 0)
-            {
-                Destroy(gameObject);
             }
         }
 
@@ -115,13 +105,14 @@ namespace Weapon
 
         private void OnBoomerangEnd()
         {
-            if (_bHit) IDurability -= 1;
+            if (_bHit) iDurability -= 1;
 
-            if (IDurability == 0)
+            Debug.Log(iDurability);
+            if (iDurability == 0)
             {
                 Destroy(gameObject);
             }
-            else if (IDurability > 0)
+            else if (iDurability > 0)
             {
                 // Refresh all the attributes
                 bAttack = false;
@@ -134,30 +125,33 @@ namespace Weapon
         }
 
         #endregion
-        
+
         private void OnTriggerEnter(Collider other)
         {
-            if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (bAttack)
             {
-                _bHit = true;
-                if(weaponInfo.eSharpness == Sharpness.Blunt)
+                // TODO check the enemy has dead
+                bool enemy = other.gameObject.layer == LayerMask.NameToLayer("Enemy") &&
+                             !setEnemyAttacked.Contains(other.gameObject);
+                if (enemy)
                 {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
-                    IDurability -= 1;
+                    _bHit = true;
+                    setEnemyAttacked.Add(other.gameObject);
+                    if (weaponInfo.eSharpness == Sharpness.Blunt)
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    }
                 }
-                    
-                else
+
+                bool obstacle = other.gameObject.layer == LayerMask.NameToLayer("Obstacle");
+                if (obstacle)
                 {
-                    other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                    IDurability -= 1;
-                }
-            }
-            else if (bAttack && other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-            {
-                IDurability -= 1;
-                if (IDurability == 0)
-                {
-                    Destroy(gameObject);
+                    _bHit = true;
+                    OnBoomerangEnd();
                 }
             }
         }

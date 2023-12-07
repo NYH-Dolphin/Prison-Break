@@ -113,14 +113,14 @@ namespace Weapon
             if (_bLock)
             {
                 _bLock = false;
-                IDurability -= 1;
-                if (IDurability == 0)
+                iDurability -= 1;
+                if (iDurability == 0)
                 {
                     Destroy(gameObject);
                 }
             }
 
-            if (IDurability > 0)
+            if (iDurability > 0)
             {
                 bAttack = false;
                 iTween.Stop();
@@ -178,13 +178,13 @@ namespace Weapon
                 {
                     _bLock = false;
 
-                    IDurability -= 1;
-                    if (IDurability == 0)
+                    iDurability -= 1;
+                    if (iDurability == 0)
                     {
                         Destroy(gameObject);
                     }
 
-                    if (IDurability > 0)
+                    if (iDurability > 0)
                     {
                         bAttack = false;
                         iTween.Stop();
