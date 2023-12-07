@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShowSprites : MonoBehaviour
@@ -11,9 +9,9 @@ public class ShowSprites : MonoBehaviour
         if(transform.childCount > 0)
         {
             if(showing)
-                this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
             else
-                this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }

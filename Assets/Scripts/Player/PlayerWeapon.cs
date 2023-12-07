@@ -10,7 +10,7 @@ using Weapon.Effects;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
+    [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
         [Header("Basic Component")] [SerializeField]
@@ -133,8 +133,7 @@ namespace Player
                 }
             }
         }
-
-
+        
         private void BreakableObjectDetectionUpdate()
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmBreakableObj);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -17,28 +18,26 @@ namespace Weapon
 
     public class FusionSystem : MonoBehaviour
     {
-        [SerializeField] private TextAsset FusionCsv;
-        private Dictionary<string, FusionData> fusionDict;
+        [SerializeField] private TextAsset fusionCsv;
+        private Dictionary<string, FusionData> _fusionDict;
         public static FusionSystem Instance;
-
-
-
+        
         private void Awake()
         {
-            fusionDict = new();
-            ReadFusionCSV();
+            _fusionDict = new();
+            ReadFusionCsv();
 
             Instance = this;
         }
 
-        private void ReadFusionCSV()
+        private void ReadFusionCsv()
         {
-            if (FusionCsv == null)
+            if (fusionCsv == null)
             {
                 Debug.LogError("Fusion weapon CSV file is required");
             }
 
-            string[] data = FusionCsv.text.Split('\n');
+            string[] data = fusionCsv.text.Split('\n');
             data = data.Skip(1).ToArray();
             foreach (string line in data)
             {
@@ -123,8 +122,8 @@ namespace Weapon
                 fd.fusionSpritePath = spritePath;
 
                 // add fusion data to dict under both keys
-                fusionDict[key1] = fd;
-                fusionDict[key2] = fd;
+                _fusionDict[key1] = fd;
+                _fusionDict[key2] = fd;
             }
         }
 
@@ -136,7 +135,7 @@ namespace Weapon
             }
             string key = $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
 
-            if (fusionDict.TryGetValue(key, out FusionData fusionData))
+            if (_fusionDict.TryGetValue(key, out FusionData fusionData))
             {
                 // Create instance of the weapon prefab and the weapon info
                 WeaponInfo weaponInfo = Instantiate(fusionData.weaponInfo);
