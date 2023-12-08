@@ -128,6 +128,7 @@ public class NewNav : MonoBehaviour
         chasing = true;
         agent.isStopped = false;
         agent.speed = speedRun;
+        if (animator.GetBool("attacking") == true) agent.speed = 0;
         if(player != null) agent.SetDestination(player.transform.position);
     }
 

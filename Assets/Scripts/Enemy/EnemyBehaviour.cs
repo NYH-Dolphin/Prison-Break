@@ -47,7 +47,8 @@ namespace Enemy
             if (cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned &&
                 newNav.chasing)
             {
-                if (!newNav.unconscious) anim.SetBool("attacking", true);
+                if (!newNav.unconscious) 
+                    anim.SetBool("attacking", true);
                 cool = startCool;
             }
 
@@ -114,12 +115,14 @@ namespace Enemy
         {
             notStunned = false;
             newNav.Stunned(stunTime);
-            dizzy.enabled = true;
+            //dizzy.enabled = true;
             anim.SetTrigger("stunned");
+            anim.SetBool("wake up", false);
             yield return new WaitForSeconds(stunTime);
             notStunned = true;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
+            anim.SetBool("wake up", true);
         }
 
         private IEnumerator DecreaseHealth()
