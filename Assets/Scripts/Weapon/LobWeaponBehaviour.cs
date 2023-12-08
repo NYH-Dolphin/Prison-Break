@@ -105,7 +105,7 @@ namespace Weapon
             RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation
             Effect.PlayLobEffect(_targetPosition);
-            CameraEffect.Instance.GenerateImpulse();
+            //CameraEffect.Instance.GenerateImpulse();
 
             yield return new WaitForSeconds(0.1f);
 
