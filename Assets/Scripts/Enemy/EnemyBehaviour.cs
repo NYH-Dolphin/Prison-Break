@@ -19,12 +19,13 @@ namespace Enemy
         private float cool;
         private AudioControl SFX;
         public Animator anim;
+
         public bool notStunned = true;
+
         //private Navigation nav;
         private NewNav newNav;
         private int health = 2;
         public Transform deadGuard;
-
 
 
         private void Awake()
@@ -43,15 +44,22 @@ namespace Enemy
 
         void Update()
         {
-            cool -=Time.deltaTime;
-            if(cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned && newNav.chasing)
+            cool -= Time.deltaTime;
+            if (cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned &&
+                newNav.chasing)
             {
-                if(!newNav.unconscious) anim.SetBool("attacking", true);
+                if (!newNav.unconscious) anim.SetBool("attacking", true);
                 cool = startCool;
             }
+<<<<<<< HEAD
             else{
                 Debug.Log(Vector3.Distance(transform.position, player.position));
                 if(!newNav.unconscious) anim.SetBool("attacking", false);
+=======
+            else
+            {
+                if (!newNav.unconscious) anim.SetBool("attacking", false);
+>>>>>>> 8446ed976806ee901b405126785ab070cda75078
             }
         }
 
@@ -68,26 +76,28 @@ namespace Enemy
         {
             _mat.SetFloat(OutlineWidth, 0);
         }
-        
-        
+
+
         public void OnHit(int hit, bool melee)
         {
-            Debug.Log(health);
+            Debug.Log("enemy health:" + health);
             SFX.PlayHit();
-            if(hit == 1)
+            if (hit == 1)
                 StartCoroutine(DecreaseHealth());
-                
 
-            if (hit == 2 || (!notStunned && hit == 1) || health <=0) 
+
+            if (hit == 2 || (!notStunned && hit == 1) || health <= 0)
             {
-                var dead = Instantiate(deadGuard, new Vector3(this.transform.position.x, 0.5f,this.transform.position.z), Quaternion.identity);
-                dead.transform.eulerAngles = new Vector3(0,90,0);
-                if(melee)
+                var dead = Instantiate(deadGuard,
+                    new Vector3(this.transform.position.x, 0.5f, this.transform.position.z), Quaternion.identity);
+                dead.transform.eulerAngles = new Vector3(0, 90, 0);
+                if (melee)
                 {
                     Knockback kb = dead.GetComponent<Knockback>();
                     PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
                     kb.PlayFeedback(Pc.VecDir.normalized);
                 }
+
                 Destroy(gameObject);
             }
         }
@@ -110,7 +120,6 @@ namespace Enemy
             notStunned = true;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
-
         }
 
         private IEnumerator DecreaseHealth()

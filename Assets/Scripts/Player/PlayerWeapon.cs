@@ -10,15 +10,15 @@ using Weapon.Effects;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerController), typeof(LineRenderer))]
+    [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
         [Header("Basic Component")] [SerializeField]
         private Animator animator;
 
-        [Header("Weapon and Enemy Detect")] [SerializeField]
-        private LayerMask lmWeapon;
-
+        [Header("Weapon and Enemy Detect")] 
+        [SerializeField] private LayerMask lmWeapon;
+        [SerializeField] private LayerMask lmBreakableObj;
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private float fEnemyDetectionRange;
@@ -29,12 +29,12 @@ namespace Player
 
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] [SerializeField]
-        private float fStompTime;
-
+        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] 
+        [SerializeField] private float fStompTime;
         private bool _bStompAttack;
 
-        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
+        [Header("Sprint")] 
+        [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
         [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
 
@@ -44,6 +44,7 @@ namespace Player
         // private properties
         private GameObject _enemyDetected;
         private GameObject _weaponSelected;
+        private GameObject _breakableObjectDetected;
         public GameObject WeaponEquipped { get; private set; }
 
         private InputControls _inputs;
@@ -75,13 +76,6 @@ namespace Player
             _inputs.Gameplay.Weapon.performed -= OnWeaponPerformed;
             _inputs.Gameplay.Attack.Disable();
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
-        }
-
-
-        private void Update()
-        {
-            WeaponDetectionUpdate();
-            EnemyDetectionUpdate();
         }
 
 
@@ -138,6 +132,21 @@ namespace Player
                 }
             }
         }
+        
+        private void BreakableObjectDetectionUpdate()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmBreakableObj);
+
+            if (hitColliders != null && hitColliders.Length != 0)
+            {
+                GameObject breakable = GetMinimumDistanceCollider(hitColliders).gameObject;
+                _breakableObjectDetected = breakable;
+            }
+            else
+            {
+                _breakableObjectDetected = null;
+            }
+        }
 
         private Collider GetMinimumDistanceCollider(Collider[] hitColliders)
         {
@@ -163,6 +172,9 @@ namespace Player
 
         private void OnWeaponPerformed(InputAction.CallbackContext value)
         {
+            // detection
+            WeaponDetectionUpdate();
+            
             // Can not switch weapon during the attack phase
             if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
             OnSwitchWeapon();
@@ -252,6 +264,8 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
+            EnemyDetectionUpdate();
+            BreakableObjectDetectionUpdate();
             
             if (!StompAttackCheck() && WeaponEquipped != null)
             {
@@ -261,6 +275,13 @@ namespace Player
                 }
 
                 SprintIn();
+            }
+            else
+            {
+                if (_breakableObjectDetected != null)
+                {
+                    StompBehaviour();
+                }
             }
         }
 
@@ -294,7 +315,6 @@ namespace Player
 
         #region Stomp
 
-
         private bool StompAttackCheck()
         {
             // stomp attack specific
@@ -309,6 +329,7 @@ namespace Player
                     {
                         return false;
                     }
+
                     StompBehaviour();
                     SprintIn();
                     return true;
@@ -317,7 +338,7 @@ namespace Player
 
             return false;
         }
-        
+
 
         private void StompBehaviour()
         {
@@ -355,7 +376,7 @@ namespace Player
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
+            
             bool meleeWeapon = WeaponEquipped
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
@@ -363,11 +384,14 @@ namespace Player
             bool stump = objHitBox.GetComponent<Collider>().enabled &&
                          other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _bStompAttack;
 
+            
+            // TODO detect enemy has dead or not
             if (meleeWeapon)
             {
                 // check the whether the enemy has been attacked yet
                 if (!WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Contains(other.gameObject))
                 {
+                    // Todo this bug comes from enemy
                     other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
                     WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Add(other.gameObject);
                     if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)

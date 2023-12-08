@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Weapon
 {
@@ -14,7 +13,6 @@ namespace Weapon
         Ranged,
         Melee
     }
-
 
     public enum AttackType
     {
