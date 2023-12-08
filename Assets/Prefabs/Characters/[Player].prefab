@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6391531620045852948}
   - component: {fileID: 8941831765425694239}
+  - component: {fileID: 700240677543932314}
   m_Layer: 7
   m_Name: LobRangeEffect
   m_TagString: Untagged
@@ -77,10 +78,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fLargeRadius: 5.5
-  fSmallRadius: 0.7
+  fSmallRadius: 2
   lmEnemy:
     serializedVersion: 2
     m_Bits: 256
+--- !u!135 &700240677543932314
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286391602236039000}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.4556087
+  m_Center: {x: 0, y: 0.5657371, z: -0.077212974}
 --- !u!1 &1617281891245140932
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +146,6 @@ GameObject:
   m_Component:
   - component: {fileID: 443516962366065147}
   - component: {fileID: 3441497149968159545}
-  - component: {fileID: 8659687038704310205}
   m_Layer: 0
   m_Name: LobRange
   m_TagString: Untagged
@@ -199,66 +220,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8659687038704310205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093171180639650849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd438dd108a0f284aa931a2da434f1d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ImpulseDefinition:
-    m_ImpulseChannel: 1
-    m_ImpulseShape: 2
-    m_CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
-    m_ImpulseType: 0
-    m_DissipationRate: 0.25
-    m_RawSignal: {fileID: 0}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_RepeatMode: 0
-    m_Randomize: 1
-    m_TimeEnvelope:
-      m_AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
-      m_HoldForever: 0
-    m_ImpactRadius: 100
-    m_DirectionMode: 0
-    m_DissipationMode: 2
-    m_DissipationDistance: 100
-    m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_IgnoreTag: 
-  m_UseImpactDirection: 0
-  m_ScaleImpactWithMass: 0
-  m_ScaleImpactWithSpeed: 0
 --- !u!1 &2425161167519005580
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,6 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da52977bb1d3a9040981e43f9f563574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bDev: 0
 --- !u!1 &8150126405346370112
 GameObject:
   m_ObjectHideFlags: 0

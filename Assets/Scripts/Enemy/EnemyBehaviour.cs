@@ -53,7 +53,7 @@ namespace Enemy
 
             else
             {
-                Debug.Log(Vector3.Distance(transform.position, player.position));
+                // Debug.Log(Vector3.Distance(transform.position, player.position));
                 if (!newNav.unconscious) anim.SetBool("attacking", false);
 
                 else

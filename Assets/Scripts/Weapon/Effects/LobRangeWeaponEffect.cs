@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +11,27 @@ namespace Weapon.Effects
         [SerializeField] private float fSmallRadius;
         [SerializeField] private LayerMask lmEnemy;
 
+
+        private HashSet<GameObject> _setEnemiesDetected = new();
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                _setEnemiesDetected.Add(other.gameObject);
+            }
+        }
+
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                _setEnemiesDetected.Remove(other.gameObject);
+            }
+        }
+
+
         public void ShowLobRange()
         {
             Vector3 pos = transform.position;
@@ -19,33 +41,43 @@ namespace Weapon.Effects
             Debug.DrawLine(pos, pos + Vector3.left * fLargeRadius, Color.yellow);
             Debug.DrawLine(pos, pos + Vector3.right * fLargeRadius, Color.yellow);
             Debug.DrawLine(pos, pos + Vector3.back * fLargeRadius, Color.yellow);
-            
+
             Debug.DrawLine(pos, pos + Vector3.forward * fLargeRadius, Color.red);
             Debug.DrawLine(pos, pos + Vector3.left * fSmallRadius, Color.red);
             Debug.DrawLine(pos, pos + Vector3.right * fSmallRadius, Color.red);
             Debug.DrawLine(pos, pos + Vector3.back * fSmallRadius, Color.red);
         }
-        
 
+        
         public (GameObject[], GameObject[]) GetDetectedEnemies()
         {
             Vector3 pos = transform.position;
-            Collider[] largeHitColliders = Physics.OverlapSphere(pos, fLargeRadius, lmEnemy);
-            Collider[] smallHitColliers = Physics.OverlapSphere(pos, fSmallRadius, lmEnemy);
-            HashSet<GameObject> largeHitCollidersSet = largeHitColliders.Select(coll => coll.gameObject).ToHashSet();
-            HashSet<GameObject> smallHitCollidersSet = smallHitColliers.Select(coll => coll.gameObject).ToHashSet();
-            List<GameObject> large = new();
-            foreach (var obj in largeHitCollidersSet)
+            List<GameObject> largeEnemies = new List<GameObject>();
+            List<GameObject> smallEnemies = new List<GameObject>();
+            foreach (var enemy in _setEnemiesDetected)
             {
-                if (!smallHitCollidersSet.Contains(obj))
+                if (enemy != null)
                 {
-                    large.Add(obj);
+                    float dist = Vector3.Distance(pos, enemy.transform.position);
+                    if (dist < fSmallRadius)
+                    {
+                        smallEnemies.Add(enemy);
+                    }
+                    else if (dist < fLargeRadius)
+                    {
+                        largeEnemies.Add(enemy);
+                    }
                 }
             }
-
-            Debug.Log("get enemy:" + largeHitColliders.Length);
-            return (large.ToArray(), smallHitCollidersSet.ToArray());
+            return (largeEnemies.ToArray(), smallEnemies.ToArray());
         }
+
+
+        private void OnDisable()
+        {
+            _setEnemiesDetected.Clear();
+        }
+
 
         private void OnDrawGizmosSelected()
         {

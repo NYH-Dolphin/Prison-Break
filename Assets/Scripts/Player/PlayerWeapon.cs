@@ -1,4 +1,5 @@
-﻿using Enemy;
+﻿using System;
+using Enemy;
 using GameInputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
 using Weapon.Effects;
+using Range = Weapon.Range;
 
 namespace Player
 {
@@ -57,6 +59,11 @@ namespace Player
             _pc = GetComponent<PlayerController>();
         }
 
+
+        private void Update()
+        {
+            DevShowLobRange();
+        }
 
         private void OnEnable()
         {

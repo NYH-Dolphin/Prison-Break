@@ -64,9 +64,15 @@ namespace Player
             objLobRange.SetActive(false);
         }
 
+        public void DisableLobSprite()
+        {
+            objLobRange.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
         public void DrawLobPosition(Vector3 position)
         {
             objLobRange.SetActive(true);
+            objLobRange.transform.GetChild(0).gameObject.SetActive(true);
             Vector3 pos = position;
             pos.y += 0.1f;
             objLobRange.transform.position = pos;

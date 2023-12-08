@@ -75,9 +75,9 @@ namespace Weapon
             bAttack = true;
             Coll.enabled = false;
             AudioControl.Instance.PlayLob();
-            Effect.DisableLobPosition();
+            Effect.DisableLobSprite();
             _bLock = true;
-            _setLobEnemies.Clear();
+            _setLobEnemies = new();
 
             iTween.Init(gameObject);
             Vector3[] path = new Vector3[3];
