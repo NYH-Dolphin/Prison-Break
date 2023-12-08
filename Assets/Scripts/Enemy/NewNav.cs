@@ -13,7 +13,7 @@ public class NewNav : MonoBehaviour
     private NavMeshAgent agent;
     public float speedRun = 16f;
     public bool unconscious;
-    
+
 
     public float viewRadius = 15;
     public LayerMask playerMask;
@@ -46,23 +46,21 @@ public class NewNav : MonoBehaviour
     }
 
 
-
-
     void Update()
     {
         EnvironmentView();
 
-        if(stunned || unconscious)
+        if (stunned || unconscious)
         {
             chasing = false;
             agent.speed = 0;
             agent.isStopped = true;
             agent.SetDestination(this.transform.position);
         }
-        else if(playerInRange && !isSurprised)
+        else if (playerInRange && !isSurprised)
             Chasing();
+
         UpdateAnimationParameters();
-        
     }
 
     void UpdateAnimationParameters()
@@ -90,37 +88,35 @@ public class NewNav : MonoBehaviour
         exclaim.enabled = false;
         isSurprised = false;
         playerInRange = true;
-
     }
 
     void EnvironmentView()
     {
         Collider[] inRange = Physics.OverlapSphere(transform.position, viewRadius); //NEEDS TO BE CHANGED
-        
-        for(int i = 0; i < inRange.Length; i++)
+
+        for (int i = 0; i < inRange.Length; i++)
         {
-            if(inRange[i].gameObject.name.Equals("[Player]"))
+            if (inRange[i].gameObject.name.Equals("[Player]"))
             {
                 Vector3 dirToPlayer = (player.position - transform.position).normalized;
                 float dstToPlayer = Vector3.Distance(transform.position, player.position);
 
-                if(!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
+                if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask))
                 {
-                    if(first && !unconscious)
+                    if (first && !unconscious)
                     {
                         StartCoroutine(Surprised());
                         first = false;
                     }
                 }
             }
-            
         }
-        if(player != null){
-            if(Vector3.Distance(player.transform.position, this.transform.position) > viewRadius * 4f)
-            playerInRange = false;
-        }
-        
 
+        if (player != null)
+        {
+            if (Vector3.Distance(player.transform.position, this.transform.position) > viewRadius * 4f)
+                playerInRange = false;
+        }
     }
 
     private void Chasing()
@@ -129,7 +125,7 @@ public class NewNav : MonoBehaviour
         agent.isStopped = false;
         agent.speed = speedRun;
         if (animator.GetBool("attacking") == true) agent.speed = 0;
-        if(player != null) agent.SetDestination(player.transform.position);
+        if (player != null) agent.SetDestination(player.transform.position);
     }
 
 
@@ -147,10 +143,10 @@ public class NewNav : MonoBehaviour
     private IEnumerator StunTime(float time)
     {
         stunned = true;
-        if(unconscious)
-            enBe.OnHit(2,false);
+        if (unconscious)
+            enBe.OnHit(2, false);
         yield return new WaitForSeconds(time);
-        stunned= false;
+        stunned = false;
         enBe.notStunned = true;
     }
 }
