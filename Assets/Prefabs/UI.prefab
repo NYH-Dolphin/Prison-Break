@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5562730853385225067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8348454364900281465
 RectTransform:
   m_ObjectHideFlags: 0
@@ -928,7 +928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -2.9412231, y: 56.151306}
+  m_AnchoredPosition: {x: -2.941162, y: 56.151306}
   m_SizeDelta: {x: -328.51, y: 80.3026}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4295195080175720252
@@ -1191,6 +1191,7 @@ GameObject:
   - component: {fileID: 6419858991244898826}
   - component: {fileID: 5271721623235425261}
   - component: {fileID: 6169135602862406462}
+  - component: {fileID: 970616308385118907}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1295,8 +1296,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4833b94f142e242a8d65d460771550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Instructions: {fileID: 6890918393730691648}
   actorImage: {fileID: 7805196548596632892}
   actorName: {fileID: 4630994924691104016}
   messageText: {fileID: 6745900643932410840}
   instructions: {fileID: 6890918393730691648}
   backgroundBox: {fileID: 4139778418104120146}
+  isActive: 0
+--- !u!114 &970616308385118907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977182004175760883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c603264c3bdb944aa978e4ffb5f671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messages:
+  - actorID: 0
+    message: God this <b><color=red>sucks</color></b>
+  - actorID: 0
+    message: Stuck here in the big house
+  - actorID: 0
+    message: The slammer
+  - actorID: 0
+    message: The ol' bag and ball twister
+  - actorID: 0
+    message: Caught riding a unicycle with an expired license
+  - actorID: 0
+    message: 37 year sentence
+  - actorID: 0
+    message: No <size=20>way</size> am I riding this out
+  - actorID: 0
+    message: Gotta find some way to get out of here.....
+  actors:
+  - name: Player
+    sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
+  fade: {fileID: 0}
