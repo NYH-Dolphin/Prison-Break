@@ -9,6 +9,7 @@ public class NewNav : MonoBehaviour
     [SerializeField] private float surprisedTime;
     [SerializeField] private SpriteRenderer exclaim;
     [SerializeField] float acceleration = 40f;
+    [SerializeField] Animator animator;
     private NavMeshAgent agent;
     public float speedRun = 16f;
     public bool unconscious;
@@ -41,6 +42,7 @@ public class NewNav : MonoBehaviour
         enBe = this.GetComponent<EnemyBehaviour>();
         SFX = GameObject.Find("AudioController").GetComponent<AudioControl>();
         player = GameObject.Find("[Player]").transform;
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -59,6 +61,27 @@ public class NewNav : MonoBehaviour
         }
         else if(playerInRange && !isSurprised)
             Chasing();
+        UpdateAnimationParameters();
+        
+    }
+
+    void UpdateAnimationParameters()
+    {
+        if (chasing && player != null)
+        {
+            Vector3 direction = player.position - transform.position;
+            //direction = Quaternion.Inverse(Quaternion.Euler(0, -45, 0)) * direction; // Adjusting for camera rotation
+            direction.Normalize();
+
+            animator.SetFloat("horizontal", direction.x);
+            animator.SetFloat("vertical", direction.z);
+
+            animator.SetTrigger("chasing");
+        }
+        else
+        {
+            animator.ResetTrigger("chasing");
+        }
     }
 
     public void Stunned(float time)

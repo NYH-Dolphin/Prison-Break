@@ -51,9 +51,15 @@ namespace Enemy
                 if (!newNav.unconscious) anim.SetBool("attacking", true);
                 cool = startCool;
             }
+<<<<<<< HEAD
+            else{
+                Debug.Log(Vector3.Distance(transform.position, player.position));
+                if(!newNav.unconscious) anim.SetBool("attacking", false);
+=======
             else
             {
                 if (!newNav.unconscious) anim.SetBool("attacking", false);
+>>>>>>> 8446ed976806ee901b405126785ab070cda75078
             }
         }
 

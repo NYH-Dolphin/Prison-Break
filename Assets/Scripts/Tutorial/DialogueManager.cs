@@ -6,7 +6,7 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-
+    [SerializeField] private TMP_Text Instructions;
     public Image actorImage;
     public TMP_Text actorName;
     public TMP_Text messageText;
@@ -17,8 +17,14 @@ public class DialogueManager : MonoBehaviour
     Actor[] currentActors;
     int activeMessage = 0;
     private PlayerController pc;
+    Actor actorToDisplay;
+    Message messageToDisplay;
 
-    public static bool isActive = false;
+    public bool isActive = false;
+    private Coroutine displayLineCoroutine;
+    private bool canContinue = false;
+    private bool fill = false;
+
 
     void Start()
     {
@@ -55,10 +61,14 @@ public class DialogueManager : MonoBehaviour
 
     void DisplayMessage()
     {
-        Message messageToDisplay = currentMessages[activeMessage];
-        messageText.text = messageToDisplay.message;
+        messageToDisplay = currentMessages[activeMessage];
+        if(displayLineCoroutine != null)
+        {
+            StopCoroutine(displayLineCoroutine);
+        }
+        displayLineCoroutine = StartCoroutine(DisplayLine(messageToDisplay.message));
 
-        Actor actorToDisplay = currentActors[messageToDisplay.actorID];
+        actorToDisplay = currentActors[messageToDisplay.actorID];
         actorName.text = actorToDisplay.name;
         actorImage.sprite = actorToDisplay.sprite;
 
@@ -85,7 +95,52 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isActive)
-            NextMessage();
+        if(Input.GetKeyDown(KeyCode.Space) && isActive) //change to input system
+        {
+            if(canContinue)
+                NextMessage();
+            else
+                fill = true;
+        }
+            
+        
+    }
+
+    private IEnumerator DisplayLine(string line)
+    {
+        messageText.text = "";
+
+        canContinue = false;
+        Instructions.enabled = false;
+
+        bool richText = false;
+
+        foreach(char letter in line.ToCharArray())
+        {
+            if (fill)
+            {
+                messageText.text = line;
+                fill = false;
+                break;
+            }
+
+            if(letter == '<' || richText)
+            {
+                richText = true;
+                messageText.text += letter;
+                if(letter == '>')
+                {
+                    richText = false;
+                }
+            }
+            else{
+                messageText.text += letter;
+                yield return new WaitForSeconds(0.03f);
+            }
+            
+        }
+
+        canContinue = true;
+        Instructions.enabled = true;
     }
 }
