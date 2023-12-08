@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!135 &1874898453361065365
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -166,6 +167,7 @@ MonoBehaviour:
   lmGround:
     serializedVersion: 2
     m_Bits: 8
+  iDurability: 0
   bAttack: 0
   fMaxDistance: 20
   fTime: 0.5

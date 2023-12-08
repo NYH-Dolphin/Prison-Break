@@ -10,7 +10,7 @@ namespace Weapon
     {
         public WeaponInfo weaponInfo;
         [SerializeField] protected LayerMask lmGround;
-        
+
         // basic components
         protected SpriteRenderer Sr;
         protected Rigidbody Rb;
@@ -19,7 +19,7 @@ namespace Weapon
         protected PlayerWeapon Pw;
         protected PlayerController Pc;
         protected Collider Coll;
-        
+
         [HideInInspector] public int iDurability;
         [HideInInspector] public bool bAttack;
         [HideInInspector] public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
@@ -104,7 +104,10 @@ namespace Weapon
         {
             setEnemyAttacked = new();
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            Pc.SetPlayerAttackPosition();
+            if (weaponInfo.eRange == Range.Ranged)
+            {
+                Pc.SetPlayerAttackPosition();
+            }
         }
 
 

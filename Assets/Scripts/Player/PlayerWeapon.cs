@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 using Weapon.Effects;
 
@@ -280,6 +281,7 @@ namespace Player
             {
                 if (_breakableObjectDetected != null)
                 {
+                    _breakableObjectDetected.GetComponent<Breakable>().OnHit();
                     StompBehaviour();
                 }
             }
@@ -329,7 +331,11 @@ namespace Player
                     {
                         return false;
                     }
-
+                    // directly kill it
+                    if (_enemyDetected != null)
+                    {
+                        _enemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    }
                     StompBehaviour();
                     SprintIn();
                     return true;
@@ -343,9 +349,7 @@ namespace Player
         private void StompBehaviour()
         {
             _bStompAttack = true;
-            // TODO set the trigger to stomp after the animation is finished 
-            animator.SetTrigger("Swing");
-            _pc.SetPlayerAttackPosition();
+            animator.SetTrigger("Stomp");
             StartCoroutine(StompCountdown(fStompTime));
         }
 
