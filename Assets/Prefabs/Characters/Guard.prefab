@@ -215,6 +215,7 @@ MonoBehaviour:
   surprisedTime: 1.2
   exclaim: {fileID: 7388873249069505855}
   acceleration: 40
+  animator: {fileID: 0}
   speedRun: 12
   unconscious: 0
   viewRadius: 12
@@ -326,6 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!1 &6001237927139152325
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!1 &7720747554264006400
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +525,7 @@ Animator:
   m_GameObject: {fileID: 7720747554264006400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92d7835251525ca42a4a24915bb4f91a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 40c532dc1867cff41a0c98e71ef538fe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -547,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!1 &8045131639254063581
 GameObject:
   m_ObjectHideFlags: 0
