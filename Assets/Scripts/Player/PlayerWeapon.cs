@@ -19,8 +19,9 @@ namespace Player
         [Header("Basic Component")] [SerializeField]
         private Animator animator;
 
-        [Header("Weapon and Enemy Detect")] 
-        [SerializeField] private LayerMask lmWeapon;
+        [Header("Weapon and Enemy Detect")] [SerializeField]
+        private LayerMask lmWeapon;
+
         [SerializeField] private LayerMask lmBreakableObj;
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
@@ -32,12 +33,12 @@ namespace Player
 
         [SerializeField] [Range(0, 1)] private float fHoldWeaponScale;
 
-        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] 
-        [SerializeField] private float fStompTime;
+        [FormerlySerializedAs("fShivTime")] [Header("Stomp Attack")] [SerializeField]
+        private float fStompTime;
+
         private bool _bStompAttack;
 
-        [Header("Sprint")] 
-        [SerializeField] private float fSprintDetectionRange;
+        [Header("Sprint")] [SerializeField] private float fSprintDetectionRange;
         [SerializeField] private float fSprintDistance;
         [SerializeField] [Range(0.01f, 0.5f)] private float fSprintTime;
 
@@ -76,6 +77,8 @@ namespace Player
             _inputs.Gameplay.Weapon.performed += OnWeaponPerformed;
             _inputs.Gameplay.Attack.Enable();
             _inputs.Gameplay.Attack.performed += OnAttackPerformed;
+            _inputs.Gameplay.Fusion.Enable();
+            _inputs.Gameplay.Fusion.performed += OnFusionPerformed;
         }
 
         private void OnDisable()
@@ -84,6 +87,8 @@ namespace Player
             _inputs.Gameplay.Weapon.performed -= OnWeaponPerformed;
             _inputs.Gameplay.Attack.Disable();
             _inputs.Gameplay.Attack.performed -= OnAttackPerformed;
+            _inputs.Gameplay.Fusion.Disable();
+            _inputs.Gameplay.Fusion.performed -= OnFusionPerformed;
         }
 
 
@@ -140,7 +145,7 @@ namespace Player
                 }
             }
         }
-        
+
         private void BreakableObjectDetectionUpdate()
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, fWeaponGrabRange, lmBreakableObj);
@@ -182,10 +187,27 @@ namespace Player
         {
             // detection
             WeaponDetectionUpdate();
-            
+
             // Can not switch weapon during the attack phase
             if (WeaponEquipped != null && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack) return;
             OnSwitchWeapon();
+        }
+
+        private void OnFusionPerformed(InputAction.CallbackContext value)
+        {
+            if (_weaponSelected != null)
+            {
+                if (WeaponEquipped != null)
+                {
+                    WeaponDetectionUpdate();
+                    bool fused = FusionCheck();
+                    if (fused)
+                    {
+                        OnDropWeapon();
+                        OnHoldWeapon();
+                    }
+                }
+            }
         }
 
         private void OnSwitchWeapon()
@@ -194,7 +216,6 @@ namespace Player
             {
                 if (WeaponEquipped != null)
                 {
-                    FusionCheck();
                     OnDropWeapon();
                 }
 
@@ -209,7 +230,7 @@ namespace Player
             }
         }
 
-        private void FusionCheck()
+        private bool FusionCheck()
         {
             WeaponInfo weaponEquippedInfo = WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo;
             // use a basic weapon
@@ -218,11 +239,15 @@ namespace Player
                 GameObject fusedWeapon = FusionSystem.Instance.GetFusionWeapon(WeaponEquipped, _weaponSelected);
                 if (fusedWeapon != null)
                 {
+                    Debug.Log("TRIGGER");
                     Destroy(_weaponSelected);
                     Destroy(WeaponEquipped);
                     _weaponSelected = fusedWeapon;
+                    return true;
                 }
             }
+
+            return false;
         }
 
         private void OnHoldWeapon()
@@ -274,7 +299,7 @@ namespace Player
         {
             EnemyDetectionUpdate();
             BreakableObjectDetectionUpdate();
-            
+
             if (!StompAttackCheck() && WeaponEquipped != null)
             {
                 if (!WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack)
@@ -338,11 +363,13 @@ namespace Player
                     {
                         return false;
                     }
+
                     // directly kill it
                     if (_enemyDetected != null)
                     {
                         _enemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
                     }
+
                     StompBehaviour();
                     SprintIn();
                     return true;
@@ -387,7 +414,7 @@ namespace Player
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-            
+
             bool meleeWeapon = WeaponEquipped
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee;
@@ -395,7 +422,7 @@ namespace Player
             bool stump = objHitBox.GetComponent<Collider>().enabled &&
                          other.gameObject.layer == LayerMask.NameToLayer("Enemy") && _bStompAttack;
 
-            
+
             // TODO detect enemy has dead or not
             if (meleeWeapon)
             {
