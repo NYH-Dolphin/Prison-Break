@@ -50,6 +50,7 @@ namespace Enemy
                 cool = startCool;
             }
             else{
+                Debug.Log(Vector3.Distance(transform.position, player.position));
                 if(!newNav.unconscious) anim.SetBool("attacking", false);
             }
         }
