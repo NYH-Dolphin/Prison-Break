@@ -47,7 +47,7 @@ namespace Enemy
             if (cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned &&
                 newNav.chasing)
             {
-                if (!newNav.unconscious) 
+                if (!newNav.unconscious)
                     anim.SetBool("attacking", true);
                 cool = startCool;
             }
@@ -108,12 +108,17 @@ namespace Enemy
         {
             SFX.PlayHit();
             StartCoroutine(Blunt());
-            notStunned = false;
         }
+
+
+        public bool bExecution => !notStunned && _bExecutable;
+
+        private bool _bExecutable;
 
         private IEnumerator Blunt()
         {
             notStunned = false;
+            StartCoroutine(BluntCountDown(0.8f));
             newNav.Stunned(stunTime);
             //dizzy.enabled = true;
             anim.SetTrigger("stunned");
@@ -123,6 +128,13 @@ namespace Enemy
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
             anim.SetBool("wake up", true);
+        }
+
+        private IEnumerator BluntCountDown(float time)
+        {
+            _bExecutable = false;
+            yield return new WaitForSeconds(time);
+            _bExecutable = true;
         }
 
         private IEnumerator DecreaseHealth()

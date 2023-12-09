@@ -352,7 +352,7 @@ namespace Player
         private bool StompAttackCheck()
         {
             // stomp attack specific
-            if (_enemyDetected != null && !_enemyDetected.GetComponent<EnemyBehaviour>().notStunned && !_bStompAttack)
+            if (_enemyDetected != null && _enemyDetected.GetComponent<EnemyBehaviour>().bExecution && !_bStompAttack)
             {
                 Vector3 playerPos = transform.position;
                 Vector3 enemyPos = _enemyDetected.transform.position;
