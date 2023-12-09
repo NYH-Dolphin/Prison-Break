@@ -78,7 +78,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovementUpdate();
+        if(animator.GetBool("canMove")) {
+            MovementUpdate();
+            GetComponent<PlayerWeapon>().DirectionCheck(animator.GetFloat(Horizontal), animator.GetFloat(Vertical));
+        }
     }
 
 

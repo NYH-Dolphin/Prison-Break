@@ -26,6 +26,7 @@ namespace Player
         [SerializeField] private LayerMask lmEnemy;
         [SerializeField] private float fWeaponGrabRange;
         [SerializeField] private float fEnemyDetectionRange;
+        [SerializeField] private float fEnemyDetectionAngle;
         [SerializeField] private GameObject objHitBox;
 
         [Header("Holding Weapon")] [SerializeField]
@@ -50,6 +51,7 @@ namespace Player
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
         public GameObject WeaponEquipped { get; private set; }
+        private Vector3 direction;
 
         private InputControls _inputs;
         private PlayerController _pc;
@@ -64,7 +66,9 @@ namespace Player
         private void Update()
         {
             DevShowLobRange();
+            EnemyDetectionUpdate();
         }
+
 
         private void OnEnable()
         {
@@ -103,15 +107,33 @@ namespace Player
             if (hitColliders != null && hitColliders.Length != 0)
             {
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
-                if (_enemyDetected != enemy && enemy != null)
+                if(enemy != null)
                 {
-                    _enemyDetected = enemy;
+                    Vector3 directionToTarget = (enemy.transform.position - transform.position).normalized;
+                    float angle = Vector3.Angle(direction, directionToTarget);
+                    Debug.Log(angle);
+                    if (angle < fEnemyDetectionAngle / 2)
+                    {
+                        if(_enemyDetected != enemy)
+                        {
+                            _enemyDetected = enemy;
+                            _enemyDetected.transform.GetChild(3).gameObject.SetActive(true);
+                        } 
+                        
+                    }
+                    else if (_enemyDetected != null)
+                    {
+                        _enemyDetected.transform.GetChild(3).gameObject.SetActive(false);
+                        _enemyDetected = null;
+                    }
                 }
+                
             }
             else
             {
                 if (_enemyDetected != null)
                 {
+                    _enemyDetected.transform.GetChild(3).gameObject.SetActive(false);
                     _enemyDetected = null;
                 }
             }
@@ -176,6 +198,49 @@ namespace Player
             }
 
             return minCollider;
+        }
+
+        public void DirectionCheck(float hor, float vert)
+        {
+            if(hor > 0)
+            {
+                if(vert > 0)
+                {
+                    direction = new Vector3(1,0,1).normalized;
+                }
+                else if(vert < 0)
+                {
+                    direction = new Vector3(1,0,-1).normalized;
+                }
+                else
+                    direction = new Vector3(1,0,0).normalized;
+            }
+            else if(hor < 0)
+            {
+                if(vert > 0)
+                {
+                    direction = new Vector3(-1,0,1).normalized;
+                }
+                else if(vert < 0)
+                {
+                    direction = new Vector3(-1,0,-1).normalized;
+                }
+                else
+                    direction = new Vector3(-1,0,0).normalized;
+            }
+            else
+            {
+                if(vert > 0)
+                {
+                    direction = new Vector3(0,0,1).normalized;
+                }
+                else if(vert < 0)
+                {
+                    direction = new Vector3(0,0,-1).normalized;
+                }
+            }
+
+            
         }
 
         #endregion
@@ -453,5 +518,7 @@ namespace Player
         }
 
         #endregion
+
+        
     }
 }

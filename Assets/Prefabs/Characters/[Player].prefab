@@ -337,7 +337,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.45, z: 0}
   m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8683192385905444498}
   - {fileID: 7980629782176308385}
@@ -800,6 +800,7 @@ MonoBehaviour:
     m_Bits: 256
   fWeaponGrabRange: 3
   fEnemyDetectionRange: 12
+  fEnemyDetectionAngle: 120
   objHitBox: {fileID: 3763116188017213914}
   tHoldWeaponTransform: {fileID: 8683192385905444498}
   fHoldWeaponScale: 0.626
