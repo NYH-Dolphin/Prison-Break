@@ -62,6 +62,7 @@ namespace Enemy
                     if (!newNav.unconscious) anim.SetBool("attacking", false);
                 }
             }
+
         }
 
         /// <summary>
@@ -102,6 +103,38 @@ namespace Enemy
                 Destroy(gameObject);
             }
         }
+
+        public Transform ActiveAttackPoint()
+        {
+            Vector3 directionToTarget = (player.position - transform.position).normalized;
+            float angle = Vector3.Angle(transform.forward, directionToTarget);
+            if(angle < 22.5)
+                return transform.GetChild(4).GetChild(4);
+            else if (angle < 67.5)
+            {
+                if(directionToTarget.x <= 0)
+                    return transform.GetChild(4).GetChild(5);
+                else
+                    return transform.GetChild(4).GetChild(3);
+            }
+            else if (angle < 112.5)
+            {
+                if(directionToTarget.x <= 0)
+                    return transform.GetChild(4).GetChild(6);
+                else
+                    return transform.GetChild(4).GetChild(2);
+            }
+            else if (angle < 157.5)
+            {
+                if(directionToTarget.x <= 0)
+                    return transform.GetChild(4).GetChild(7);
+                else
+                    return transform.GetChild(4).GetChild(1);
+            }
+            else
+                return transform.GetChild(4).GetChild(0);
+        }
+        
 
 
         public void OnHitBlunt()

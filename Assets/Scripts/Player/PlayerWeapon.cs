@@ -111,7 +111,6 @@ namespace Player
                 {
                     Vector3 directionToTarget = (enemy.transform.position - transform.position).normalized;
                     float angle = Vector3.Angle(direction, directionToTarget);
-                    Debug.Log(angle);
                     if (angle < fEnemyDetectionAngle / 2)
                     {
                         if(_enemyDetected != enemy)
@@ -392,7 +391,9 @@ namespace Player
                     WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
                 {
                     Vector3 playerPos = transform.position;
-                    Vector3 enemyPos = _enemyDetected.transform.position;
+                    Transform attkPos = _enemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
+                    Debug.Log(attkPos.name);
+                    Vector3 enemyPos = attkPos.position;
                     float dist = Vector3.Distance(playerPos, enemyPos);
                     if (dist < fSprintDetectionRange)
                     {
