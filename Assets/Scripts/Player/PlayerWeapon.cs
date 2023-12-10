@@ -479,7 +479,7 @@ namespace Player
         // the trigger enter will be calculate when the hit box is activated
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemy") || other.gameObject != _enemyDetected) return;
 
             bool meleeWeapon = WeaponEquipped
                                && WeaponEquipped.GetComponent<WeaponBehaviour>().bAttack
