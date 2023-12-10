@@ -106,8 +106,10 @@ namespace Enemy
 
         public Transform ActiveAttackPoint()
         {
+            if(!notStunned) return transform.GetChild(0).transform;
             Vector3 directionToTarget = (player.position - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
+
             if(angle < 22.5)
                 return transform.GetChild(4).GetChild(4);
             else if (angle < 67.5)
@@ -151,9 +153,11 @@ namespace Enemy
         private IEnumerator Blunt()
         {
             notStunned = false;
-            StartCoroutine(BluntCountDown(0.5f));
+            StartCoroutine(BluntCountDown(0.3f));
             newNav.Stunned(stunTime);
-            //dizzy.enabled = true;
+            dizzy.enabled = true;
+            float direction = DirectionSwitcher();
+            anim.SetFloat("direction", direction);
             anim.SetTrigger("stunned");
             anim.SetBool("wake up", false);
             yield return new WaitForSeconds(stunTime);
@@ -161,6 +165,33 @@ namespace Enemy
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
             anim.SetBool("wake up", true);
+        }
+
+        private float DirectionSwitcher()
+        {
+            Transform direction = ActiveAttackPoint();
+            switch(direction.gameObject.name)
+            {
+                case "West":
+                    return 1;
+                case "East":
+                    return 2;
+                case "South":
+                    return 3;
+                case "North":
+                    return 4;
+                case "NorthWest":
+                    return 5;
+                case "NorthEast":
+                    return 6;
+                case "SouthWest":
+                    return 7;
+                case "SouthEast":
+                    return 8;
+                default:
+                    return 1;
+            }
+            return 1;
         }
 
         private IEnumerator BluntCountDown(float time)

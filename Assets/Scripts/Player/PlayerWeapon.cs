@@ -48,6 +48,7 @@ namespace Player
 
         public GameObject _enemyDetected;
         // private properties
+        private GameObject downedEnemy;
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
         public GameObject WeaponEquipped { get; private set; }
@@ -107,41 +108,6 @@ namespace Player
 
         #region SceneDetection
 
-        private void EnemyLocationCheck()
-        {
-            if(_enemyDetected != null)
-            {
-                Transform attkPos = _enemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
-                switch(attkPos.gameObject.name)
-                {
-                    case "East":
-                        animator.SetFloat("Direction", 1);
-                        break;
-                    case "West":
-                        animator.SetFloat("Direction", 2);
-                        break;
-                    case "North":
-                        animator.SetFloat("Direction", 3);
-                        break;
-                    case "South":
-                        animator.SetFloat("Direction", 4);
-                        break;
-                    case "NorthEast":
-                        animator.SetFloat("Direction", 5);
-                        break;
-                    case "NorthWest":
-                        animator.SetFloat("Direction", 6);
-                        break;
-                    case "SouthEast":
-                        animator.SetFloat("Direction", 7);
-                        break;
-                    case "SouthWest":
-                        animator.SetFloat("Direction", 8);
-                        break;
-                    
-                }
-            }
-        }
         private void WeaponDetectionUpdate()
         {
             // when player is holding the weapon and the weapon is on attack, can not detect the weapon
@@ -323,7 +289,6 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            EnemyLocationCheck();
             BreakableObjectDetectionUpdate();
 
             if (!StompAttackCheck() && WeaponEquipped != null)
@@ -354,7 +319,6 @@ namespace Player
                 {
                     Vector3 playerPos = transform.position;
                     Transform attkPos = _enemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
-                    Debug.Log(attkPos.name);
                     Vector3 enemyPos = attkPos.position;
                     float dist = Vector3.Distance(playerPos, enemyPos);
                     if (dist < fSprintDetectionRange)
@@ -377,13 +341,49 @@ namespace Player
 
         #region Stomp
 
+
+        private void DownedEnemyCheck()
+        {
+            Collider[] hitColliders;
+            hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
+            if (hitColliders != null && hitColliders.Length != 0)
+            {
+                GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
+                if (enemy != null)
+                {
+                    if(!enemy.GetComponent<EnemyBehaviour>().bExecution)
+                    {
+                        if(downedEnemy != null)
+                        {
+                            downedEnemy = null;
+                        }
+                        return;
+                    }
+                    else{
+                        downedEnemy = enemy;
+                    }
+                }
+                else if(downedEnemy != null)
+                {
+                    downedEnemy = null;
+                }
+            }
+            else
+            {
+                if(downedEnemy != null)
+                {
+                    downedEnemy = null;
+                }
+            }
+        }
         private bool StompAttackCheck()
         {
+            DownedEnemyCheck();
             // stomp attack specific
-            if (_enemyDetected != null && _enemyDetected.GetComponent<EnemyBehaviour>().bExecution && !_bStompAttack)
+            if (downedEnemy != null && !_bStompAttack)
             {
                 Vector3 playerPos = transform.position;
-                Vector3 enemyPos = _enemyDetected.transform.position;
+                Vector3 enemyPos = downedEnemy.transform.position;
                 float dist = Vector3.Distance(playerPos, enemyPos);
                 if (dist < fSprintDetectionRange)
                 {
@@ -393,10 +393,8 @@ namespace Player
                     }
 
                     // directly kill it
-                    if (_enemyDetected != null)
-                    {
-                        _enemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                    }
+                    _enemyDetected = downedEnemy;
+                    _enemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
 
                     StompBehaviour();
                     SprintIn();
