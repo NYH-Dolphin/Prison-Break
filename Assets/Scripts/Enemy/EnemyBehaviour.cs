@@ -151,7 +151,7 @@ namespace Enemy
         private IEnumerator Blunt()
         {
             notStunned = false;
-            StartCoroutine(BluntCountDown(0.8f));
+            StartCoroutine(BluntCountDown(0.5f));
             newNav.Stunned(stunTime);
             //dizzy.enabled = true;
             anim.SetTrigger("stunned");

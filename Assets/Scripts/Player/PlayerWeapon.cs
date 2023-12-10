@@ -16,8 +16,8 @@ namespace Player
     [RequireComponent(typeof(PlayerController))]
     public class PlayerWeapon : MonoBehaviour
     {
-        [Header("Basic Component")] [SerializeField]
-        private Animator animator;
+        [Header("Basic Component")]
+        public Animator animator;
 
         [Header("Weapon and Enemy Detect")] [SerializeField]
         private LayerMask lmWeapon;
@@ -46,8 +46,8 @@ namespace Player
         [Header("Weapon Attack Effects")] [SerializeField]
         private GameObject objLobRange;
 
+        public GameObject _enemyDetected;
         // private properties
-        private GameObject _enemyDetected;
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
         public GameObject WeaponEquipped { get; private set; }
@@ -66,7 +66,16 @@ namespace Player
         private void Update()
         {
             DevShowLobRange();
-            EnemyDetectionUpdate();
+            //EnemyDetectionUpdate();
+            if(_enemyDetected != null)
+            {
+                if(!_enemyDetected.transform.GetChild(3).gameObject.activeSelf)
+                {
+                    Debug.Log("highlight");
+                    _enemyDetected.transform.GetChild(3).gameObject.SetActive(true);
+                }
+                    
+            }
         }
 
 
@@ -98,46 +107,41 @@ namespace Player
 
         #region SceneDetection
 
-        // Current weapon behaviour no longer need enemy detection
-        private void EnemyDetectionUpdate()
+        private void EnemyLocationCheck()
         {
-            Collider[] hitColliders;
-            hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
-
-            if (hitColliders != null && hitColliders.Length != 0)
+            if(_enemyDetected != null)
             {
-                GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
-                if(enemy != null)
+                Transform attkPos = _enemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
+                switch(attkPos.gameObject.name)
                 {
-                    Vector3 directionToTarget = (enemy.transform.position - transform.position).normalized;
-                    float angle = Vector3.Angle(direction, directionToTarget);
-                    if (angle < fEnemyDetectionAngle / 2)
-                    {
-                        if(_enemyDetected != enemy)
-                        {
-                            _enemyDetected = enemy;
-                            _enemyDetected.transform.GetChild(3).gameObject.SetActive(true);
-                        } 
-                        
-                    }
-                    else if (_enemyDetected != null)
-                    {
-                        _enemyDetected.transform.GetChild(3).gameObject.SetActive(false);
-                        _enemyDetected = null;
-                    }
-                }
-                
-            }
-            else
-            {
-                if (_enemyDetected != null)
-                {
-                    _enemyDetected.transform.GetChild(3).gameObject.SetActive(false);
-                    _enemyDetected = null;
+                    case "East":
+                        animator.SetFloat("Direction", 1);
+                        break;
+                    case "West":
+                        animator.SetFloat("Direction", 2);
+                        break;
+                    case "North":
+                        animator.SetFloat("Direction", 3);
+                        break;
+                    case "South":
+                        animator.SetFloat("Direction", 4);
+                        break;
+                    case "NorthEast":
+                        animator.SetFloat("Direction", 5);
+                        break;
+                    case "NorthWest":
+                        animator.SetFloat("Direction", 6);
+                        break;
+                    case "SouthEast":
+                        animator.SetFloat("Direction", 7);
+                        break;
+                    case "SouthWest":
+                        animator.SetFloat("Direction", 8);
+                        break;
+                    
                 }
             }
         }
-
         private void WeaponDetectionUpdate()
         {
             // when player is holding the weapon and the weapon is on attack, can not detect the weapon
@@ -199,48 +203,6 @@ namespace Player
             return minCollider;
         }
 
-        public void DirectionCheck(float hor, float vert)
-        {
-            if(hor > 0)
-            {
-                if(vert > 0)
-                {
-                    direction = new Vector3(1,0,1).normalized;
-                }
-                else if(vert < 0)
-                {
-                    direction = new Vector3(1,0,-1).normalized;
-                }
-                else
-                    direction = new Vector3(1,0,0).normalized;
-            }
-            else if(hor < 0)
-            {
-                if(vert > 0)
-                {
-                    direction = new Vector3(-1,0,1).normalized;
-                }
-                else if(vert < 0)
-                {
-                    direction = new Vector3(-1,0,-1).normalized;
-                }
-                else
-                    direction = new Vector3(-1,0,0).normalized;
-            }
-            else
-            {
-                if(vert > 0)
-                {
-                    direction = new Vector3(0,0,1).normalized;
-                }
-                else if(vert < 0)
-                {
-                    direction = new Vector3(0,0,-1).normalized;
-                }
-            }
-
-            
-        }
 
         #endregion
 
@@ -361,7 +323,7 @@ namespace Player
 
         private void OnAttackPerformed(InputAction.CallbackContext value)
         {
-            EnemyDetectionUpdate();
+            EnemyLocationCheck();
             BreakableObjectDetectionUpdate();
 
             if (!StompAttackCheck() && WeaponEquipped != null)
@@ -501,13 +463,17 @@ namespace Player
                     if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
                     else
+                    {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
+                    }
+                        
                 }
 
                 WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();
             }
             else if (stump)
             {
+                
                 if (other.gameObject != null)
                 {
                     if (!other.gameObject.GetComponent<EnemyBehaviour>().notStunned)
