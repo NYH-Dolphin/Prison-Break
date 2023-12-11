@@ -44,12 +44,15 @@ public class Breakable : MonoBehaviour
         SFX.PlayHit();
         for (int i = 0; i < componentNumber; i++)
         {
-            Vector3 instPos = player.transform.position;
-            instPos.x += Random.Range(-2.5f, 2.5f);
-            instPos.z += Random.Range(-2f, 2f);
-            instPos.y = 1.45f;
             foreach (GameObject ins in componentItems)
+            {
+                Vector3 instPos = player.transform.position;
+                instPos.x += Random.Range(-2.5f, 2.5f);
+                instPos.z += Random.Range(-2f, 2f);
+                instPos.y = 1.45f;
                 Instantiate(ins, instPos, transform.rotation);
+            }
+                
         }
 
         Destroy(gameObject);

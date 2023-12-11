@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3369506118529487586, guid: 575d4dab55d008340a1d29c88a8e7382,
+        type: 3}
+      propertyPath: stunTime
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5953758347472165871, guid: 575d4dab55d008340a1d29c88a8e7382,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80119,7 +80124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876c32087168454b990889f0ff1df56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiWeaponName: {fileID: 1535091804}
+  uiWeaponSharpness: {fileID: 0}
   uiWeaponNums:
   - {fileID: 162518500}
   - {fileID: 1847205088}

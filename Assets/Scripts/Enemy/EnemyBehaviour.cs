@@ -44,8 +44,7 @@ namespace Enemy
         void Update()
         {
             cool -= Time.deltaTime;
-            if (cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned &&
-                newNav.chasing)
+            if (cool <= 0 && Vector3.Distance(transform.position, player.position) <= attackingRange && notStunned)
             {
                 if (!newNav.unconscious)
                     anim.SetBool("attacking", true);
@@ -111,30 +110,30 @@ namespace Enemy
             float angle = Vector3.Angle(transform.forward, directionToTarget);
 
             if(angle < 22.5)
-                return transform.GetChild(4).GetChild(4);
+                return transform.GetChild(3).GetChild(4);
             else if (angle < 67.5)
             {
                 if(directionToTarget.x <= 0)
-                    return transform.GetChild(4).GetChild(5);
+                    return transform.GetChild(3).GetChild(5);
                 else
-                    return transform.GetChild(4).GetChild(3);
+                    return transform.GetChild(3).GetChild(3);
             }
             else if (angle < 112.5)
             {
                 if(directionToTarget.x <= 0)
-                    return transform.GetChild(4).GetChild(6);
+                    return transform.GetChild(3).GetChild(6);
                 else
-                    return transform.GetChild(4).GetChild(2);
+                    return transform.GetChild(3).GetChild(2);
             }
             else if (angle < 157.5)
             {
                 if(directionToTarget.x <= 0)
-                    return transform.GetChild(4).GetChild(7);
+                    return transform.GetChild(3).GetChild(7);
                 else
-                    return transform.GetChild(4).GetChild(1);
+                    return transform.GetChild(3).GetChild(1);
             }
             else
-                return transform.GetChild(4).GetChild(0);
+                return transform.GetChild(3).GetChild(0);
         }
         
 
@@ -161,6 +160,7 @@ namespace Enemy
             anim.SetTrigger("stunned");
             anim.SetBool("wake up", false);
             yield return new WaitForSeconds(stunTime);
+            transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
             notStunned = true;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");

@@ -144,6 +144,7 @@ namespace Weapon
                 // Set the sprite of the prefab to the fusion sprite
                 Sprite newSprite = Resources.Load<Sprite>(fusionData.fusionSpritePath);
                 weaponPrefabInstance.GetComponent<SpriteRenderer>().sprite = newSprite;
+                weaponPrefabInstance.transform.localScale *= 1.5f;
 
                 return weaponPrefabInstance;
             }

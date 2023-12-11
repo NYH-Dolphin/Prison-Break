@@ -58,6 +58,7 @@ namespace Player
         private PlayerController _pc;
 
 
+
         private void Awake()
         {
             _pc = GetComponent<PlayerController>();
@@ -70,12 +71,8 @@ namespace Player
             //EnemyDetectionUpdate();
             if(_enemyDetected != null)
             {
-                if(!_enemyDetected.transform.GetChild(3).gameObject.activeSelf)
-                {
-                    Debug.Log("highlight");
-                    _enemyDetected.transform.GetChild(3).gameObject.SetActive(true);
-                }
-                    
+                _enemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(255,255,255);
+                _enemyDetected.transform.GetChild(2).transform.localScale = new Vector3(2.8f,2.8f,2.8f);
             }
         }
 
@@ -345,9 +342,10 @@ namespace Player
         private void DownedEnemyCheck()
         {
             Collider[] hitColliders;
-            hitColliders = Physics.OverlapSphere(transform.position, fEnemyDetectionRange, lmEnemy);
-            if (hitColliders != null && hitColliders.Length != 0)
+            hitColliders = Physics.OverlapSphere(transform.position, fSprintDetectionRange, lmEnemy);
+            if (hitColliders != null && hitColliders.Length > 0)
             {
+                
                 GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (enemy != null)
                 {
@@ -459,7 +457,10 @@ namespace Player
                     other.GetComponent<Knockback>().PlayFeedback(_pc.VecDir.normalized);
                     WeaponEquipped.GetComponent<WeaponBehaviour>().setEnemyAttacked.Add(other.gameObject);
                     if (WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
-                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    {
+                        other.gameObject.GetComponent<EnemyBehaviour>().OnHitBlunt(); 
+                        _enemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
+                    }
                     else
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
