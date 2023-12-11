@@ -219,6 +219,17 @@ namespace GameInputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""f7cacb99-b26a-4ce6-bcef-d1dd373ab49f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4a424bd0-b814-43d3-9c6f-bcaf40b902d3"",
                     ""path"": ""<Mouse>/press"",
                     ""interactions"": ""Press(behavior=1)"",
@@ -243,6 +254,17 @@ namespace GameInputSystem
                     ""name"": """",
                     ""id"": ""08b14f0b-6bed-4b39-af55-cba92de4d5c1"",
                     ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fusion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e943c25e-b861-428e-a79d-f2b37ce0f2ce"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

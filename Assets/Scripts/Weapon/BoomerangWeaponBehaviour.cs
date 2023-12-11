@@ -17,6 +17,7 @@ namespace Weapon
         private float _fTimeElapsed;
         private bool _bHit;
         private IEnumerator _thread;
+        Vector3 currentEulerAngles;
 
 
         public override void OnAttack()
@@ -78,6 +79,7 @@ namespace Weapon
                     if (_fTimeElapsed < fTime / 2.0f)
                     {
                         Rb.velocity = _vecBoomerangDir * fSpeed;
+                        
                     }
                     else
                     {
@@ -98,7 +100,8 @@ namespace Weapon
                         break;
                     }
                 }
-
+                currentEulerAngles += new Vector3(0, 0, Time.deltaTime * 500f);
+                transform.eulerAngles = currentEulerAngles;
                 yield return null;
             }
 
