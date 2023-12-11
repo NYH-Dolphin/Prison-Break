@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using Enemy;
 
 public class ViewCone : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class ViewCone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if(other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
             _objectsInTrigger.Add(other);
     }
 
@@ -95,7 +96,8 @@ public class ViewCone : MonoBehaviour
             _objectsInTrigger.Remove(other);
             if(other.gameObject ==  GetComponentInParent<PlayerWeapon>()._enemyDetected)
             {
-                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(3).gameObject.SetActive(false);
+                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
+                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
                 GetComponentInParent<PlayerWeapon>()._enemyDetected = null;
             }
                 

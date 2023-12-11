@@ -19,6 +19,7 @@ public class EnemyCheck : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if(enemies.Length == 0)
         {
+            GetComponent<SpriteRenderer>().enabled = false;
             this.GetComponent<Collider>().isTrigger = true;
         }
     }

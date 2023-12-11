@@ -125,17 +125,20 @@ public class NewNav : MonoBehaviour
         agent.isStopped = false;
         agent.speed = speedRun;
         if (animator.GetBool("attacking") == true) agent.speed = 0;
-        if (player != null) agent.SetDestination(player.transform.position);
+        if (player != null) 
+        {
+            agent.SetDestination(player.transform.position);
+        }
     }
 
 
     private IEnumerator Surprised()
     {
-        SFX.PlaySurprised();
-        exclaim.enabled = true;
+        //SFX.PlaySurprised();
+        //exclaim.enabled = true;
         isSurprised = true;
         yield return new WaitForSeconds(surprisedTime);
-        exclaim.enabled = false;
+        //exclaim.enabled = false;
         isSurprised = false;
         playerInRange = true;
     }

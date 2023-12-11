@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!65 &2438754630307028216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,8 +122,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8795246, y: 0.3337281, z: 0.6006928}
-  m_Center: {x: -0.0002806916, y: 0.0068640537, z: 0.029095257}
+  m_Size: {x: 0.8795246, y: 0.9191076, z: 0.6006928}
+  m_Center: {x: -0.00028086547, y: -0.034294154, z: 0.029095257}
 --- !u!54 &7773926056730166994
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,9 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponInfo: {fileID: 11400000, guid: 255b673a4b74feb4d927b98230e675f6, type: 2}
-  bAttack: 0
-  fThrowForce: 120
-  fThrowTime: 0.3
   lmGround:
     serializedVersion: 2
     m_Bits: 8
+  iDurability: 0
+  bAttack: 0
+  fThrowForce: 120
+  fThrowTime: 0.3
