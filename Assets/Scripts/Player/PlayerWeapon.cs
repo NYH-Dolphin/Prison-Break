@@ -57,7 +57,8 @@ namespace Player
         private InputControls _inputs;
         private PlayerController _pc;
 
-
+        [HideInInspector]
+        public List<GameObject> downedEnemies = new List<GameObject>();
 
         private void Awake()
         {
@@ -339,44 +340,22 @@ namespace Player
         #region Stomp
 
 
-        private void DownedEnemyCheck()
+
+        private GameObject DownedEnemyCheck()
         {
-            Collider[] hitColliders;
-            hitColliders = Physics.OverlapSphere(transform.position, fSprintDetectionRange, lmEnemy);
-            if (hitColliders != null && hitColliders.Length > 0)
+            if(downedEnemies.Count > 0)
             {
-                
-                GameObject enemy = GetMinimumDistanceCollider(hitColliders).gameObject;
-                if (enemy != null)
+                foreach(GameObject enemy in downedEnemies)
                 {
-                    if(!enemy.GetComponent<EnemyBehaviour>().bExecution)
-                    {
-                        if(downedEnemy != null)
-                        {
-                            downedEnemy = null;
-                        }
-                        return;
-                    }
-                    else{
-                        downedEnemy = enemy;
-                    }
-                }
-                else if(downedEnemy != null)
-                {
-                    downedEnemy = null;
+                    if(Vector3.Distance(enemy.transform.position, transform.position) < fSprintDetectionRange)
+                        return enemy;
                 }
             }
-            else
-            {
-                if(downedEnemy != null)
-                {
-                    downedEnemy = null;
-                }
-            }
+            return null;
         }
         private bool StompAttackCheck()
         {
-            DownedEnemyCheck();
+            downedEnemy = DownedEnemyCheck();
             // stomp attack specific
             if (downedEnemy != null && !_bStompAttack)
             {
@@ -392,6 +371,7 @@ namespace Player
 
                     // directly kill it
                     _enemyDetected = downedEnemy;
+                    downedEnemies.Remove(downedEnemy);
                     _enemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
 
                     StompBehaviour();

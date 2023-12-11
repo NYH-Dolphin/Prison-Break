@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 namespace Enemy
 {
@@ -81,7 +82,6 @@ namespace Enemy
 
         public void OnHit(int hit, bool melee)
         {
-            Debug.Log("enemy health:" + health);
             SFX.PlayHit();
             if (hit == 1)
                 StartCoroutine(DecreaseHealth());
@@ -159,12 +159,14 @@ namespace Enemy
             anim.SetFloat("direction", direction);
             anim.SetTrigger("stunned");
             anim.SetBool("wake up", false);
+            player.GetComponent<PlayerWeapon>().downedEnemies.Add(this.gameObject);
             yield return new WaitForSeconds(stunTime);
             transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
             notStunned = true;
             dizzy.enabled = false;
             anim.ResetTrigger("stunned");
             anim.SetBool("wake up", true);
+            player.GetComponent<PlayerWeapon>().downedEnemies.Remove(this.gameObject);
         }
 
         private float DirectionSwitcher()
