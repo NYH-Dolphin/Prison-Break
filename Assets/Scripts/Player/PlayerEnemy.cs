@@ -15,14 +15,14 @@ public class PlayerEnemy : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && other.CompareTag("hitbox"))
         {
             if (bDev) return;
-            GameObject detected = GetComponent<PlayerWeapon>()._enemyDetected;
+            GameObject detected = GetComponent<PlayerWeapon>().EnemyDetected;
             if(anim.GetBool("attacking") && detected != null) 
             {
                 Debug.Log("heyyo");
                 if(detected == other.gameObject)
                     return;
             }
-
+ 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             
         }

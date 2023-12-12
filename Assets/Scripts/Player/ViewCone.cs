@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
@@ -6,63 +5,57 @@ using Enemy;
 
 public class ViewCone : MonoBehaviour
 {
-    private HashSet<Collider> _objectsInTrigger = new HashSet<Collider>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private HashSet<Collider> _objectsInTrigger = new();
+    
 
     // Update is called once per frame
     void Update()
     {
-        if(_objectsInTrigger != null && _objectsInTrigger.Count > 0)
-            GetComponentInParent<PlayerWeapon>()._enemyDetected = GetClosestObjectInTrigger();
+        if (_objectsInTrigger != null && _objectsInTrigger.Count > 0)
+            GetComponentInParent<PlayerWeapon>().EnemyDetected = GetClosestObjectInTrigger();
     }
 
     public void DirectionCheck()
     {
         float hor = GetComponentInParent<PlayerWeapon>().animator.GetFloat("Horizontal");
         float vert = GetComponentInParent<PlayerWeapon>().animator.GetFloat("Vertical");
-        if(hor > 0)
+        if (hor > 0)
         {
-            if(vert > 0)
+            if (vert > 0)
             {
-                transform.eulerAngles = new Vector3(0,90,0);
+                transform.eulerAngles = new Vector3(0, 90, 0);
             }
-            else if(vert < 0)
+            else if (vert < 0)
             {
-                transform.eulerAngles = new Vector3(0,180,0);
+                transform.eulerAngles = new Vector3(0, 180, 0);
             }
             else
-                transform.eulerAngles = new Vector3(0,135,0);
+                transform.eulerAngles = new Vector3(0, 135, 0);
         }
-        else if(hor < 0)
+        else if (hor < 0)
         {
-            if(vert > 0)
+            if (vert > 0)
             {
-                transform.eulerAngles = new Vector3(0,0,0);
+                transform.eulerAngles = new Vector3(0, 0, 0);
             }
-            else if(vert < 0)
+            else if (vert < 0)
             {
-                transform.eulerAngles = new Vector3(0,-90,0);
+                transform.eulerAngles = new Vector3(0, -90, 0);
             }
             else
-                transform.eulerAngles = new Vector3(0,-45,0);
+                transform.eulerAngles = new Vector3(0, -45, 0);
         }
         else
         {
-            if(vert > 0)
+            if (vert > 0)
             {
-                transform.eulerAngles = new Vector3(0,45,0);
+                transform.eulerAngles = new Vector3(0, 45, 0);
             }
-            else if(vert < 0)
+            else if (vert < 0)
             {
-                transform.eulerAngles = new Vector3(0,225,0);
+                transform.eulerAngles = new Vector3(0, 225, 0);
             }
         }
-
-        
     }
 
     GameObject GetClosestObjectInTrigger()
@@ -70,40 +63,39 @@ public class ViewCone : MonoBehaviour
         GameObject closestObject = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach(Collider objectInTrigger in _objectsInTrigger)
+        foreach (Collider objectInTrigger in _objectsInTrigger)
         {
-            if(objectInTrigger == null) _objectsInTrigger.Remove(objectInTrigger);
+            if (objectInTrigger == null) _objectsInTrigger.Remove(objectInTrigger);
             float sqrDistanceToObject = (objectInTrigger.transform.position - currentPosition).sqrMagnitude;
-            if(sqrDistanceToObject < closestDistanceSqr)
+            if (sqrDistanceToObject < closestDistanceSqr)
             {
                 closestDistanceSqr = sqrDistanceToObject;
                 closestObject = objectInTrigger.gameObject;
             }
         }
-    
+
         return closestObject;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
+        if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
             _objectsInTrigger.Add(other);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Enemy")){
+        if (other.CompareTag("Enemy"))
+        {
             _objectsInTrigger.Remove(other);
-            if(other.gameObject ==  GetComponentInParent<PlayerWeapon>()._enemyDetected)
+            if (other.gameObject == GetComponentInParent<PlayerWeapon>().EnemyDetected)
             {
-                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
-                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                GetComponentInParent<PlayerWeapon>()._enemyDetected = null;
+                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>()
+                    .color = new Color(50, 50, 50);
+                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).transform.localScale =
+                    new Vector3(1.5f, 1.5f, 1.5f);
+                GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
             }
-                
         }
-            
     }
-
-        
 }

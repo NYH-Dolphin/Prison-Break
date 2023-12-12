@@ -1,11 +1,9 @@
 using System.Collections;
 using GameInputSystem;
-using MyCameraEffect;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
-using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerWeapon))]

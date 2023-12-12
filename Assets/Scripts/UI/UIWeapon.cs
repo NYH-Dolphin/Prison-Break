@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Weapon;
-using Range = Weapon.Range;
 
 namespace UI
 {
@@ -14,17 +13,25 @@ namespace UI
         [SerializeField] private TextMeshProUGUI uiWeaponType;
         [SerializeField] private List<Image> uiWeaponNums;
         [SerializeField] private Sprite texNull;
-        private PlayerWeapon _pw;
+        
+        // color for different range type
+        private Color _cSharp = Color.red;
+        private Color _cBlunt = new(142, 194, 226);
+        
+        private string _sPrevWeaponName;
+        private Vector3 _vRectInitPos;
+        
+        
 
-        private string weaponName;
-        private RectTransform rt;
-        private Vector3 endPosition;
+        private PlayerWeapon _pw;
+        private RectTransform _rt;
+
 
         private void Start()
         {
             _pw = GameObject.Find("[Player]").GetComponent<PlayerWeapon>();
-            rt = uiWeaponSharpness.gameObject.GetComponent<RectTransform>();
-            endPosition = rt.anchoredPosition;
+            _rt = uiWeaponSharpness.gameObject.GetComponent<RectTransform>();
+            _vRectInitPos = _rt.anchoredPosition;
         }
 
         private void Update()
@@ -37,11 +44,11 @@ namespace UI
         {
             if (_pw.WeaponEquipped == null)
             {
-                endPosition.y = -45f;
-                rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, endPosition, 3f * Time.deltaTime);
+                _vRectInitPos.y = -45f;
+                _rt.anchoredPosition = Vector3.Lerp(_rt.anchoredPosition, _vRectInitPos, 3f * Time.deltaTime);
                 if (uiWeaponSharpness.text != "NONE")
                 {
-                    weaponName = "none";
+                    _sPrevWeaponName = "none";
                     uiWeaponSharpness.text = "NONE";
                     uiWeaponType.text = "";
                     iTween.ScaleFrom(uiWeaponSharpness.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.2f);
@@ -56,8 +63,8 @@ namespace UI
             }
             else
             {
-                endPosition.y = -95f;
-                rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, endPosition, 6f * Time.deltaTime);
+                _vRectInitPos.y = -95f;
+                _rt.anchoredPosition = Vector3.Lerp(_rt.anchoredPosition, _vRectInitPos, 6f * Time.deltaTime);
                 GameObject weapon = _pw.WeaponEquipped;
                 WeaponBehaviour wb = weapon.GetComponent<WeaponBehaviour>();
                 Sprite wsr = weapon.GetComponent<SpriteRenderer>().sprite;
@@ -74,48 +81,28 @@ namespace UI
                         uiWeaponNums[i].sprite = texNull;
                     }
                 }
-
-                if (weaponName != wsr.name)
+                
+                // weapon information
+                if (_sPrevWeaponName != wsr.name)
                 {
+                    _sPrevWeaponName = wsr.name;
+                    
                     //weapon sharpness
                     if (wb.weaponInfo.eSharpness == Sharpness.Sharp)
                     {
-                        uiWeaponSharpness.color = Color.red;
-                    }
-                    else
-                    {
-                        uiWeaponSharpness.color = new Color(142,194,226);
-                    }
-
-                    iTween.ScaleFrom(uiWeaponSharpness.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.2f);
-                    iTween.ScaleFrom(uiWeaponType.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.2f);
-                    weaponName = weapon.GetComponent<SpriteRenderer>().sprite.name;
-                    if(wb.weaponInfo.eSharpness == Sharpness.Blunt) 
-                        uiWeaponSharpness.text = "Blunt";
-                    else
+                        uiWeaponSharpness.color = _cSharp;
                         uiWeaponSharpness.text = "Sharp";
-
-                    switch(wb.weaponInfo.eAttackType)
-                    {
-                        case AttackType.Swing:
-                            uiWeaponType.text = "Swing";
-                            break;
-                        case AttackType.Throwable:
-                            uiWeaponType.text = "Throw";
-                            break;
-                        case AttackType.Lob:
-                            uiWeaponType.text = "Lob";
-                            break;
-                        case AttackType.Slam:
-                            uiWeaponType.text = "Slam";
-                            break;
-                        case AttackType.Thrust:
-                            uiWeaponType.text = "Thrust";
-                            break;
-                        case AttackType.Boomerang:
-                            uiWeaponType.text = "Boomerang";
-                            break;
                     }
+                    else
+                    {
+                        uiWeaponSharpness.color = _cBlunt;
+                        uiWeaponSharpness.text = "Blunt";
+                    }
+                    iTween.ScaleFrom(uiWeaponSharpness.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.2f);
+
+
+                    uiWeaponType.text = wb.weaponInfo.eAttackType.ToString();
+                    iTween.ScaleFrom(uiWeaponType.gameObject, new Vector3(1.3f, 1.3f, 1.3f), 0.2f);
                 }
             }
         }
