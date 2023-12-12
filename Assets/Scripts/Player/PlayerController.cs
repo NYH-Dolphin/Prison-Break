@@ -10,17 +10,14 @@ using Weapon;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fMovementSpeed;
-    [SerializeField] private float fJumpSpeed;
-    [SerializeField] private float fGroundCheckRadius;
     [SerializeField] private LayerMask lmGroundLayer;
     [SerializeField] private Animator animator;
 
     public Vector3 VecDir { get; private set; } = new(0, 0, 1);
-
+    
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
-    private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
     
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
@@ -38,8 +35,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region EventRegisteration
-
-    // TODO Currently Jump is Removed
+    
     private void OnEnable()
     {
         if (_inputs == null)
@@ -51,7 +47,6 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Enable();
         _inputs.Gameplay.Movement.performed += OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled += OnMovementCanceled;
-        // _inputs.Gameplay.Jump.performed += OnJumpPerformed;
     }
 
     private void OnDisable()
@@ -60,20 +55,11 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Disable();
         _inputs.Gameplay.Movement.performed -= OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled -= OnMovementCanceled;
-        // _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
     }
 
     #endregion
 
-    private void Update()
-    {
-        Vector3 pos = transform.position;
-        pos.y = 0.01f;
-        transform.position = pos;
-        GroundDetectUpdate();
-    }
-
-
+    
     private void FixedUpdate()
     {
         if(animator.GetBool("canMove")) {
@@ -90,7 +76,7 @@ public class PlayerController : MonoBehaviour
             case AttackType.Swing:
                 animator.SetTrigger(Swing);
                 break;
-            case AttackType.Throwable:
+            case AttackType.Throw:
                 animator.SetTrigger(Throw);
                 break;
             case AttackType.Lob:
@@ -161,45 +147,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-
-    #region Jump
-
-    public void OnJumpPerformed(InputAction.CallbackContext value)
-    {
-        if (_bIsGrounded)
-        {
-            _bIsGrounded = false;
-            animator.SetBool("Grounded", false);
-            animator.SetTrigger("Jump");
-            StartCoroutine(JumpCountDown(0.1f)); // wait a really time for jump detection
-            Vector3 velocity = _rb.velocity;
-            velocity.y = 0f;
-            _rb.velocity = velocity;
-            _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
-        }
-    }
-
-
-    IEnumerator JumpCountDown(float time)
-    {
-        _bJumpUpdate = false;
-        yield return new WaitForSeconds(time);
-        _bJumpUpdate = true;
-    }
-
-    public void GroundDetectUpdate()
-    {
-        if (!_bJumpUpdate) return;
-        Collider[] hitColliders = new Collider[1];
-        _bIsGrounded =
-            Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
-        _rb.drag = _bIsGrounded ? 1f : 0f;
-        animator.SetBool("Grounded", _bIsGrounded);
-    }
-
-    #endregion
-
+    
 
     public void SprintMove(Vector3 targetPos, float time)
     {
@@ -255,11 +203,5 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(startPos, targetPos, lerpFactor);
             yield return null;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
 }

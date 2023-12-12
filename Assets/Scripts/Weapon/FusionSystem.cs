@@ -76,7 +76,7 @@ namespace Weapon
                         weaponPrefabPath = "FusionWeaponPrefabs/ThrustWeapon";
                         break;
                     case "throw":
-                        weaponInfo.eAttackType = AttackType.Throwable;
+                        weaponInfo.eAttackType = AttackType.Throw;
                         weaponInfo.eRange = Range.Ranged;
                         weaponPrefabPath = "FusionWeaponPrefabs/ThrowWeapon";
                         break;

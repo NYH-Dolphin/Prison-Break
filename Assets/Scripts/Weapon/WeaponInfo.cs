@@ -16,7 +16,7 @@ namespace Weapon
 
     public enum AttackType
     {
-        Throwable,
+        Throw,
         Lob,
         Swing,
         Thrust,

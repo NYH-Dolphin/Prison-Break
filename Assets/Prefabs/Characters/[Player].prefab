@@ -942,7 +942,6 @@ MonoBehaviour:
     m_Bits: 256
   fWeaponGrabRange: 3
   fEnemyDetectionRange: 12
-  fEnemyDetectionAngle: 120
   objHitBox: {fileID: 3763116188017213914}
   tHoldWeaponTransform: {fileID: 8683192385905444498}
   fHoldWeaponScale: 0.849
@@ -951,7 +950,6 @@ MonoBehaviour:
   fSprintDistance: 5
   fSprintTime: 0.05
   objLobRange: {fileID: 1286391602236039000}
-  _enemyDetected: {fileID: 0}
   downedEnemies: []
 --- !u!114 &296844362591662393
 MonoBehaviour:
