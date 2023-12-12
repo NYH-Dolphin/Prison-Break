@@ -239,6 +239,7 @@ namespace Player
                     bool fused = FusionCheck();
                     if (fused)
                     {
+                        AudioControl.Instance.PlayFusion();
                         OnDropWeapon();
                         OnHoldWeapon();
                     }
@@ -248,7 +249,6 @@ namespace Player
 
         private void OnSwitchWeapon()
         {
-            AudioControl.Instance.PlayPickup();
             if (_weaponSelected != null)
             {
                 if (WeaponEquipped != null)
@@ -256,12 +256,14 @@ namespace Player
                     OnDropWeapon();
                 }
 
+                AudioControl.Instance.PlayPickup();
                 OnHoldWeapon();
             }
             else
             {
                 if (WeaponEquipped != null)
                 {
+                    AudioControl.Instance.PlayPickup();
                     OnDropWeapon();
                 }
             }
@@ -434,6 +436,7 @@ namespace Player
         {
             _bStompAttack = true;
             animator.SetTrigger("Stomp");
+            AudioControl.Instance.PlaySlam();
             StartCoroutine(StompCountdown(fStompTime));
         }
 

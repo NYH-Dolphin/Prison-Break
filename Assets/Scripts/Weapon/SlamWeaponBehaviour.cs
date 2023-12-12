@@ -17,8 +17,7 @@ namespace Weapon
         private void SlamBehaviour()
         {
             bAttack = true;
-            // TODO doesn't contain this function yet
-            // AudioControl.Instance.PlaySlam();
+            AudioControl.Instance.PlaySlam();
             StartCoroutine(SlamCountdown(fSlamTime));
         }
 

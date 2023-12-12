@@ -10,10 +10,12 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource throwSFX;
     [SerializeField] private AudioSource lobSFX;
     [SerializeField] private AudioSource thrustSFX;
+    [SerializeField] private AudioSource slamSFX;
     [SerializeField] private AudioSource surprisedSFX;
     [SerializeField] private AudioSource boomSFX;
     [SerializeField] private AudioSource dizzySFX;
     [SerializeField] private AudioSource pickupSFX;
+    [SerializeField] private AudioSource fusionSFX;
 
     public static AudioControl Instance;
 
@@ -52,6 +54,11 @@ public class AudioControl : MonoBehaviour
         boomSFX.Play();
     }
 
+    public void PlaySlam()
+    {
+        slamSFX.Play();
+    }
+
     public void PlaySurprised()
     {
         surprisedSFX.Play();
@@ -65,5 +72,10 @@ public class AudioControl : MonoBehaviour
     public void PlayDizzy()
     {
         dizzySFX.Play();
+    }
+
+    public void PlayFusion()
+    {
+        fusionSFX.Play();
     }
 }
