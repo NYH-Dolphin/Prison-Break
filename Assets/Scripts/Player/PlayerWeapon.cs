@@ -42,7 +42,7 @@ namespace Player
 
         // [Header("Weapon Attack Effects")] 
         [SerializeField] private GameObject objLobRange;
-        
+
         // public access field
         public GameObject WeaponEquipped { get; private set; }
         public GameObject EnemyDetected { get; set; }
@@ -88,6 +88,11 @@ namespace Player
             _inputs.Gameplay.Fusion.performed -= OnFusionPerformed;
         }
 
+        private void Update()
+        {
+            WeaponDetectionUpdate();
+        }
+
 
         #region SceneDetection
 
@@ -113,6 +118,9 @@ namespace Player
             }
         }
 
+
+        #region WeaponDetection
+
         private void WeaponDetectionUpdate()
         {
             // when player is holding the weapon and the weapon is on attack, can not detect the weapon
@@ -127,20 +135,52 @@ namespace Player
                 GameObject weapon = GetMinimumDistanceCollider(hitColliders).gameObject;
                 if (_weaponSelected != weapon)
                 {
-                    weapon.GetComponent<WeaponBehaviour>().OnSelected();
-                    if (_weaponSelected != null) _weaponSelected.GetComponent<WeaponBehaviour>().OnNotSelected();
+                    OnCancelDetectedWeapon(_weaponSelected);
                     _weaponSelected = weapon;
+
+                    // surrounding weapon detection
+                    bool fusedWeapon = WeaponEquipped != null &&
+                                       FusionSystem.Instance.TestFusionWeapon(WeaponEquipped, _weaponSelected);
+                    if (fusedWeapon) OnDetectedFusedWeapon(_weaponSelected);
+                    else OnDetectSelectableWeapon(_weaponSelected);
                 }
             }
             else
             {
                 if (_weaponSelected != null)
                 {
-                    _weaponSelected.GetComponent<WeaponBehaviour>().OnNotSelected();
+                    OnCancelDetectedWeapon(_weaponSelected);
                     _weaponSelected = null;
                 }
             }
         }
+
+
+        // TODO need to be modified with the weapon behaviour
+        /// <summary>
+        /// weapon that can not be fused with the holding weapon
+        /// </summary>
+        private void OnDetectSelectableWeapon(GameObject weapon)
+        {
+            Debug.Log("select weapon");
+        }
+
+        /// <summary>
+        /// weapon that can be fused with the holding weapon
+        /// </summary>
+        private void OnDetectedFusedWeapon(GameObject weapon)
+        {
+            Debug.Log("fused weapon");
+        }
+
+
+        private void OnCancelDetectedWeapon(GameObject weapon)
+        {
+            Debug.Log("cancel weapon");
+        }
+
+        #endregion
+
 
         private void BreakableObjectDetectionUpdate()
         {

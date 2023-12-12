@@ -122,6 +122,32 @@ namespace Weapon
             }
         }
 
+
+        public bool TestFusionWeapon(GameObject w1, GameObject w2)
+        {
+            // Cant fuse ranged and melee weapons
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange ==
+                w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange)
+            {
+                return false;
+            }
+            
+            // get the key {melee_weapon}-{range_weapon}
+            string key;
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+            {
+                key =
+                    $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+            else
+            {
+                key =
+                    $"{w2.GetComponent<SpriteRenderer>().sprite.name}-{w1.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+
+            return _fusionDict.ContainsKey(key);
+        }
+
         public GameObject GetFusionWeapon(GameObject w1, GameObject w2)
         {
             // Cant fuse ranged and melee weapons
