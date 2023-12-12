@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Weapon.Effects
+namespace Effects
 {
     public class DirAngleEffect : MonoBehaviour
     {

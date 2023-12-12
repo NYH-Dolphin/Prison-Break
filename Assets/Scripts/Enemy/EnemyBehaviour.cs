@@ -20,10 +20,7 @@ namespace Enemy
         private float cool;
         private AudioControl SFX;
         public Animator anim;
-
         public bool notStunned = true;
-
-        //private Navigation nav;
         private NewNav newNav;
         private int health = 2;
         public Transform deadGuard;
@@ -62,7 +59,6 @@ namespace Enemy
                     if (!newNav.unconscious) anim.SetBool("attacking", false);
                 }
             }
-
         }
 
         /// <summary>
@@ -105,29 +101,29 @@ namespace Enemy
 
         public Transform ActiveAttackPoint()
         {
-            if(!notStunned) return transform.GetChild(0).transform;
+            if (!notStunned) return transform.GetChild(0).transform;
             Vector3 directionToTarget = (player.position - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
 
-            if(angle < 22.5)
+            if (angle < 22.5)
                 return transform.GetChild(3).GetChild(4);
             else if (angle < 67.5)
             {
-                if(directionToTarget.x <= 0)
+                if (directionToTarget.x <= 0)
                     return transform.GetChild(3).GetChild(5);
                 else
                     return transform.GetChild(3).GetChild(3);
             }
             else if (angle < 112.5)
             {
-                if(directionToTarget.x <= 0)
+                if (directionToTarget.x <= 0)
                     return transform.GetChild(3).GetChild(6);
                 else
                     return transform.GetChild(3).GetChild(2);
             }
             else if (angle < 157.5)
             {
-                if(directionToTarget.x <= 0)
+                if (directionToTarget.x <= 0)
                     return transform.GetChild(3).GetChild(7);
                 else
                     return transform.GetChild(3).GetChild(1);
@@ -135,7 +131,6 @@ namespace Enemy
             else
                 return transform.GetChild(3).GetChild(0);
         }
-        
 
 
         public void OnHitBlunt()
@@ -172,7 +167,7 @@ namespace Enemy
         private float DirectionSwitcher()
         {
             Transform direction = ActiveAttackPoint();
-            switch(direction.gameObject.name)
+            switch (direction.gameObject.name)
             {
                 case "West":
                     return 1;
@@ -193,6 +188,7 @@ namespace Enemy
                 default:
                     return 1;
             }
+
             return 1;
         }
 

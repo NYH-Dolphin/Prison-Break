@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 using Weapon;
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
-using Weapon.Effects;
 using Range = Weapon.Range;
 
 namespace Player

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Weapon.Effects
+namespace Effects
 {
     public class LobRangeWeaponEffect : MonoBehaviour
     {
