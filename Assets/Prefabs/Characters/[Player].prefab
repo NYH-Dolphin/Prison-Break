@@ -163,7 +163,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.010000001, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.26183012, y: 0.26183012, z: 0.26183012}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6391531620045852948}
@@ -188,7 +188,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c4ba8dc9c434c54a83483a280df9cae, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -209,7 +209,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ccbbece0e6cff6b4785dac28812a27ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5ab596d51cd45442a739b230041259a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -631,7 +631,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_LocalScale: {x: 0.68, y: 0.68, z: 0.68}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8108328010319318252}
@@ -677,7 +677,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c83f12ad114315048955fe0bd4402b06, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3a7ac90e7b3ce94ea12dfbbe618b62b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -763,7 +763,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7b374e47ccdee5c42aad566d232f4b22, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7a0979f5b7c364e9a48111b4cc1d88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1195,6 +1195,10 @@ PrefabInstance:
     - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_Name
       value: BoomerangEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 2c2209bfece3bfa4c8b21482f23c2a6c, type: 3}
       propertyPath: m_LocalPosition.x
