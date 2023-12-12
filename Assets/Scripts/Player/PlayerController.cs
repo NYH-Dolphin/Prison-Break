@@ -12,14 +12,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fMovementSpeed;
     [SerializeField] private LayerMask lmGroundLayer;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource asFootstep;
 
     public Vector3 VecDir { get; private set; } = new(0, 0, 1);
-    
+
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
     private bool _bIsGrounded;
-    
+
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
     private static readonly int Vertical = Animator.StringToHash("Vertical");
     private static readonly int Speed = Animator.StringToHash("Speed");
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region EventRegisteration
-    
+
     private void OnEnable()
     {
         if (_inputs == null)
@@ -59,10 +60,11 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    
+
     private void FixedUpdate()
     {
-        if(animator.GetBool("canMove")) {
+        if (animator.GetBool("canMove"))
+        {
             MovementUpdate();
             GetComponentInChildren<ViewCone>().DirectionCheck();
         }
@@ -125,36 +127,39 @@ public class PlayerController : MonoBehaviour
         Vector3 vecIsoMove = vecRight * _inputMove.x + vecFront * _inputMove.y;
         _vecMove = vecIsoMove.normalized;
         VecDir = _vecMove;
+        asFootstep.Play();
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         _vecMove = Vector3.zero;
         animator.SetFloat(Speed, 0f);
+        asFootstep.Pause();
     }
 
     private void MovementUpdate()
     {
+        Vector3 moveVelocity = _vecMove * fMovementSpeed;
+        moveVelocity.y = _rb.velocity.y;
+        _rb.velocity = moveVelocity;
+        
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Movement"))
         {
             animator.SetFloat(Horizontal, _inputMove.x);
             animator.SetFloat(Vertical, _inputMove.y);
         }
-        Vector3 moveVelocity = _vecMove * fMovementSpeed;
-        moveVelocity.y = _rb.velocity.y;
-        _rb.velocity = moveVelocity;
     }
 
     #endregion
-    
+
 
     public void SprintMove(Vector3 targetPos, float time)
     {
         Vector3 startPos = transform.position;
         StartCoroutine(SprintMoveUpdateCor(startPos, targetPos, time));
     }
-    
+
     public void SetPlayerAttackPosition()
     {
         if (Camera.main != null)
@@ -176,7 +181,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     private Vector2 RotateVector(Vector2 v, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;

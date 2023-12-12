@@ -100,7 +100,7 @@ namespace Weapon
         IEnumerator DestroyCountDown(float time)
         {
             yield return new WaitForSeconds(time - 0.2f);
-            // AudioControl.Instance.PlayBoom();
+            AudioControl.Instance.PlayBoom();
             // Calculate the enemy in the range and apply damage to them
             RangeEffectCalculation();
             // Play the effect in the end, a little before the death calculation

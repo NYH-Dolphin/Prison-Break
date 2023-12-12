@@ -13,6 +13,8 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource surprisedSFX;
     [SerializeField] private AudioSource boomSFX;
     [SerializeField] private AudioSource dizzySFX;
+    [SerializeField] private AudioSource pickupSFX;
+
     public static AudioControl Instance;
 
     private void Awake()
@@ -53,6 +55,11 @@ public class AudioControl : MonoBehaviour
     public void PlaySurprised()
     {
         surprisedSFX.Play();
+    }
+    
+    public void PlayPickup()
+    {
+        pickupSFX.Play();
     }
 
     public void PlayDizzy()

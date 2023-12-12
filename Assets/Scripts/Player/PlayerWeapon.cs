@@ -248,6 +248,7 @@ namespace Player
 
         private void OnSwitchWeapon()
         {
+            AudioControl.Instance.PlayPickup();
             if (_weaponSelected != null)
             {
                 if (WeaponEquipped != null)
