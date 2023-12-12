@@ -146,6 +146,7 @@ namespace Enemy
 
         private IEnumerator Blunt()
         {
+            SFX.PlayDizzy();
             notStunned = false;
             StartCoroutine(BluntCountDown(0.3f));
             newNav.Stunned(stunTime);
@@ -155,7 +156,9 @@ namespace Enemy
             anim.SetTrigger("stunned");
             anim.SetBool("wake up", false);
             player.GetComponent<PlayerWeapon>().downedEnemies.Add(this.gameObject);
+
             yield return new WaitForSeconds(stunTime);
+            
             transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
             notStunned = true;
             dizzy.enabled = false;
