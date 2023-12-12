@@ -7,7 +7,6 @@ namespace Effects
     public class BloodyEffect : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-
         private void Start()
         {
             int index = Random.Range(1, 7);
