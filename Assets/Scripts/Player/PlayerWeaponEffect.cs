@@ -49,6 +49,7 @@ namespace Player
         {
             objDirHint.SetActive(false);
             objLobRange.SetActive(false);
+            objDirHintAngle.SetActive(false);
             objBoomerangWeaponEffect.SetActive(false);
         }
 
