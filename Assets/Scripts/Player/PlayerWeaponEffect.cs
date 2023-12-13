@@ -83,6 +83,7 @@ namespace Player
         public void DrawDirHint(Vector3 dir)
         {
             objDirHint.SetActive(true);
+            objDirHintAngle.SetActive(true);
             Vector3 pos = transform.position + dir * 3.5f;
             pos.y += 0.1f;
 

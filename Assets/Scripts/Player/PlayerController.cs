@@ -68,6 +68,10 @@ public class PlayerController : MonoBehaviour
             MovementUpdate();
             GetComponentInChildren<ViewCone>().DirectionCheck();
         }
+
+        Vector3 pos = transform.position;
+        pos.y = .1f;
+        transform.position = pos;
     }
 
 
@@ -142,7 +146,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVelocity = _vecMove * fMovementSpeed;
         moveVelocity.y = _rb.velocity.y;
         _rb.velocity = moveVelocity;
-        
+
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Movement"))
         {

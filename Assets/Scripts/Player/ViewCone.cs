@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
@@ -5,8 +6,23 @@ using Enemy;
 
 public class ViewCone : MonoBehaviour
 {
+    public static ViewCone Instance;
     private HashSet<Collider> _objectsInTrigger = new();
-    
+
+
+    public void DeRegister(Collider obj)
+    {
+        if (_objectsInTrigger.Contains(obj))
+        {
+            _objectsInTrigger.Remove(obj);
+        }
+    }
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Update is called once per frame
     void Update()

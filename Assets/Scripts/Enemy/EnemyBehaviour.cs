@@ -94,7 +94,8 @@ namespace Enemy
                     PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
                     kb.PlayFeedback(Pc.VecDir.normalized);
                 }
-
+                
+                ViewCone.Instance.DeRegister(GetComponent<Collider>());
                 Destroy(gameObject);
             }
         }
@@ -158,7 +159,7 @@ namespace Enemy
             player.GetComponent<PlayerWeapon>().downedEnemies.Add(this.gameObject);
 
             yield return new WaitForSeconds(stunTime);
-            
+
             transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
             notStunned = true;
             dizzy.enabled = false;
