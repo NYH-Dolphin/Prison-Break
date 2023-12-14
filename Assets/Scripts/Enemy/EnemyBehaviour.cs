@@ -91,13 +91,8 @@ namespace Enemy
                 var dead = Instantiate(deadGuard,
                     new Vector3(spawnpoint.position.x, 0.5f, spawnpoint.position.z), Quaternion.identity);
                 dead.transform.eulerAngles = new Vector3(0, 90, 0);
-                if (melee)
-                {
-                    Knockback kb = dead.GetComponent<Knockback>();
-                    PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
-                    kb.PlayFeedback(KBDirection());
-                }
-                
+
+                ExecutionEffects.Instance.Execution();
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
                 Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0)));
                 Destroy(gameObject);
@@ -200,32 +195,6 @@ namespace Enemy
             return 1;
         }
 
-        private Vector3 KBDirection()
-        {
-            switch (player.GetComponent<PlayerWeapon>().attkPos.gameObject.name)
-            {
-                case "West":
-                    return new Vector3(1,0,0).normalized;
-                case "East":
-                    return new Vector3(-1,0,0).normalized;
-                case "North":
-                    return new Vector3(0,0,1).normalized;
-                case "South":
-                    return new Vector3(0,0,1).normalized;
-                case "SouthWest":
-                    return new Vector3(1,0,1).normalized;
-                case "SouthEast":
-                    return new Vector3(-1,0,1).normalized;
-                case "NorthWest":
-                    return new Vector3(1,0,1).normalized;
-                case "NorthEast":
-                    return new Vector3(-1,0,1).normalized;
-                default:
-                    return new Vector3(0,0,0);
-            }
-
-            return new Vector3(0,0,0);
-        }
 
         private IEnumerator BluntCountDown(float time)
         {
