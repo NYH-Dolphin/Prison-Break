@@ -11,7 +11,7 @@ namespace Effects
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                ViewCone.Instance.Register(other);
+                if(!ViewCone.Instance._objectsInTrigger.Contains(other)) ViewCone.Instance.Register(other);
             }
         }
 
@@ -20,10 +20,6 @@ namespace Effects
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 ViewCone.Instance.DeRegister(other);
-                Debug.Log(other.gameObject.name + "   " + other.transform.GetChild(2).name);
-                other.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
-                other.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
             }
         }
     }

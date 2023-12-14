@@ -16,5 +16,13 @@ public class GameControl : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(Input.GetKeyDown(KeyCode.K))
+            {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach(GameObject enemy in enemies)
+                {
+                    Destroy(enemy);
+                }
+            }
     }
 }
