@@ -1654,6 +1654,7 @@ GameObject:
   - component: {fileID: 441588227565347704}
   - component: {fileID: 6557058603633207963}
   - component: {fileID: 2947764620234046219}
+  - component: {fileID: 8495165666931550573}
   m_Layer: 5
   m_Name: Stomp Screen
   m_TagString: Untagged
@@ -1720,6 +1721,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8495165666931550573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222613179259744004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b702d2f833a1c6b4e86d65bc23dd5b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5383164260606710416
 GameObject:
   m_ObjectHideFlags: 0
