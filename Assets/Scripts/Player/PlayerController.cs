@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         _rb = GetComponent<Rigidbody>();
     }
 
