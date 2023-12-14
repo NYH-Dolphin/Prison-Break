@@ -18,6 +18,11 @@ public class ViewCone : MonoBehaviour
         }
     }
 
+    public void Register(Collider obj)
+    {
+        _objectsInTrigger.Add(obj);
+    }
+
 
     private void Awake()
     {
