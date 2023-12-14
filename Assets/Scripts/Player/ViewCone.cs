@@ -109,22 +109,23 @@ public class ViewCone : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
-            _objectsInTrigger.Add(other);
+            Register(other);
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            _objectsInTrigger.Remove(other);
-            if (other.gameObject == GetComponentInParent<PlayerWeapon>().EnemyDetected)
-            {
-                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>()
-                    .color = new Color(50, 50, 50);
-                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).transform.localScale =
-                    new Vector3(1.5f, 1.5f, 1.5f);
-                GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
-            }
+            DeRegister(other);
+            // _objectsInTrigger.Remove(other);
+            // if (other.gameObject == GetComponentInParent<PlayerWeapon>().EnemyDetected)
+            // {
+            //     GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>()
+            //         .color = new Color(50, 50, 50);
+            //     GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).transform.localScale =
+            //         new Vector3(1.5f, 1.5f, 1.5f);
+            //     GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
+            // }
         }
     }
 }
