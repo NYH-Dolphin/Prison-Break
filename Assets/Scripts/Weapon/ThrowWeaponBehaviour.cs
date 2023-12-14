@@ -115,7 +115,7 @@ namespace Weapon
                     OnThrowEnd();
                 }
 
-                bool obstacle = other.gameObject.layer == LayerMask.NameToLayer("Obstacle");
+                bool obstacle = other.gameObject.layer == LayerMask.NameToLayer("Obstacle") || other.gameObject.layer == LayerMask.NameToLayer("Blocking");
                 if (obstacle)
                 {
                     _bHit = true;
