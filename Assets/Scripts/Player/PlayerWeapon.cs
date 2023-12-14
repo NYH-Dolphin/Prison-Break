@@ -420,6 +420,11 @@ namespace Player
                         return false;
                     }
 
+                    // kill the enemy
+                    EnemyDetected = _downedEnemy;
+                    downedEnemies.Remove(_downedEnemy);
+                    EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    
                     SprintIn();
                     StompBehaviour();
                     return true;
@@ -454,12 +459,7 @@ namespace Player
 
         IEnumerator StompCountdown(float time)
         {
-            yield return new WaitForSeconds(time / 2f);
-            // kill the enemy
-            EnemyDetected = _downedEnemy;
-            downedEnemies.Remove(_downedEnemy);
-            EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
-            yield return new WaitForSeconds(time / 2f);
+            yield return new WaitForSeconds(time);
             _bStompAttack = false;
         }
 
