@@ -21,6 +21,7 @@ namespace Player
 
         [Header("Weapon and Enemy Detect")] [SerializeField]
         private LayerMask lmWeapon;
+        [SerializeField] private ViewCone viewCone;
 
         [SerializeField] private LayerMask lmBreakableObj;
         [SerializeField] private LayerMask lmEnemy;
@@ -59,6 +60,7 @@ namespace Player
 
         [HideInInspector]
         public List<GameObject> downedEnemies = new List<GameObject>();
+        
 
         private void Awake()
         {
@@ -261,6 +263,7 @@ namespace Player
                 Vector3 dropDir = transform.GetComponent<PlayerController>().VecDir;
                 WeaponEquipped.GetComponent<WeaponBehaviour>().OnDrop(dropDir);
                 WeaponEquipped = null;
+                viewCone._objectsInTrigger.Clear();
             }
         }
 
@@ -347,7 +350,7 @@ namespace Player
             {
                 foreach(GameObject enemy in downedEnemies)
                 {
-                    if(Vector3.Distance(enemy.transform.position, transform.position) < fSprintDetectionRange)
+                    if(Vector3.Distance(enemy.transform.position, transform.position) < fSprintDetectionRange && enemy.GetComponent<EnemyBehaviour>().bExecution)
                         return enemy;
                 }
             }

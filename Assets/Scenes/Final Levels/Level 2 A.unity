@@ -7545,7 +7545,7 @@ PrefabInstance:
     - target: {fileID: 589279046659175887, guid: 099f730c4d93e204b88b8c0d75967fe7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: 19.04
       objectReference: {fileID: 0}
     - target: {fileID: 589279046659175887, guid: 099f730c4d93e204b88b8c0d75967fe7,
         type: 3}
@@ -8830,7 +8830,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252490761}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2125955ec0e483f4e89f4b8a0241da0e, type: 3}
@@ -9196,6 +9196,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943910863540809228, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 17.800049
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943910863540809228, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.8302002
       objectReference: {fileID: 0}
     - target: {fileID: 7132924386184517905, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
@@ -10996,6 +11006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: tray (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138844102180587233, guid: e7472f41f1b87234bb4eff444c800c56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13822,6 +13837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fSprintDetectionRange
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1617281891245140932, guid: 66e67313373419e4c829857f0a30c3b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3339951385850833052, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}

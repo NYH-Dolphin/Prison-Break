@@ -6,8 +6,9 @@ public class GrabDialogueTrigger : MonoBehaviour
 {
     public Message[] messages;
     public Actor[] actors;
-    private bool pauseDone = false;
+
     private bool first = true;
+
 
     public void StartDialogue()
     {
@@ -18,10 +19,11 @@ public class GrabDialogueTrigger : MonoBehaviour
     {
         if(this.transform.parent != null)
         {
-            if(this.transform.parent.tag == "Player" && first)
+            
+            if(this.transform.parent.tag == "holder" && first)
             {
+                Debug.Log("here");
                 StartDialogue();
-                //StartCoroutine(ShortPause(GameObject.Find("[Player]").GetComponent<PlayerController>()));
                 first = false;
             }
         }

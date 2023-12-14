@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using Enemy;
+using Weapon;
 
 public class ViewCone : MonoBehaviour
 {
-    private HashSet<Collider> _objectsInTrigger = new HashSet<Collider>();
+    public HashSet<Collider> _objectsInTrigger = new HashSet<Collider>();
     // Start is called before the first frame update
     void Start()
     {
@@ -86,20 +87,25 @@ public class ViewCone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
-            _objectsInTrigger.Add(other);
+        if(other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned && GetComponentInParent<PlayerWeapon>().WeaponEquipped != null)
+            if(GetComponentInParent<PlayerWeapon>().WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+                _objectsInTrigger.Add(other);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Enemy")){
-            _objectsInTrigger.Remove(other);
-            if(other.gameObject ==  GetComponentInParent<PlayerWeapon>()._enemyDetected)
+        if(other.CompareTag("Enemy") && GetComponentInParent<PlayerWeapon>().WeaponEquipped != null){
+            if(GetComponentInParent<PlayerWeapon>().WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
             {
-                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
-                GetComponentInParent<PlayerWeapon>()._enemyDetected.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                GetComponentInParent<PlayerWeapon>()._enemyDetected = null;
+                _objectsInTrigger.Remove(other);
+                if(other.gameObject ==  GetComponentInParent<PlayerWeapon>()._enemyDetected)
+                {
+                    other.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
+                    other.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+                    GetComponentInParent<PlayerWeapon>()._enemyDetected = null;
+                }
             }
+            
                 
         }
             

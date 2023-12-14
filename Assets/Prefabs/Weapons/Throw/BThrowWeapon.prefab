@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2438754630307028216}
   - component: {fileID: 7773926056730166994}
   - component: {fileID: 3391501287815065787}
+  - component: {fileID: -8427633957400677084}
   m_Layer: 6
   m_Name: BThrowWeapon
   m_TagString: Untagged
@@ -102,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsety: 0
   offsetx: 0
+  offsetz: 0
 --- !u!65 &2438754630307028216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -163,9 +165,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponInfo: {fileID: 11400000, guid: 3747064a2d0d71e4989fe79d8fbd380d, type: 2}
-  bAttack: 0
-  fThrowForce: 120
-  fThrowTime: 0.3
   lmGround:
     serializedVersion: 2
     m_Bits: 8
+  iDurability: 0
+  bAttack: 0
+  fThrowForce: 120
+  fThrowTime: 0.3
+--- !u!114 &-8427633957400677084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553995303318409865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f310e3ed9e720b94f87c869272138ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messages:
+  - actorID: 0
+    message: Hmmm... I wonder
+  - actorID: 1
+    message: </color=#00FFFF>Ranged</color> and </color=#00FFFF>melee</color> weapons
+      can be fused
+  - actorID: 1
+    message: use </color=#00FFFF>"F" or "SHIFT"</color> to fuse
+  - actorID: 1
+    message: fused weapons can have different behaviors than their components
+  actors:
+  - name: Player
+    sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
+  - name: Guide
+    sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}

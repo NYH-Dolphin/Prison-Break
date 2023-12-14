@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000017447292, g: 0.000000028348834, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.000017447339, g: 0.000000028348834, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &263770639
 Transform:
   m_ObjectHideFlags: 0
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - actorID: 0
-    message: Some objects can be thrown using LMB
+    message: Some objects can be thrown using <color=#00FFFF>LMB</color>
   actors:
   - name: Guide
     sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
@@ -1645,7 +1645,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.18683223
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1655,7 +1655,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1665,7 +1665,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1680,12 +1680,27 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.7521169
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.057344593
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.16949083
       objectReference: {fileID: 0}
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -13475,7 +13490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1617578807
 Transform:
   m_ObjectHideFlags: 0
@@ -13829,7 +13844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1724210531
 Transform:
   m_ObjectHideFlags: 0
@@ -15153,7 +15168,7 @@ PrefabInstance:
     - target: {fileID: 8150126405346370112, guid: 66e67313373419e4c829857f0a30c3b6,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: holder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
