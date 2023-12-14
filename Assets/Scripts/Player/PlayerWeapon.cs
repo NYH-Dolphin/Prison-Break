@@ -121,6 +121,9 @@ namespace Player
 
         #region WeaponDetection
 
+        private Color _cSelectableColor = Color.blue;
+        private Color _cFusedColor = Color.green;
+
         private void WeaponDetectionUpdate()
         {
             // when player is holding the weapon and the weapon is on attack, can not detect the weapon
@@ -155,14 +158,13 @@ namespace Player
             }
         }
 
-
-        // TODO need to be modified with the weapon behaviour
         /// <summary>
         /// weapon that can not be fused with the holding weapon
         /// </summary>
         private void OnDetectSelectableWeapon(GameObject weapon)
         {
-            Debug.Log("select weapon");
+            if (weapon == null) return;
+            weapon.GetComponent<WeaponBehaviour>().OnSelected(_cSelectableColor);
         }
 
         /// <summary>
@@ -170,13 +172,14 @@ namespace Player
         /// </summary>
         private void OnDetectedFusedWeapon(GameObject weapon)
         {
-            Debug.Log("fused weapon");
+            if (weapon == null) return;
+            weapon.GetComponent<WeaponBehaviour>().OnSelected(_cFusedColor);
         }
-
 
         private void OnCancelDetectedWeapon(GameObject weapon)
         {
-            Debug.Log("cancel weapon");
+            if (weapon == null) return;
+            weapon.GetComponent<WeaponBehaviour>().OnNotSelected();
         }
 
         #endregion

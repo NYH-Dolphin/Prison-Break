@@ -23,7 +23,6 @@ namespace Weapon
         [HideInInspector] public int iDurability;
         [HideInInspector] public bool bAttack;
         [HideInInspector] public HashSet<GameObject> setEnemyAttacked; // enemy detected in one attack section
-        private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
 
         private void Awake()
         {
@@ -46,14 +45,15 @@ namespace Weapon
         /// <summary>
         /// Weapon is selected and ready for grabbing
         /// </summary>
-        public virtual void OnSelected()
+        public virtual void OnSelected(Color color)
         {
-            Mat.SetFloat(OutlineWidth, 5);
+            Mat.SetColor("_GlowColor", color);
+            Mat.SetFloat("_GlowAmount", 1f);
         }
 
         public virtual void OnNotSelected()
         {
-            Mat.SetFloat(OutlineWidth, 0);
+            Mat.SetFloat("_GlowAmount", 0f);
         }
 
         /// <summary>

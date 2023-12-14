@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2dSpriteGlow
-  m_Shader: {fileID: -6465566751694194690, guid: bf1b357493d6966478c34b6ff381fdd4,
+  m_Name: 2DSpriteHint
+  m_Shader: {fileID: -6465566751694194690, guid: d9b8aa68d385adb4487a86a7825cb666,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4fa72048924f5814abe33805fc600ebc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 639f60de20c749c4694eb59938adc6d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -42,17 +42,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlowIntensity: 4.48
-    - _GlowRange: 1
-    - _OutlineWidth: 10
+    - _GlowAmount: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Transparency: 1
-    - _Transparency_1: 4
     m_Colors:
-    - _GlowColor: {r: 0, g: 0, b: 0, a: 0.6627451}
+    - _GlowColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3566542053816691226
+--- !u!114 &2100351842677811028
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
