@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     private bool fill = false;
 
 
-    void Start()
+    void Awake()
     {
         backgroundBox.transform.localScale = Vector3.zero;
         pc = GameObject.Find("[Player]").gameObject.GetComponent<PlayerController>();

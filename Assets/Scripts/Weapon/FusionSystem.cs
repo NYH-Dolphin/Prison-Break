@@ -18,7 +18,7 @@ namespace Weapon
         [SerializeField] private TextAsset fusionCsv;
         private Dictionary<string, FusionData> _fusionDict;
         public static FusionSystem Instance;
-        
+
         private void Awake()
         {
             _fusionDict = new();
@@ -76,7 +76,7 @@ namespace Weapon
                         weaponPrefabPath = "FusionWeaponPrefabs/ThrustWeapon";
                         break;
                     case "throw":
-                        weaponInfo.eAttackType = AttackType.Throwable;
+                        weaponInfo.eAttackType = AttackType.Throw;
                         weaponInfo.eRange = Range.Ranged;
                         weaponPrefabPath = "FusionWeaponPrefabs/ThrowWeapon";
                         break;
@@ -122,14 +122,54 @@ namespace Weapon
             }
         }
 
-        public GameObject GetFusionWeapon(GameObject w1, GameObject w2)
-        { 
+
+        public bool TestFusionWeapon(GameObject w1, GameObject w2)
+        {
             // Cant fuse ranged and melee weapons
-            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange){
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange ==
+                w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange)
+            {
+                return false;
+            }
+            
+            // get the key {melee_weapon}-{range_weapon}
+            string key;
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+            {
+                key =
+                    $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+            else
+            {
+                key =
+                    $"{w2.GetComponent<SpriteRenderer>().sprite.name}-{w1.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+
+            return _fusionDict.ContainsKey(key);
+        }
+
+        public GameObject GetFusionWeapon(GameObject w1, GameObject w2)
+        {
+            // Cant fuse ranged and melee weapons
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange ==
+                w2.GetComponent<WeaponBehaviour>().weaponInfo.eRange)
+            {
                 return null;
             }
-            string key = $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
 
+            // get the key {melee_weapon}-{range_weapon}
+            string key;
+            if (w1.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
+            {
+                key =
+                    $"{w1.GetComponent<SpriteRenderer>().sprite.name}-{w2.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+            else
+            {
+                key =
+                    $"{w2.GetComponent<SpriteRenderer>().sprite.name}-{w1.GetComponent<SpriteRenderer>().sprite.name}";
+            }
+            
             if (_fusionDict.TryGetValue(key, out FusionData fusionData))
             {
                 // Create instance of the weapon prefab and the weapon info
@@ -140,7 +180,6 @@ namespace Weapon
                 weaponPrefabInstance.GetComponent<WeaponBehaviour>().weaponInfo = weaponInfo;
                 weaponPrefabInstance.GetComponent<WeaponBehaviour>().iDurability = weaponInfo.iDurability;
                 
-                
                 // Set the sprite of the prefab to the fusion sprite
                 Sprite newSprite = Resources.Load<Sprite>(fusionData.fusionSpritePath);
                 weaponPrefabInstance.GetComponent<SpriteRenderer>().sprite = newSprite;
@@ -148,7 +187,7 @@ namespace Weapon
 
                 return weaponPrefabInstance;
             }
-            Debug.Log($"Fusion not found for key: {key}");
+            
             return null;
         }
     }

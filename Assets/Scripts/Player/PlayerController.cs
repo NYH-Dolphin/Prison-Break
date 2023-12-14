@@ -1,30 +1,26 @@
 using System.Collections;
 using GameInputSystem;
-using MyCameraEffect;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapon;
-using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerWeapon))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fMovementSpeed;
-    [SerializeField] private float fJumpSpeed;
-    [SerializeField] private float fGroundCheckRadius;
     [SerializeField] private LayerMask lmGroundLayer;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource asFootstep;
 
     public Vector3 VecDir { get; private set; } = new(0, 0, 1);
 
     private Rigidbody _rb;
     private InputControls _inputs;
     private Vector3 _vecMove = Vector3.zero; // player movement direction
-    private bool _bJumpUpdate = true;
     private bool _bIsGrounded;
-    
+
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
     private static readonly int Vertical = Animator.StringToHash("Vertical");
     private static readonly int Speed = Animator.StringToHash("Speed");
@@ -41,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     #region EventRegisteration
 
-    // TODO Currently Jump is Removed
     private void OnEnable()
     {
         if (_inputs == null)
@@ -53,7 +48,6 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Enable();
         _inputs.Gameplay.Movement.performed += OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled += OnMovementCanceled;
-        // _inputs.Gameplay.Jump.performed += OnJumpPerformed;
     }
 
     private void OnDisable()
@@ -62,26 +56,22 @@ public class PlayerController : MonoBehaviour
         _inputs.Gameplay.Jump.Disable();
         _inputs.Gameplay.Movement.performed -= OnMovementPerformed;
         _inputs.Gameplay.Movement.canceled -= OnMovementCanceled;
-        // _inputs.Gameplay.Jump.performed -= OnJumpPerformed;
     }
 
     #endregion
 
-    private void Update()
-    {
-        Vector3 pos = transform.position;
-        pos.y = 0.01f;
-        transform.position = pos;
-        GroundDetectUpdate();
-    }
-
 
     private void FixedUpdate()
     {
-        if(animator.GetBool("canMove")) {
+        if (animator.GetBool("canMove"))
+        {
             MovementUpdate();
             GetComponentInChildren<ViewCone>().DirectionCheck();
         }
+
+        Vector3 pos = transform.position;
+        pos.y = .1f;
+        transform.position = pos;
     }
 
 
@@ -92,7 +82,7 @@ public class PlayerController : MonoBehaviour
             case AttackType.Swing:
                 animator.SetTrigger(Swing);
                 break;
-            case AttackType.Throwable:
+            case AttackType.Throw:
                 animator.SetTrigger(Throw);
                 break;
             case AttackType.Lob:
@@ -141,63 +131,28 @@ public class PlayerController : MonoBehaviour
         Vector3 vecIsoMove = vecRight * _inputMove.x + vecFront * _inputMove.y;
         _vecMove = vecIsoMove.normalized;
         VecDir = _vecMove;
+        asFootstep.Play();
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         _vecMove = Vector3.zero;
         animator.SetFloat(Speed, 0f);
+        asFootstep.Pause();
     }
 
     private void MovementUpdate()
     {
+        Vector3 moveVelocity = _vecMove * fMovementSpeed;
+        moveVelocity.y = _rb.velocity.y;
+        _rb.velocity = moveVelocity;
+
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Movement"))
         {
             animator.SetFloat(Horizontal, _inputMove.x);
             animator.SetFloat(Vertical, _inputMove.y);
         }
-        Vector3 moveVelocity = _vecMove * fMovementSpeed;
-        moveVelocity.y = _rb.velocity.y;
-        _rb.velocity = moveVelocity;
-    }
-
-    #endregion
-
-
-    #region Jump
-
-    public void OnJumpPerformed(InputAction.CallbackContext value)
-    {
-        if (_bIsGrounded)
-        {
-            _bIsGrounded = false;
-            animator.SetBool("Grounded", false);
-            animator.SetTrigger("Jump");
-            StartCoroutine(JumpCountDown(0.1f)); // wait a really time for jump detection
-            Vector3 velocity = _rb.velocity;
-            velocity.y = 0f;
-            _rb.velocity = velocity;
-            _rb.AddForce(Vector3.up * fJumpSpeed, ForceMode.Impulse);
-        }
-    }
-
-
-    IEnumerator JumpCountDown(float time)
-    {
-        _bJumpUpdate = false;
-        yield return new WaitForSeconds(time);
-        _bJumpUpdate = true;
-    }
-
-    public void GroundDetectUpdate()
-    {
-        if (!_bJumpUpdate) return;
-        Collider[] hitColliders = new Collider[1];
-        _bIsGrounded =
-            Physics.OverlapSphereNonAlloc(transform.position, fGroundCheckRadius, hitColliders, lmGroundLayer) != 0;
-        _rb.drag = _bIsGrounded ? 1f : 0f;
-        animator.SetBool("Grounded", _bIsGrounded);
     }
 
     #endregion
@@ -208,7 +163,7 @@ public class PlayerController : MonoBehaviour
         Vector3 startPos = transform.position;
         StartCoroutine(SprintMoveUpdateCor(startPos, targetPos, time));
     }
-    
+
     public void SetPlayerAttackPosition()
     {
         if (Camera.main != null)
@@ -230,7 +185,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     private Vector2 RotateVector(Vector2 v, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
@@ -257,11 +212,5 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp(startPos, targetPos, lerpFactor);
             yield return null;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, fGroundCheckRadius);
     }
 }

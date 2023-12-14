@@ -41,7 +41,6 @@ public class Breakable : MonoBehaviour
 
     public void OnHit()
     {
-        SFX.PlayHit();
         for (int i = 0; i < componentNumber; i++)
         {
             foreach (GameObject ins in componentItems)
@@ -52,7 +51,6 @@ public class Breakable : MonoBehaviour
                 instPos.y = 1.45f;
                 Instantiate(ins, instPos, transform.rotation);
             }
-                
         }
 
         Destroy(gameObject);

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Player;
 
-namespace Weapon.Effects
+namespace Effects
 {
     
     public class DirAngleEffect : MonoBehaviour
