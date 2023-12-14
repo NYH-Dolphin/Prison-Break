@@ -51,11 +51,14 @@ namespace Player
         private GameObject _downedEnemy;
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
+        
 
         private InputControls _inputs;
         private PlayerController _pc;
 
         [HideInInspector] public List<GameObject> downedEnemies = new();
+
+        [HideInInspector] public Transform attkPos;
 
         private void Awake()
         {
@@ -367,8 +370,11 @@ namespace Player
                     WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
                 {
                     Vector3 playerPos = transform.position;
-                    Transform attkPos = EnemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
-                    Vector3 enemyPos = attkPos.position;
+                    attkPos = EnemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
+                    Vector3 enemyPos;
+                    enemyPos = attkPos.position;
+                    if(downedEnemies != null)
+                        enemyPos = EnemyDetected.transform.GetChild(0).GetChild(0).position;
                     float dist = Vector3.Distance(playerPos, enemyPos);
                     if (dist < fSprintDetectionRange)
                     {

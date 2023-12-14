@@ -59,6 +59,7 @@ namespace Enemy
                     if (!newNav.unconscious) anim.SetBool("attacking", false);
                 }
             }
+            
         }
 
         /// <summary>
@@ -85,14 +86,15 @@ namespace Enemy
 
             if (hit == 2 || (!notStunned && hit == 1) || health <= 0)
             {
+                Transform spawnpoint = transform.GetChild(0).GetChild(0);
                 var dead = Instantiate(deadGuard,
-                    new Vector3(this.transform.position.x, 0.5f, this.transform.position.z), Quaternion.identity);
+                    new Vector3(spawnpoint.position.x, 0.5f, spawnpoint.position.z), Quaternion.identity);
                 dead.transform.eulerAngles = new Vector3(0, 90, 0);
                 if (melee)
                 {
                     Knockback kb = dead.GetComponent<Knockback>();
                     PlayerController Pc = GameObject.Find("[Player]").GetComponent<PlayerController>();
-                    kb.PlayFeedback(Pc.VecDir.normalized);
+                    kb.PlayFeedback(KBDirection());
                 }
                 
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
@@ -102,10 +104,9 @@ namespace Enemy
 
         public Transform ActiveAttackPoint()
         {
-            if (!notStunned) return transform.GetChild(0).transform;
+            //if (!notStunned) return transform.GetChild(0).transform;
             Vector3 directionToTarget = (player.position - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
-
             if (angle < 22.5)
                 return transform.GetChild(3).GetChild(4);
             else if (angle < 67.5)
@@ -131,6 +132,7 @@ namespace Enemy
             }
             else
                 return transform.GetChild(3).GetChild(0);
+
         }
 
 
@@ -154,6 +156,7 @@ namespace Enemy
             dizzy.enabled = true;
             float direction = DirectionSwitcher();
             anim.SetFloat("direction", direction);
+            Debug.Log(anim.GetFloat("direction"));
             anim.SetTrigger("stunned");
             anim.SetBool("wake up", false);
             player.GetComponent<PlayerWeapon>().downedEnemies.Add(this.gameObject);
@@ -170,30 +173,56 @@ namespace Enemy
 
         private float DirectionSwitcher()
         {
-            Transform direction = ActiveAttackPoint();
-            switch (direction.gameObject.name)
+            switch (player.GetComponent<PlayerWeapon>().attkPos.gameObject.name)
             {
                 case "West":
                     return 1;
                 case "East":
                     return 2;
-                case "South":
-                    return 3;
                 case "North":
+                    return 3;
+                case "South":
                     return 4;
-                case "NorthWest":
-                    return 5;
-                case "NorthEast":
-                    return 6;
                 case "SouthWest":
-                    return 7;
+                    return 5;
                 case "SouthEast":
+                    return 6;
+                case "NorthWest":
+                    return 7;
+                case "NorthEast":
                     return 8;
                 default:
                     return 1;
             }
 
             return 1;
+        }
+
+        private Vector3 KBDirection()
+        {
+            switch (player.GetComponent<PlayerWeapon>().attkPos.gameObject.name)
+            {
+                case "West":
+                    return new Vector3(1,0,0).normalized;
+                case "East":
+                    return new Vector3(-1,0,0).normalized;
+                case "North":
+                    return new Vector3(0,0,1).normalized;
+                case "South":
+                    return new Vector3(0,0,1).normalized;
+                case "SouthWest":
+                    return new Vector3(1,0,1).normalized;
+                case "SouthEast":
+                    return new Vector3(-1,0,1).normalized;
+                case "NorthWest":
+                    return new Vector3(1,0,1).normalized;
+                case "NorthEast":
+                    return new Vector3(-1,0,1).normalized;
+                default:
+                    return new Vector3(0,0,0);
+            }
+
+            return new Vector3(0,0,0);
         }
 
         private IEnumerator BluntCountDown(float time)
