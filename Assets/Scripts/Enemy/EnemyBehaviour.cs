@@ -24,6 +24,7 @@ namespace Enemy
         private NewNav newNav;
         private int health = 2;
         public Transform deadGuard;
+        public GameObject bloodyPrefab;
 
 
         private void Awake()
@@ -98,6 +99,7 @@ namespace Enemy
                 }
                 
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
+                Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0)));
                 Destroy(gameObject);
             }
         }

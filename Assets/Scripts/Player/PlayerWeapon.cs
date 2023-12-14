@@ -357,7 +357,7 @@ namespace Player
                 if (_breakableObjectDetected != null)
                 {
                     _breakableObjectDetected.GetComponent<Breakable>().OnHit();
-                    StompBehaviour();
+                    BreakBehaviour();
                 }
             }
         }
@@ -426,13 +426,13 @@ namespace Player
                         return false;
                     }
 
-                    // directly kill it
+                    // kill the enemy
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
                     EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
-
-                    StompBehaviour();
+                    
                     SprintIn();
+                    StompBehaviour();
                     return true;
                 }
             }
@@ -440,6 +440,20 @@ namespace Player
             return false;
         }
 
+
+        private void BreakBehaviour()
+        {
+            _bStompAttack = true;
+            animator.SetTrigger("Stomp");
+            AudioControl.Instance.PlaySlam();
+            StartCoroutine(BreakCountDown(fStompTime));
+        }
+
+        IEnumerator BreakCountDown(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _bStompAttack = false;
+        }
 
         private void StompBehaviour()
         {
