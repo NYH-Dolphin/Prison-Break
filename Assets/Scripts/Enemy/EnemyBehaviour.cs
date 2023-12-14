@@ -153,7 +153,7 @@ namespace Enemy
         {
             SFX.PlayDizzy();
             notStunned = false;
-            StartCoroutine(BluntCountDown(0.3f));
+            StartCoroutine(BluntCountDown(.4f));
             newNav.Stunned(stunTime);
             dizzy.enabled = true;
             float direction = DirectionSwitcher();

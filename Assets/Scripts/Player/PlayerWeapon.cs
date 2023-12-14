@@ -414,7 +414,7 @@ namespace Player
         {
             _downedEnemy = DownedEnemyCheck();
             // stomp attack specific
-            if (_downedEnemy != null && !_bStompAttack)
+            if (_downedEnemy != null && !_bStompAttack && _downedEnemy.GetComponent<EnemyBehaviour>().bExecution)
             {
                 Vector3 playerPos = transform.position;
                 Vector3 enemyPos = _downedEnemy.transform.position;
