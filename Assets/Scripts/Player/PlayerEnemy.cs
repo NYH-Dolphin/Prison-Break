@@ -13,7 +13,7 @@ public class PlayerEnemy : MonoBehaviour
     [SerializeField] private CinemachineVirtualCameraBase mainCam;
     [SerializeField] private CinemachineVirtualCameraBase deadCam;
     [SerializeField] private GameObject playerBloodyEffect;
-    [SerializeField] private GameObject deadBloodEffect;
+    [SerializeField] private GameObject deadBloodPrefab;
     [SerializeField] private GameObject weaponEffect;
 
 
@@ -52,9 +52,8 @@ public class PlayerEnemy : MonoBehaviour
         if (DeadCameraEffect.Instance)
         {
             DeadCameraEffect.Instance.GetComponent<DeadCameraEffect>().OnTriggerDeadEffect();
-
         }
-        
+
 
         // hit 
         GetComponent<Rigidbody>().velocity = dir * 30f;
@@ -66,7 +65,9 @@ public class PlayerEnemy : MonoBehaviour
 
         // back to normal -> restart
         Time.timeScale = 1f;
-        deadBloodEffect.SetActive(true);
+        Vector3 pos = new Vector3(transform.position.x, 0.1f, transform.position.z) + dir * 6f;
+        yield return new WaitForSeconds(0.2f);
+        Instantiate(deadBloodPrefab, pos, Quaternion.Euler(new Vector3(90, 0, 0)));
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
