@@ -170,6 +170,8 @@ namespace Enemy
 
         private float DirectionSwitcher()
         {
+            if(player.GetComponent<PlayerWeapon>().attkPos == null)
+                return 1;
             switch (player.GetComponent<PlayerWeapon>().attkPos.gameObject.name)
             {
                 case "West":
