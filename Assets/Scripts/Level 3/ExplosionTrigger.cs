@@ -11,8 +11,6 @@ public class ExplosionTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(charges);
-        Debug.Log(NoEnemies());
         if(charges >= 2 && NoEnemies())
         {
             Explode();

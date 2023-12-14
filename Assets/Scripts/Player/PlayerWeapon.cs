@@ -51,11 +51,14 @@ namespace Player
         private GameObject _downedEnemy;
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
+        
 
         private InputControls _inputs;
         private PlayerController _pc;
 
         [HideInInspector] public List<GameObject> downedEnemies = new();
+
+        [HideInInspector] public Transform attkPos;
 
         private void Awake()
         {
@@ -354,7 +357,7 @@ namespace Player
                 if (_breakableObjectDetected != null)
                 {
                     _breakableObjectDetected.GetComponent<Breakable>().OnHit();
-                    StompBehaviour();
+                    BreakBehaviour();
                 }
             }
         }
@@ -367,8 +370,11 @@ namespace Player
                     WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eRange == Range.Melee)
                 {
                     Vector3 playerPos = transform.position;
-                    Transform attkPos = EnemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
-                    Vector3 enemyPos = attkPos.position;
+                    attkPos = EnemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
+                    Vector3 enemyPos;
+                    enemyPos = attkPos.position;
+                    if(downedEnemies != null)
+                        enemyPos = EnemyDetected.transform.GetChild(0).GetChild(0).position;
                     float dist = Vector3.Distance(playerPos, enemyPos);
                     if (dist < fSprintDetectionRange)
                     {
@@ -408,7 +414,7 @@ namespace Player
         {
             _downedEnemy = DownedEnemyCheck();
             // stomp attack specific
-            if (_downedEnemy != null && !_bStompAttack)
+            if (_downedEnemy != null && !_bStompAttack && _downedEnemy.GetComponent<EnemyBehaviour>().bExecution)
             {
                 Vector3 playerPos = transform.position;
                 Vector3 enemyPos = _downedEnemy.transform.position;
@@ -420,13 +426,13 @@ namespace Player
                         return false;
                     }
 
-                    // directly kill it
+                    // kill the enemy
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
                     EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
-
-                    StompBehaviour();
+                    
                     SprintIn();
+                    StompBehaviour();
                     return true;
                 }
             }
@@ -434,6 +440,20 @@ namespace Player
             return false;
         }
 
+
+        private void BreakBehaviour()
+        {
+            _bStompAttack = true;
+            animator.SetTrigger("Stomp");
+            AudioControl.Instance.PlaySlam();
+            StartCoroutine(BreakCountDown(fStompTime));
+        }
+
+        IEnumerator BreakCountDown(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _bStompAttack = false;
+        }
 
         private void StompBehaviour()
         {

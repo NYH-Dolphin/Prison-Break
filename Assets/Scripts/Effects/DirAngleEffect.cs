@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
+using Player;
 
 namespace Effects
 {
+    
     public class DirAngleEffect : MonoBehaviour
     {
-        
         // TODO set enemy hint
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                // Debug.Log("detect: " + other.gameObject.name);
+                if(!ViewCone.Instance._objectsInTrigger.Contains(other)) ViewCone.Instance.Register(other);
             }
         }
 
@@ -18,7 +19,7 @@ namespace Effects
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                // Debug.Log("exit: " + other.gameObject.name);
+                ViewCone.Instance.DeRegister(other);
             }
         }
     }

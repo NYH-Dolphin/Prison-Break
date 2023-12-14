@@ -7,15 +7,26 @@ using Enemy;
 public class ViewCone : MonoBehaviour
 {
     public static ViewCone Instance;
-    private HashSet<Collider> _objectsInTrigger = new();
+    public HashSet<Collider> _objectsInTrigger = new();
 
 
     public void DeRegister(Collider obj)
     {
         if (_objectsInTrigger.Contains(obj))
         {
+            Transform marker = obj.gameObject.transform.GetChild(2);
+            marker.localScale *= 0.5f;
+            marker.GetComponent<SpriteRenderer>().color = new Color(.2f, .2f, .2f);
             _objectsInTrigger.Remove(obj);
         }
+    }
+
+    public void Register(Collider obj)
+    {
+        Transform marker = obj.gameObject.transform.GetChild(2);
+        marker.localScale *= 2f;
+        marker.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+        _objectsInTrigger.Add(obj);
     }
 
 
@@ -96,22 +107,15 @@ public class ViewCone : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
-            _objectsInTrigger.Add(other);
+            Register(other);
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            _objectsInTrigger.Remove(other);
-            if (other.gameObject == GetComponentInParent<PlayerWeapon>().EnemyDetected)
-            {
-                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>()
-                    .color = new Color(50, 50, 50);
-                GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).transform.localScale =
-                    new Vector3(1.5f, 1.5f, 1.5f);
-                GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
-            }
+            DeRegister(other);
+
         }
     }
 }

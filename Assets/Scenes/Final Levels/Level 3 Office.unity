@@ -1701,7 +1701,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.18683223
+      value: 2.67
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1711,7 +1711,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1721,7 +1721,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1736,7 +1736,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -1746,12 +1746,17 @@ PrefabInstance:
     - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Size.z
-      value: 10.133102
+      value: 4.289061
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.057344593
       objectReference: {fileID: 0}
     - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.5770042
+      value: 0.8247828
       objectReference: {fileID: 0}
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -6760,7 +6765,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252490761}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2125955ec0e483f4e89f4b8a0241da0e, type: 3}
