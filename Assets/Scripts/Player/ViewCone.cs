@@ -14,12 +14,20 @@ public class ViewCone : MonoBehaviour
     {
         if (_objectsInTrigger.Contains(obj))
         {
+            Transform marker = obj.gameObject.transform.GetChild(2);
+            marker.localScale *= 0.5f;
+            marker.GetComponent<SpriteRenderer>().color = new Color(.2f, .2f, .2f);
+            Debug.Log("out");
             _objectsInTrigger.Remove(obj);
         }
     }
 
     public void Register(Collider obj)
     {
+        Transform marker = obj.gameObject.transform.GetChild(2);
+        marker.localScale *= 2f;
+        marker.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+        Debug.Log("in");
         _objectsInTrigger.Add(obj);
     }
 
