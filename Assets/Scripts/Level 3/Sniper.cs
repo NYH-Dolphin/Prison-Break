@@ -38,8 +38,14 @@ public class Sniper : MonoBehaviour
     {
         if(width > 0.2f)
         {
+            if(width < 0.8f)
+                lr.SetColors(new Color(1, .8f, .8f), new Color(1, .8f, .8f));
+            else if(width < 0.6f)
+                lr.SetColors(new Color(1, .5f, .5f), new Color(1, .5f, .5f));
+            else if(width < 0.4f)
+                lr.SetColors(new Color(1, .2f, .2f), new Color(1, .2f, .2f));
             lr.SetWidth(width, width);
-            width -= 0.35f * Time.deltaTime;
+            width -= 0.28f * Time.deltaTime;
         }
         else
         {
