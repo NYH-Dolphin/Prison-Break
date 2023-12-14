@@ -115,15 +115,7 @@ public class ViewCone : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             DeRegister(other);
-            // _objectsInTrigger.Remove(other);
-            // if (other.gameObject == GetComponentInParent<PlayerWeapon>().EnemyDetected)
-            // {
-            //     GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).GetComponent<SpriteRenderer>()
-            //         .color = new Color(50, 50, 50);
-            //     GetComponentInParent<PlayerWeapon>().EnemyDetected.transform.GetChild(2).transform.localScale =
-            //         new Vector3(1.5f, 1.5f, 1.5f);
-            //     GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
-            // }
+
         }
     }
 }
