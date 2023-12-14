@@ -25,7 +25,7 @@ namespace Effects
                 Debug.Log(other.gameObject.name + "   " + other.transform.GetChild(2).name);
                 other.transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color(50,50,50);
                 other.transform.GetChild(2).transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                GetComponentInParent<PlayerWeapon>()._enemyDetected = null;
+                GetComponentInParent<PlayerWeapon>().EnemyDetected = null;
             }
         }
     }

@@ -7,7 +7,7 @@ using Enemy;
 public class ViewCone : MonoBehaviour
 {
     public static ViewCone Instance;
-    private HashSet<Collider> _objectsInTrigger = new();
+    public HashSet<Collider> _objectsInTrigger = new();
 
 
     public void DeRegister(Collider obj)
