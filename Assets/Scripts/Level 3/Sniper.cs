@@ -14,29 +14,32 @@ public class Sniper : MonoBehaviour
     private Vector3 offset = new Vector3(0,0,1);
     Color color1 = new Color(1,1,1,1);
     Color color2 = new Color(1,1,1,1);
-    
-
+    public bool active = true;
 
     void Update()
     {
-        if(offset.z <= 0)
+        if(active)
+        {
+            if(offset.z <= 0)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        lr1.SetPosition(0, transform.GetChild(0).position + offset);
-        lr2.SetPosition(0, transform.GetChild(1).position - offset);
-        Vector3 direction = playerHead.transform.position - this.transform.position;
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, direction, out hit, Vector3.Distance(playerHead.transform.position, transform.position), layer))
-        {
-            lr1.SetPosition(1, hit.point + offset);
-            lr2.SetPosition(1, hit.point - offset);
-            SniperRecover();
+            lr1.SetPosition(0, transform.GetChild(0).position + offset);
+            lr2.SetPosition(0, transform.GetChild(1).position - offset);
+            Vector3 direction = playerHead.transform.position - this.transform.position;
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, direction, out hit, Vector3.Distance(playerHead.transform.position, transform.position), layer))
+            {
+                lr1.SetPosition(1, hit.point + offset);
+                lr2.SetPosition(1, hit.point - offset);
+                SniperRecover();
+            }
+            else
+            {
+                lr1.SetPosition(1,playerHead.transform.position + offset);
+                lr2.SetPosition(1,playerHead.transform.position - offset);
+                SniperClose();
+            }
         }
-        else
-        {
-            lr1.SetPosition(1,playerHead.transform.position + offset);
-            lr2.SetPosition(1,playerHead.transform.position - offset);
-            SniperClose();
-        }
+        
     }
 
     void SniperRecover()
