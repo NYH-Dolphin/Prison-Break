@@ -102,6 +102,12 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+    
+    public void OnPlayerDead()
+    {
+        Debug.Log("dead");
+        animator.Play("Dead");
+    }
 
     public void OnSetAttackDir(Vector2 dir)
     {

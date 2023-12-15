@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(PlayerEnemy))]
 public class PlayerEnemy : MonoBehaviour
 {
     [SerializeField] private bool bDev;
@@ -16,9 +17,13 @@ public class PlayerEnemy : MonoBehaviour
     [SerializeField] private GameObject deadBloodPrefab;
     [SerializeField] private GameObject weaponEffect;
 
-
+    private PlayerController _pc;
     private IEnumerator _thread;
 
+    private void Awake()
+    {
+        _pc = GetComponent<PlayerController>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,6 +44,10 @@ public class PlayerEnemy : MonoBehaviour
 
     IEnumerator OnGetKilled(Vector3 dir)
     {
+        // player dead animation
+        _pc.OnSetAttackDir(new Vector2(dir.z, dir.x));
+        _pc.OnPlayerDead();
+
         // slow motion
         Time.timeScale = 0.1f;
 
