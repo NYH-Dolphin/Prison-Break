@@ -5,15 +5,18 @@ namespace LevelTutorial
 {
     public class BreakDoor : MonoBehaviour
     {
-
         [SerializeField] private GameObject breakEffectPrefab;
-        
-        private void OnDestroy()
+
+        private void OnTriggerEnter(Collider other)
         {
-            var effect = Instantiate(breakEffectPrefab);
-            effect.transform.position = transform.position;
-            CameraEffect.Instance.GenerateImpulse();
-            AudioControl.Instance.PlayDoorBreak();
+            if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
+                GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
+            {
+                var effect = Instantiate(breakEffectPrefab);
+                effect.transform.position = transform.position;
+                CameraEffect.Instance.GenerateImpulse();
+                AudioControl.Instance.PlayDoorBreak();
+            }
         }
     }
 }
