@@ -242,7 +242,7 @@ namespace GameInputSystem
                 {
                     ""name"": """",
                     ""id"": ""d92afa23-d255-4c04-b7c6-0fb896b6b0a6"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -7,6 +7,7 @@ public class SniperDialogue : MonoBehaviour
     public Message[] messages;
     public Actor[] actors;
     public Sniper sniper;
+    [SerializeField] private PlayerController pc;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class SniperDialogue : MonoBehaviour
 
     private IEnumerator Dialogue()
     {
+        pc.enabled = false;
         sniper.active = false;
         yield return new WaitForSeconds(2f);
         StartDialogue();
@@ -24,6 +26,7 @@ public class SniperDialogue : MonoBehaviour
         NextDialogue();
         yield return new WaitForSeconds(2f);
         sniper.active = true;
+        pc.enabled = true;
     }
     public void StartDialogue()
     {
