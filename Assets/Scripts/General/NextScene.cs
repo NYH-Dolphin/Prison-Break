@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +7,8 @@ public class NextScene : MonoBehaviour
 
     private int levelToLoad;
 
-    public void FadeToLevel(int levelIndex){
+    public void FadeToLevel(int levelIndex)
+    {
         levelToLoad = levelIndex;
         anim.SetTrigger("FadeOut");
     }
@@ -18,6 +17,4 @@ public class NextScene : MonoBehaviour
     {
         SceneManager.LoadScene(levelToLoad);
     }
-
-     
 }

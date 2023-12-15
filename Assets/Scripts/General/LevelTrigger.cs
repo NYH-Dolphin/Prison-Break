@@ -7,9 +7,9 @@ public class LevelTrigger : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player")
+        if (col.tag == "Player")
         {
-            this.transform.GetChild(0).GetComponent<NextScene>().FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            transform.GetChild(0).GetComponent<NextScene>().FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
