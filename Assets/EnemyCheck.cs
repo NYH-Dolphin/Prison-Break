@@ -6,6 +6,7 @@ public class EnemyCheck : MonoBehaviour
 {
 
     private GameObject[] enemies;
+    [SerializeField] private Sprite sprite;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +20,7 @@ public class EnemyCheck : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if(enemies.Length == 0)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<SpriteRenderer>().sprite = sprite;
             this.GetComponent<Collider>().isTrigger = true;
         }
     }

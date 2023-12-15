@@ -3114,8 +3114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b00398d5b249a84ab3911ba45b53e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messages: []
-  actors: []
+  messages:
+  - actorID: 0
+    message: Break the bars <color=#00FFFF>(LMB)</color>
+  actors:
+  - name: Guide
+    sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
 --- !u!1001 &1478706811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7054,7 +7058,7 @@ GameObject:
   - component: {fileID: 1637052506}
   - component: {fileID: 1637052505}
   - component: {fileID: 1637052507}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: breakable bars
   m_TagString: Breakable
   m_Icon: {fileID: 0}
@@ -7156,7 +7160,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637052501}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a44b3bc1328ef74096838a5692de784, type: 3}
   m_Name: 
@@ -8680,12 +8684,12 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.55
+      value: 12.24
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.18683223
+      value: 2.48
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8695,7 +8699,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8705,7 +8709,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8720,7 +8724,7 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8730,7 +8734,7 @@ PrefabInstance:
     - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Size.x
-      value: 2.7478242
+      value: 1.7732239
       objectReference: {fileID: 0}
     - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8740,13 +8744,24 @@ PrefabInstance:
     - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Center.x
-      value: 1.7582121
+      value: -0.024237823
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008610953313432496, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.1312077
       objectReference: {fileID: 0}
     - target: {fileID: 4087979762327704908, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5873468119162434621, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fba766fe4f077944abd37ad56cf6030d,
+        type: 3}
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Name
@@ -8755,7 +8770,7 @@ PrefabInstance:
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

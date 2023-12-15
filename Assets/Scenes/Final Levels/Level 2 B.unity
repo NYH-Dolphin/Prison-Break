@@ -584,11 +584,6 @@ PrefabInstance:
       propertyPath: m_LayerOverridePriority
       value: 193
       objectReference: {fileID: 0}
-    - target: {fileID: 3699802812068179685, guid: 767bd3d2db2639848851b71d8c9f8a99,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7c4ba8dc9c434c54a83483a280df9cae, type: 2}
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_Name
@@ -597,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14985,7 +14980,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -7.99
+  near clip plane: -13
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
@@ -15868,7 +15863,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 12.93
-    NearClipPlane: -7.99
+    NearClipPlane: -13
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
