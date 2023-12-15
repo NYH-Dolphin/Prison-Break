@@ -2,6 +2,7 @@
 
 namespace LevelTutorial
 {
+    [RequireComponent(typeof(Collider))]
     public class LockDoorBehaviour : MonoBehaviour
     {
         [SerializeField] private AudioSource openSFX;
