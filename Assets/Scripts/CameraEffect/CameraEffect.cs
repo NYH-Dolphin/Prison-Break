@@ -6,13 +6,18 @@ namespace MyCameraEffect
 {
     public class CameraEffect : MonoBehaviour
     {
-        private CinemachineCollisionImpulseSource _impulse;
+        private CinemachineImpulseSource _impulse;
 
         public static CameraEffect Instance;
 
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            _impulse = GameObject.Find("[Player]").gameObject.GetComponent<CinemachineImpulseSource>();
         }
 
 
@@ -24,11 +29,6 @@ namespace MyCameraEffect
         public void GenerateImpulse(Vector3 velocity)
         {
             _impulse.GenerateImpulseWithVelocity(velocity);
-        }
-
-        private void Start()
-        {
-            _impulse = GameObject.Find("[Player]").gameObject.GetComponent<CinemachineCollisionImpulseSource>();
         }
     }
 }

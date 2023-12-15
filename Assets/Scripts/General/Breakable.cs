@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Breakable : MonoBehaviour
 {
@@ -8,10 +10,10 @@ public class Breakable : MonoBehaviour
     private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
     protected Material Mat;
     protected SpriteRenderer Sr;
+
     [SerializeField] int componentNumber;
-
     [SerializeField] private List<GameObject> componentItems;
-
+    
     private void Awake()
     {
         Sr = GetComponent<SpriteRenderer>();
