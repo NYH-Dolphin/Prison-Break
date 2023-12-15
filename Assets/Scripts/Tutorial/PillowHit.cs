@@ -20,6 +20,7 @@ public class PillowHit : MonoBehaviour
         {
             StartDialogue();
             enter = false;
+            DoorActivate.Instance.MakeBreakable();
         }
     }
 

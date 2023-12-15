@@ -10,7 +10,6 @@ public class DialogueManager : MonoBehaviour
     public Image actorImage;
     public TMP_Text actorName;
     public TMP_Text messageText;
-    public TMP_Text instructions;
     public RectTransform backgroundBox;
 
     Message[] currentMessages;
@@ -75,16 +74,16 @@ public class DialogueManager : MonoBehaviour
         switch (actorName.text)
         {
         case "Player":
-            messageText.color = new Color(20, 172, 229);
-            messageText.color = new Color(20, 172, 229);
+            messageText.color = new Color(.1f, .7f, .9f);
+            messageText.color = new Color(.1f, .7f, .9f);
             break;
         case "Enemy":
             messageText.color = Color.red;
             actorName.color = Color.red;
             break;
         case "Guide":
-            messageText.color = Color.green;
-            actorName.color = Color.green;
+            messageText.color = new Color(.15f, .7f, .1f);
+            actorName.color = new Color(.15f, .7f, .1f);
             break;
         default:
             messageText.color = Color.white;
