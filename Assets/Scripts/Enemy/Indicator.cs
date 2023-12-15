@@ -21,9 +21,10 @@ public class Indicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<PlayerWeapon>().WeaponEquipped != null)
+        if (player.GetComponent<PlayerWeapon>().WeaponEquipped != null)
         {
-            if(player.GetComponent<PlayerWeapon>().WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo.eSharpness == Sharpness.Blunt)
+            if (player.GetComponent<PlayerWeapon>().WeaponEquipped.GetComponent<WeaponBehaviour>().weaponInfo
+                    .eSharpness == Sharpness.Blunt)
                 GetComponent<SpriteRenderer>().sprite = fist;
             else
                 GetComponent<SpriteRenderer>().sprite = xmark;
@@ -32,6 +33,5 @@ public class Indicator : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = empty;
         }
-        
     }
 }
