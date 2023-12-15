@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public Image actorImage;
     public TMP_Text actorName;
     public TMP_Text messageText;
+    public TMP_Text instructions;
     public RectTransform backgroundBox;
 
     Message[] currentMessages;
