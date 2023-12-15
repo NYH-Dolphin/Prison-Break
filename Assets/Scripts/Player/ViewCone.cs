@@ -8,6 +8,7 @@ public class ViewCone : MonoBehaviour
 {
     public static ViewCone Instance;
     public HashSet<Collider> _objectsInTrigger = new();
+    public bool active = true;
 
 
     public void DeRegister(Collider obj)
@@ -106,13 +107,13 @@ public class ViewCone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned)
+        if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().notStunned && active)
             Register(other);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy")  && active)
         {
             DeRegister(other);
 

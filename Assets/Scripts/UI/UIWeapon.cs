@@ -27,6 +27,7 @@ namespace UI
         private RectTransform _rt;
         private Vector3 _vRectUpPos;
         private Vector3 _vRectDownPos;
+        [HideInInspector] public string spriteName;
 
         private void Awake()
         {
@@ -81,6 +82,7 @@ namespace UI
             GameObject weapon = _pw.WeaponEquipped;
             WeaponBehaviour wb = weapon.GetComponent<WeaponBehaviour>();
             Sprite wsr = weapon.GetComponent<SpriteRenderer>().sprite;
+            spriteName = wsr.name;
 
             // weapon durability update
             for (int i = 0; i < 3; i++)

@@ -483,6 +483,8 @@ namespace Player
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, fEnemyDetectionRange);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, fSprintDetectionRange);
         }
 
 
