@@ -608,7 +608,7 @@ PrefabInstance:
     - target: {fileID: 1396541220253043635, guid: c538beda5da846a4abeec9226d2c2ab4,
         type: 3}
       propertyPath: near clip plane
-      value: 0.01
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 1661854325299932557, guid: c538beda5da846a4abeec9226d2c2ab4,
         type: 3}
@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - actorID: 0
-    message: Grab the Pillow ("E")
+    message: Grab the Pillow <color=#00FFFF>("E")</color>
   actors:
   - name: Guide
     sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
@@ -1921,6 +1921,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1901284288}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &674247126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
+    type: 3}
+  m_PrefabInstance: {fileID: 4535698130221288106}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &674247132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674247126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f566162b1eddc4447a0ca6399524c053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 1c78d386b310e9045a829888016a43a4, type: 3}
 --- !u!1 &696675448 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
@@ -7780,9 +7799,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - actorID: 0
-    message: It's Time
+    message: Ok... where to start...
   - actorID: 1
-    message: Move with "W,A,S,D"
+    message: Move with <color=#00FFFF>"W,A,S,D"</color>
   actors:
   - name: Player
     sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
@@ -8684,17 +8703,17 @@ PrefabInstance:
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.24
+      value: 16.1
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.48
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5301752
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 1341290611718773591, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8760,7 +8779,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fba766fe4f077944abd37ad56cf6030d,
+      objectReference: {fileID: 21300000, guid: 1c78d386b310e9045a829888016a43a4,
         type: 3}
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -8772,10 +8791,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5873468119162434621, guid: 767bd3d2db2639848851b71d8c9f8a99, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 674247132}
   m_SourcePrefab: {fileID: 100100000, guid: 767bd3d2db2639848851b71d8c9f8a99, type: 3}
 --- !u!1001 &6078512249154466041
 PrefabInstance:
@@ -9013,6 +9037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970616308385118907, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: messages.Array.data[3].message
+      value: The ol bag and ball twister
       objectReference: {fileID: 0}
     - target: {fileID: 2581055105270581721, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
