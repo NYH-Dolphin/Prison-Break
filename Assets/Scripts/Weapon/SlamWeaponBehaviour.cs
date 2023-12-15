@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MyCameraEffect;
 using UnityEngine;
 
 namespace Weapon
@@ -17,6 +18,7 @@ namespace Weapon
         private void SlamBehaviour()
         {
             bAttack = true;
+            CameraEffect.Instance.GenerateMeleeImpulse();
             AudioControl.Instance.PlaySlam();
             StartCoroutine(SlamCountdown(fSlamTime));
         }

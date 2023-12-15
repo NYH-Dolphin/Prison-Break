@@ -14,7 +14,7 @@ namespace LevelTutorial
             {
                 var effect = Instantiate(breakEffectPrefab);
                 effect.transform.position = transform.position;
-                CameraEffect.Instance.GenerateImpulse();
+                CameraEffect.Instance.GenerateBumpImpulse();
                 AudioControl.Instance.PlayDoorBreak();
             }
         }

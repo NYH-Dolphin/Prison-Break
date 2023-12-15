@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MyCameraEffect;
 using UnityEngine;
 using Player;
 
@@ -60,7 +61,6 @@ namespace Enemy
                     if (!newNav.unconscious) anim.SetBool("attacking", false);
                 }
             }
-            
         }
 
         /// <summary>
@@ -81,9 +81,16 @@ namespace Enemy
         public void OnHit(int hit, bool melee)
         {
             SFX.PlayHit();
-            if (hit == 1)
-                StartCoroutine(DecreaseHealth());
+            
+            if (melee)
+            {
+                CameraEffect.Instance.GenerateMeleeImpulse();
+            }
 
+            if (hit == 1)
+            {
+                StartCoroutine(DecreaseHealth());
+            }
 
             if (hit == 2 || (!notStunned && hit == 1) || health <= 0)
             {
@@ -94,7 +101,8 @@ namespace Enemy
 
                 ExecutionEffects.Instance.Execution();
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
-                Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0)));
+                Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z),
+                    Quaternion.Euler(new Vector3(90, 0, 0)));
                 Destroy(gameObject);
             }
         }
@@ -129,7 +137,6 @@ namespace Enemy
             }
             else
                 return transform.GetChild(3).GetChild(0);
-
         }
 
 
@@ -170,7 +177,7 @@ namespace Enemy
 
         private float DirectionSwitcher()
         {
-            if(player.GetComponent<PlayerWeapon>().attkPos == null)
+            if (player.GetComponent<PlayerWeapon>().attkPos == null)
                 return 1;
             switch (player.GetComponent<PlayerWeapon>().attkPos.gameObject.name)
             {

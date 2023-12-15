@@ -7,6 +7,7 @@ using Weapon;
 using System.Collections;
 using System.Collections.Generic;
 using Effects;
+using MyCameraEffect;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
 using Range = Weapon.Range;
@@ -429,7 +430,7 @@ namespace Player
                     // kill the enemy
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
-                    EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, true);
                     
                     SprintIn();
                     StompBehaviour();
@@ -444,6 +445,7 @@ namespace Player
         private void BreakBehaviour()
         {
             _bStompAttack = true;
+            CameraEffect.Instance.GenerateMeleeImpulse();
             animator.SetTrigger("Stomp");
             AudioControl.Instance.PlaySlam();
             StartCoroutine(BreakCountDown(fStompTime));

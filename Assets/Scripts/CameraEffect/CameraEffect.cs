@@ -1,13 +1,14 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using UnityEngine;
 
 namespace MyCameraEffect
 {
     public class CameraEffect : MonoBehaviour
     {
-        private CinemachineImpulseSource _impulse;
-
+        [SerializeField] private CinemachineImpulseSource bumpImpulse;
+        [SerializeField] private CinemachineImpulseSource meleeImpulse;
+        
+        
         public static CameraEffect Instance;
 
         private void Awake()
@@ -17,18 +18,24 @@ namespace MyCameraEffect
 
         private void Start()
         {
-            _impulse = GameObject.Find("[Player]").gameObject.GetComponent<CinemachineImpulseSource>();
+            transform.TryGetComponent(out bumpImpulse);
         }
 
 
-        public void GenerateImpulse()
+        public void GenerateBumpImpulse()
         {
-            _impulse.GenerateImpulse();
+            bumpImpulse.GenerateImpulse();
         }
 
-        public void GenerateImpulse(Vector3 velocity)
+        public void GenerateMeleeImpulse()
         {
-            _impulse.GenerateImpulseWithVelocity(velocity);
+            meleeImpulse.GenerateImpulse();
         }
+
+        public void GenerateMeleeImpulseWithVelocity(Vector3 velocity)
+        {
+            meleeImpulse.GenerateImpulseWithVelocity(velocity);
+        }
+
     }
 }
