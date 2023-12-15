@@ -228,8 +228,8 @@ Transform:
   m_GameObject: {fileID: 82461705}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.35, y: -0.51, z: -1.9029}
-  m_LocalScale: {x: 37.01173, y: 1, z: 23.625769}
+  m_LocalPosition: {x: 21.35, y: -0.51, z: -2.2381}
+  m_LocalScale: {x: 37.01173, y: 1, z: 22.954796}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1160993163}
@@ -1154,7 +1154,7 @@ GameObject:
   - component: {fileID: 402554920}
   - component: {fileID: 402554919}
   - component: {fileID: 402554918}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1472,6 +1472,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1272988455944500852, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -131.34998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1272988455944500852, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -12.099976
       objectReference: {fileID: 0}
     - target: {fileID: 2581055105270581721, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
@@ -2503,7 +2513,7 @@ GameObject:
   - component: {fileID: 840510412}
   - component: {fileID: 840510411}
   - component: {fileID: 840510410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Open button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4804,7 +4814,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 200
+      value: 209.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
@@ -4829,7 +4839,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.6400003
+      value: 2.5495
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
@@ -6314,7 +6324,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 227.64133
+      value: 231.62758
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
@@ -6339,7 +6349,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.9164
+      value: 6.956
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 06702724a92ebd6428aaeb48f0ce7f2b,
         type: 3}
@@ -9119,7 +9129,7 @@ GameObject:
   - component: {fileID: 1860280112}
   - component: {fileID: 1860280114}
   - component: {fileID: 1860280113}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
