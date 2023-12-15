@@ -1058,6 +1058,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca88fa46d1afb14385c9e0fa23218b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messages: []
+  actors: []
+  collider: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1001 &424419162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14797,6 +14801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b8e79284f42e46b804ef4b8384f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openSFX: {fileID: 1795371340}
 --- !u!82 &1795371340
 AudioSource:
   m_ObjectHideFlags: 0
