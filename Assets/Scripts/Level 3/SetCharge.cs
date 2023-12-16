@@ -32,6 +32,7 @@ public class SetCharge : MonoBehaviour
         {
             Explosions.GetComponent<ExplosionTrigger>().charges++;
             GetComponent<Collider>().enabled = false;
+            _player = null;
             GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
