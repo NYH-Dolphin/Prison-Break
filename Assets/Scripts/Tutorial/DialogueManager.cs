@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -16,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     Actor[] currentActors;
     int activeMessage = 0;
     private PlayerController pc;
+    private PlayerWeapon pw;
     Actor actorToDisplay;
     Message messageToDisplay;
 
@@ -29,6 +31,7 @@ public class DialogueManager : MonoBehaviour
     {
         backgroundBox.transform.localScale = Vector3.zero;
         pc = GameObject.Find("[Player]").gameObject.GetComponent<PlayerController>();
+        pw = GameObject.Find("[Player]").gameObject.GetComponent<PlayerWeapon>();
     }
 
     public void OpenDialogue(Message[] messages, Actor[] actors)
@@ -38,14 +41,15 @@ public class DialogueManager : MonoBehaviour
         activeMessage = 0;
         isActive = true;
         DisplayMessage();
-        backgroundBox.LeanScale(Vector3.one,0.25f);
+        backgroundBox.LeanScale(Vector3.one, 0.25f);
         pc.enabled = false;
+        pw.enabled = false;
     }
 
     public void NextMessage()
     {
         activeMessage++;
-        if(activeMessage < currentMessages.Length)
+        if (activeMessage < currentMessages.Length)
         {
             DisplayMessage();
         }
@@ -54,17 +58,18 @@ public class DialogueManager : MonoBehaviour
             backgroundBox.LeanScale(Vector3.zero, 0.25f);
             isActive = false;
             pc.enabled = true;
+            pw.enabled = true;
         }
-            
     }
 
     void DisplayMessage()
     {
         messageToDisplay = currentMessages[activeMessage];
-        if(displayLineCoroutine != null)
+        if (displayLineCoroutine != null)
         {
             StopCoroutine(displayLineCoroutine);
         }
+
         displayLineCoroutine = StartCoroutine(DisplayLine(messageToDisplay.message));
 
         actorToDisplay = currentActors[messageToDisplay.actorID];
@@ -73,36 +78,35 @@ public class DialogueManager : MonoBehaviour
 
         switch (actorName.text)
         {
-        case "Player":
-            messageText.color = new Color(.1f, .7f, .9f);
-            messageText.color = Color.white;
-            break;
-        case "Enemy":
-            messageText.color = Color.red;
-            actorName.color = Color.red;
-            break;
-        case "Guide":
-            messageText.color = new Color(.15f, .7f, .1f);
-            actorName.color = new Color(.15f, .7f, .1f);
-            break;
-        default:
-            messageText.color = Color.white;
-            actorName.color = Color.white;
-            break;
+            case "Player":
+                messageText.color = new Color(.1f, .7f, .9f);
+                messageText.color = Color.white;
+                break;
+            case "Enemy":
+                messageText.color = Color.red;
+                actorName.color = Color.red;
+                break;
+            case "Guide":
+                messageText.color = new Color(.15f, .7f, .1f);
+                actorName.color = new Color(.15f, .7f, .1f);
+                break;
+            default:
+                messageText.color = Color.white;
+                actorName.color = Color.white;
+                break;
         }
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isActive) //change to input system
+        if (isActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) ||
+                         Input.GetMouseButtonDown(0))) //change to input system
         {
-            if(canContinue)
+            if (canContinue)
                 NextMessage();
             else
                 fill = true;
         }
-            
-        
     }
 
     private IEnumerator DisplayLine(string line)
@@ -114,7 +118,7 @@ public class DialogueManager : MonoBehaviour
 
         bool richText = false;
 
-        foreach(char letter in line.ToCharArray())
+        foreach (char letter in line.ToCharArray())
         {
             if (fill)
             {
@@ -123,20 +127,20 @@ public class DialogueManager : MonoBehaviour
                 break;
             }
 
-            if(letter == '<' || richText)
+            if (letter == '<' || richText)
             {
                 richText = true;
                 messageText.text += letter;
-                if(letter == '>')
+                if (letter == '>')
                 {
                     richText = false;
                 }
             }
-            else{
+            else
+            {
                 messageText.text += letter;
                 yield return new WaitForSeconds(0.03f);
             }
-            
         }
 
         canContinue = true;
