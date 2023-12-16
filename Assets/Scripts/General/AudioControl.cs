@@ -17,6 +17,8 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource pickupSFX;
     [SerializeField] private AudioSource fusionSFX;
     [SerializeField] private AudioSource doorBreakSFX;
+    [SerializeField] private AudioSource explodeDistantSFX;
+    [SerializeField] private AudioSource explodeSFX;
     
 
     public static AudioControl Instance;
@@ -84,5 +86,15 @@ public class AudioControl : MonoBehaviour
     public void PlayDoorBreak()
     {
         doorBreakSFX.Play();
+    }
+
+    public void PlayExplodeDistant()
+    {
+        explodeDistantSFX.Play();
+    }
+
+    public void PlayExplode()
+    {
+        explodeSFX.Play();
     }
 }
