@@ -15,13 +15,18 @@ public class Sniper : MonoBehaviour
     Color color1 = new Color(1,1,1,1);
     Color color2 = new Color(1,1,1,1);
     public bool active = true;
+    public PlayerEnemy playerDeath;
 
     void Update()
     {
         if(active)
         {
             if(offset.z <= 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {
+                AudioControl.Instance.PlaySniper();
+                playerDeath.Kill();
+            }
+                
             lr1.SetPosition(0, transform.GetChild(0).position + offset);
             lr2.SetPosition(0, transform.GetChild(1).position - offset);
             Vector3 direction = playerHead.transform.position - this.transform.position;

@@ -19,13 +19,28 @@ public class PlayerEnemy : MonoBehaviour
 
     private PlayerController _pc;
     private IEnumerator _thread;
+    
+
 
     private void Awake()
     {
         _pc = GetComponent<PlayerController>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Kill()
+    {
+        if (bDev) return;
+        if (_thread == null)
+        {
+            Vector3 hitDir = new Vector3 (1,1,1);
+            hitDir.y = 0f;
+            hitDir.Normalize();
+            _thread = OnGetKilled(hitDir);
+            StartCoroutine(_thread);
+        }
+    }
+    
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && other.CompareTag("hitbox"))
         {

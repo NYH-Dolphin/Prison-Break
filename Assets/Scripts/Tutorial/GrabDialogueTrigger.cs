@@ -22,7 +22,6 @@ public class GrabDialogueTrigger : MonoBehaviour
             
             if(this.transform.parent.tag == "holder" && first)
             {
-                Debug.Log("here");
                 StartDialogue();
                 first = false;
             }

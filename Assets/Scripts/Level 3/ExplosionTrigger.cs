@@ -14,6 +14,7 @@ public class ExplosionTrigger : MonoBehaviour
         Debug.Log(charges);
         if(charges >= 2 && NoEnemies())
         {
+            AudioControl.Instance.PlayExplode();
             Explode();
         }
 
