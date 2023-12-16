@@ -34,7 +34,7 @@ namespace UI
             _pw = GameObject.Find("[Player]").GetComponent<PlayerWeapon>();
             _rt = uiWeaponSharpness.gameObject.GetComponent<RectTransform>();
             Vector3 rtPos = _rt.anchoredPosition;
-            _vRectUpPos = new Vector3(rtPos.x, -45f, rtPos.z);
+            _vRectUpPos = new Vector3(rtPos.x, -35f, rtPos.z);
             _vRectDownPos = new Vector3(rtPos.x, -95f, rtPos.z);
         }
 

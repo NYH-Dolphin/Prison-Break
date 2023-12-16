@@ -75,7 +75,7 @@ public class DialogueManager : MonoBehaviour
         {
         case "Player":
             messageText.color = new Color(.1f, .7f, .9f);
-            messageText.color = new Color(.1f, .7f, .9f);
+            messageText.color = Color.white;
             break;
         case "Enemy":
             messageText.color = Color.red;
