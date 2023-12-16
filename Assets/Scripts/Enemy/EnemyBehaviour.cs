@@ -26,6 +26,7 @@ namespace Enemy
         private int health = 2;
         public Transform deadGuard;
         public GameObject bloodyPrefab;
+        private bool _bCanKill = true;
 
 
         private void Awake()
@@ -80,8 +81,10 @@ namespace Enemy
 
         public void OnHit(int hit, bool melee)
         {
+            if (!_bCanKill) return;
+
             SFX.PlayHit();
-            
+
 
             CameraEffect.Instance.GenerateMeleeImpulse();
 
@@ -97,7 +100,9 @@ namespace Enemy
                 var dead = Instantiate(deadGuard,
                     new Vector3(spawnpoint.position.x, 0.5f, spawnpoint.position.z), Quaternion.identity);
                 dead.transform.eulerAngles = new Vector3(0, 90, 0);
-                if(melee) dead.GetComponent<Knockback>().PlayFeedback(player.GetComponent<PlayerController>().VecDir.normalized);
+                if (melee)
+                    dead.GetComponent<Knockback>()
+                        .PlayFeedback(player.GetComponent<PlayerController>().VecDir.normalized);
                 ExecutionEffects.Instance.Execution();
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
                 Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z),
@@ -141,6 +146,7 @@ namespace Enemy
 
         public void OnHitBlunt()
         {
+            if (!_bCanKill && !_bExecutable) return;
             SFX.PlayHit();
             StartCoroutine(Blunt());
         }
@@ -203,12 +209,14 @@ namespace Enemy
             return 1;
         }
 
-
         private IEnumerator BluntCountDown(float time)
         {
             _bExecutable = false;
+            _bCanKill = false;
             yield return new WaitForSeconds(time);
+            _bCanKill = true;
             _bExecutable = true;
+            //player.GetComponent<PlayerWeapon>().downedEnemies.Add(this.gameObject);
         }
 
         private IEnumerator DecreaseHealth()
@@ -216,6 +224,5 @@ namespace Enemy
             yield return new WaitForSeconds(0.2f);
             health--;
         }
-
     }
 }

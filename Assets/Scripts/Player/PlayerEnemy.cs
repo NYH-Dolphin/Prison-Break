@@ -89,6 +89,7 @@ public class PlayerEnemy : MonoBehaviour
 
         // back to normal -> restart
         Time.timeScale = 1f;
+        AudioControl.Instance.PlayPlayerDead();
         Vector3 pos = new Vector3(transform.position.x, 0.1f, transform.position.z) + dir * 6f;
         yield return new WaitForSeconds(0.2f);
         Instantiate(deadBloodPrefab, pos, Quaternion.Euler(new Vector3(90, 0, 0)));
