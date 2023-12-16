@@ -16,8 +16,11 @@ namespace LevelTutorial
 
         public void OnOpenDoor()
         {
-            openSFX.Play();
-            _bRotate = true;
+            if (!_bRotate)
+            {
+                openSFX.Play();
+                _bRotate = true;
+            }
         }
 
         private void Update()
