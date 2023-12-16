@@ -430,7 +430,7 @@ namespace Player
                     // kill the enemy
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
-                    EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, true);
+                    EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
                     
                     SprintIn();
                     StompBehaviour();

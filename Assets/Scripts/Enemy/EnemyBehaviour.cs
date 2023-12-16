@@ -82,10 +82,9 @@ namespace Enemy
         {
             SFX.PlayHit();
             
-            if (melee)
-            {
-                CameraEffect.Instance.GenerateMeleeImpulse();
-            }
+
+            CameraEffect.Instance.GenerateMeleeImpulse();
+
 
             if (hit == 1)
             {
@@ -98,7 +97,7 @@ namespace Enemy
                 var dead = Instantiate(deadGuard,
                     new Vector3(spawnpoint.position.x, 0.5f, spawnpoint.position.z), Quaternion.identity);
                 dead.transform.eulerAngles = new Vector3(0, 90, 0);
-
+                if(melee) dead.GetComponent<Knockback>().PlayFeedback(player.GetComponent<PlayerController>().VecDir.normalized);
                 ExecutionEffects.Instance.Execution();
                 ViewCone.Instance.DeRegister(GetComponent<Collider>());
                 Instantiate(bloodyPrefab, new Vector3(transform.position.x, 0.1f, transform.position.z),
