@@ -1443,19 +1443,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1291752652}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &419785001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419784983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e01fe0dc2ac143bfac28d832b7e38f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakEffectPrefab: {fileID: 0}
 --- !u!1001 &424419162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1821,6 +1808,8 @@ MonoBehaviour:
   messages:
   - actorID: 0
     message: Some objects can be thrown using <color=#00FFFF>LMB</color>
+  - actorID: 0
+    message: They can be aimed with the mouse
   actors:
   - name: Guide
     sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
@@ -5823,10 +5812,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 419784990}
-    - targetCorrespondingSourceObject: {fileID: 9134459566036916655, guid: 1b95264253c3847448dac17e15185d4a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 419785001}
   m_SourcePrefab: {fileID: 100100000, guid: 1b95264253c3847448dac17e15185d4a, type: 3}
 --- !u!1001 &1305549311
 PrefabInstance:
