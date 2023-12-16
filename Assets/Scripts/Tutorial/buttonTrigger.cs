@@ -1,20 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace LevelTutorial
 {
-public class buttonTrigger : MonoBehaviour
-{
-    // Update is called once per frame
-    void OnTriggerEnter(Collider col)
+    public class buttonTrigger : MonoBehaviour
     {
+        [SerializeField] private Sprite spOpen;
+        [SerializeField] private Light btnLight;
+        [SerializeField] private GameObject hint;
 
-        if(col.tag == "Player Hitbox")
+        // Update is called once per frame
+        void OnTriggerEnter(Collider col)
         {
-            LockDoorBehaviour.Instance.OnOpenDoor();
+            if (col.tag == "Player Hitbox")
+            {
+                GetComponent<SpriteRenderer>().sprite = spOpen;
+                btnLight.color = Color.green;
+                hint.SetActive(false);
+                LockDoorBehaviour.Instance.OnOpenDoor();
+            }
         }
     }
-
-}
 }
