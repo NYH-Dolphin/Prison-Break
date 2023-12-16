@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8427633957400677084}
   m_Layer: 6
   m_Name: BThrowWeapon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   - actorID: 1
     message: use </color=#00FFFF>"F" or "SHIFT"</color> to fuse
   - actorID: 1
-    message: fused weapons can have different behaviors than their components
+    message: fused weapons can have new behaviors
   actors:
   - name: Player
     sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}

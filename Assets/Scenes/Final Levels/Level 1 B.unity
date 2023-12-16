@@ -1049,7 +1049,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402554916}
   m_LocalRotation: {x: 0.33560106, y: -0.3706373, z: 0.10397435, w: 0.85976124}
-  m_LocalPosition: {x: 0, y: 0, z: -0.27000052}
+  m_LocalPosition: {x: 0, y: 0, z: -0.29}
   m_LocalScale: {x: 0.19814463, y: 0.19814458, z: 0.1981447}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1058,7 +1058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 139.145, y: 131.38, z: 174.691}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.180012, y: 0.30000168}
+  m_AnchoredPosition: {x: -0.5, y: 1.73}
   m_SizeDelta: {x: 1401, y: 788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &402554918
@@ -2477,6 +2477,7 @@ MonoBehaviour:
   spOpen: {fileID: 21300000, guid: 5eadc13764ef75c45985de95b06038be, type: 3}
   btnLight: {fileID: 209185377}
   hint: {fileID: 402554916}
+  error: {fileID: 0}
 --- !u!65 &840510412
 BoxCollider:
   m_ObjectHideFlags: 0

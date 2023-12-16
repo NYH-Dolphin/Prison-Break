@@ -6,7 +6,8 @@ namespace LevelTutorial
     {
         [SerializeField] private Sprite spOpen;
         [SerializeField] private Light btnLight;
-        [SerializeField] private GameObject hint;
+        public GameObject hint;
+        [SerializeField] private GameObject error;
 
         // Update is called once per frame
         void OnTriggerEnter(Collider col)
@@ -16,7 +17,13 @@ namespace LevelTutorial
                 GetComponent<SpriteRenderer>().sprite = spOpen;
                 btnLight.color = Color.green;
                 hint.SetActive(false);
+                error.SetActive(false);
                 LockDoorBehaviour.Instance.OnOpenDoor();
+            }
+            else if(col.tag == "Player")
+            {
+                error.SetActive(true);
+                Destroy(col.gameObject);
             }
         }
     }
