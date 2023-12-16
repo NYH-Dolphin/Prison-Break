@@ -1448,7 +1448,6 @@ GameObject:
   m_Component:
   - component: {fileID: 256462082}
   - component: {fileID: 256462085}
-  - component: {fileID: 256462084}
   - component: {fileID: 256462083}
   m_Layer: 0
   m_Name: roadblock (9)
@@ -1465,13 +1464,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256462081}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -4.6324844, y: -0.76925206, z: -19.58}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &256462083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1493,21 +1492,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.84333414, y: 0.33742288, z: 0.19999999}
   m_Center: {x: 0.11199543, y: 0.053275745, z: 2.3648725e-10}
---- !u!114 &256462084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256462081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &256462085
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4761,7 +4745,6 @@ GameObject:
   m_Component:
   - component: {fileID: 628159325}
   - component: {fileID: 628159324}
-  - component: {fileID: 628159323}
   - component: {fileID: 628159322}
   m_Layer: 0
   m_Name: roadblock (4)
@@ -4791,21 +4774,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8685714, y: 0.523712, z: 0.5972908}
   m_Center: {x: -0.07161997, y: 0.005484624, z: -0.19864391}
---- !u!114 &628159323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628159321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: 55.6
-  offsetx: 165.9
-  offsetz: 187.9
 --- !u!212 &628159324
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4866,13 +4834,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628159321}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -3.3724823, y: -0.76925206, z: -0.081291676}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!1 &630948884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,7 +5815,6 @@ GameObject:
   m_Component:
   - component: {fileID: 795947621}
   - component: {fileID: 795947620}
-  - component: {fileID: 795947619}
   - component: {fileID: 795947618}
   m_Layer: 0
   m_Name: roadblock (1)
@@ -5877,21 +5844,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.93181336, y: 0.523712, z: 0.19999999}
   m_Center: {x: 0.15623578, y: 0.0054846243, z: 0}
---- !u!114 &795947619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795947617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &795947620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5952,13 +5904,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795947617}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -10.522484, y: -0.76925206, z: -13.081291}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!1001 &820711378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36845,7 +36797,6 @@ GameObject:
   m_Component:
   - component: {fileID: 861908527}
   - component: {fileID: 861908530}
-  - component: {fileID: 861908529}
   - component: {fileID: 861908528}
   m_Layer: 0
   m_Name: roadblock (5)
@@ -36862,13 +36813,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861908526}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -16.12, y: -0.76925206, z: -4.39}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &861908528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36890,21 +36841,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.93181336, y: 0.523712, z: 0.19999999}
   m_Center: {x: 0.15623578, y: 0.0054846243, z: 0}
---- !u!114 &861908529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861908526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &861908530
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37389,7 +37325,6 @@ GameObject:
   m_Component:
   - component: {fileID: 932982207}
   - component: {fileID: 932982206}
-  - component: {fileID: 932982205}
   - component: {fileID: 932982208}
   m_Layer: 0
   m_Name: roadblock
@@ -37398,21 +37333,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &932982205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932982204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &932982206
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37473,13 +37393,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932982204}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -4.6324844, y: -0.76925206, z: -15.391293}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &932982208
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37739,7 +37659,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1012778707}
   - component: {fileID: 1012778710}
-  - component: {fileID: 1012778709}
   - component: {fileID: 1012778708}
   m_Layer: 0
   m_Name: roadblock (6)
@@ -37756,13 +37675,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012778706}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -16.63, y: -0.76925206, z: -10.41}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &1012778708
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37784,21 +37703,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.93181336, y: 0.523712, z: 0.19999999}
   m_Center: {x: 0.15623578, y: 0.0054846243, z: 0}
---- !u!114 &1012778709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1012778706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &1012778710
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38764,7 +38668,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1254724813}
   - component: {fileID: 1254724816}
-  - component: {fileID: 1254724815}
   - component: {fileID: 1254724814}
   m_Layer: 0
   m_Name: roadblock (8)
@@ -38781,13 +38684,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254724812}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -3.3724823, y: -0.76925206, z: 4.67}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &1254724814
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38809,21 +38712,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8685714, y: 0.523712, z: 0.5972908}
   m_Center: {x: -0.07161997, y: 0.005484624, z: -0.19864391}
---- !u!114 &1254724815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254724812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: 55.6
-  offsetx: 165.9
-  offsetz: 187.9
 --- !u!212 &1254724816
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39522,7 +39410,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1464346194}
   - component: {fileID: 1464346193}
-  - component: {fileID: 1464346192}
   - component: {fileID: 1464346191}
   m_Layer: 0
   m_Name: roadblock (3)
@@ -39552,21 +39439,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.68691915, y: 0.523712, z: 0.4374846}
   m_Center: {x: 0.0337897, y: 0.0054845125, z: -0.118741736}
---- !u!114 &1464346192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464346190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: 55.6
-  offsetx: 165
-  offsetz: 158.7
 --- !u!212 &1464346193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39627,13 +39499,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464346190}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -9.132484, y: -0.76925206, z: -4.081292}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!4 &1481760469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5953758347472165871, guid: 575d4dab55d008340a1d29c88a8e7382,
@@ -41138,7 +41010,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1761478959}
   - component: {fileID: 1761478958}
-  - component: {fileID: 1761478957}
   - component: {fileID: 1761478956}
   m_Layer: 0
   m_Name: roadblock (2)
@@ -41168,21 +41039,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.93181336, y: 0.523712, z: 0.19999999}
   m_Center: {x: 0.15623578, y: 0.0054846243, z: 0}
---- !u!114 &1761478957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761478955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &1761478958
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -41243,13 +41099,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761478955}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -11.5924835, y: -0.76925206, z: -8.181292}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!1 &1786866925
 GameObject:
   m_ObjectHideFlags: 0
@@ -42209,7 +42065,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2041403002}
   - component: {fileID: 2041403005}
-  - component: {fileID: 2041403004}
   - component: {fileID: 2041403003}
   m_Layer: 0
   m_Name: roadblock (7)
@@ -42226,13 +42081,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041403001}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -20.97, y: -0.76925206, z: -6.44}
   m_LocalScale: {x: 11, y: 11, z: 11}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2060079865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!65 &2041403003
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42254,21 +42109,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.93181336, y: 0.41490445, z: 0.19999999}
   m_Center: {x: 0.15623577, y: 0.059888966, z: 6.062166e-11}
---- !u!114 &2041403004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041403001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92c65df761a2341a16b1cb447875ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsety: -83
-  offsetx: 47.3
-  offsetz: -68.1
 --- !u!212 &2041403005
 SpriteRenderer:
   m_ObjectHideFlags: 0
