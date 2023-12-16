@@ -52,7 +52,7 @@ namespace Player
         private GameObject _downedEnemy;
         private GameObject _weaponSelected;
         private GameObject _breakableObjectDetected;
-        
+
 
         private InputControls _inputs;
         private PlayerController _pc;
@@ -350,7 +350,6 @@ namespace Player
                 {
                     WeaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
-
                 SprintIn();
             }
             else
@@ -374,7 +373,7 @@ namespace Player
                     attkPos = EnemyDetected.GetComponent<EnemyBehaviour>().ActiveAttackPoint();
                     Vector3 enemyPos;
                     enemyPos = attkPos.position;
-                    if(downedEnemies != null)
+                    if (downedEnemies != null)
                         enemyPos = EnemyDetected.transform.GetChild(0).GetChild(0).position;
                     float dist = Vector3.Distance(playerPos, enemyPos);
                     if (dist < fSprintDetectionRange)
@@ -431,7 +430,7 @@ namespace Player
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
                     EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
-                    
+
                     SprintIn();
                     StompBehaviour();
                     return true;

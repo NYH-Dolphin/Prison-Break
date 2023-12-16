@@ -20,6 +20,8 @@ public class AudioControl : MonoBehaviour
     [SerializeField] private AudioSource explodeDistantSFX;
     [SerializeField] private AudioSource explodeSFX;
     [SerializeField] private AudioSource sniperSFX;
+    [SerializeField] private AudioSource glassSFX;
+    [SerializeField] private AudioSource playerdeadSFX;
     
 
     public static AudioControl Instance;
@@ -101,5 +103,15 @@ public class AudioControl : MonoBehaviour
     public void PlaySniper()
     {
         sniperSFX.Play();
+    }
+
+    public void PlayGlass()
+    {
+        glassSFX.Play();
+    }
+    
+    public void PlayPlayerDead()
+    {
+        playerdeadSFX.Play();
     }
 }
