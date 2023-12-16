@@ -8,7 +8,7 @@ public class ButtonCheck : MonoBehaviour
 {
 
     [SerializeField] private buttonTrigger button;
-
+    public GameObject message;
     [SerializeField] private Sprite sprite;
 
     // Update is called once per frame
@@ -21,6 +21,7 @@ public class ButtonCheck : MonoBehaviour
     {
         if(!button.hint.activeSelf)
         {
+            message.SetActive(true);
             GetComponent<SpriteRenderer>().sprite = sprite;
             this.GetComponent<Collider>().isTrigger = true;
         }
