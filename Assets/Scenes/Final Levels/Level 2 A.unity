@@ -4993,6 +4993,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 312956609691070901, guid: c538beda5da846a4abeec9226d2c2ab4,
+        type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 570571160}
     - target: {fileID: 1396541220253043635, guid: c538beda5da846a4abeec9226d2c2ab4,
         type: 3}
       propertyPath: near clip plane
@@ -5131,6 +5136,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407e0af243ec9a9428d8d0ead34968e6, type: 3}
+--- !u!114 &570571160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2062169859463009017, guid: 407e0af243ec9a9428d8d0ead34968e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 570571159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &576752101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5400,7 +5417,7 @@ PrefabInstance:
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
