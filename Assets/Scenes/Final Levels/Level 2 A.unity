@@ -4408,6 +4408,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6820780071001821173, guid: 40e81ee0ae80a504bbc1ace47f661355,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 104
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -10847,7 +10852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 865233931}
   - component: {fileID: 865233930}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12174,7 +12179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014006303}
   - component: {fileID: 1014006302}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
