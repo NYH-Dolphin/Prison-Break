@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MyCameraEffect;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,7 @@ public class Breakable : MonoBehaviour
     private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
     protected Material Mat;
     protected SpriteRenderer Sr;
+    [SerializeField] public GameObject breakEffectPrefab;
 
     [SerializeField] int componentNumber;
     [SerializeField] private List<GameObject> componentItems;
@@ -54,7 +56,9 @@ public class Breakable : MonoBehaviour
                 Instantiate(ins, instPos, transform.rotation);
             }
         }
-
+        AudioControl.Instance.PlayHit();
+        var breakEffect = Instantiate(breakEffectPrefab);
+        breakEffect.transform.position = transform.position;
         Destroy(gameObject);
     }
 
@@ -64,7 +68,9 @@ public class Breakable : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") &&
             GameObject.Find("[Player]/PlayerSprites/Player Hitbox").GetComponent<Collider>().enabled)
         {
+            CameraEffect.Instance.GenerateMeleeImpulse();
             OnHit();
         }
     }
+    
 }
