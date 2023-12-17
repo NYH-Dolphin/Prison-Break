@@ -95,6 +95,10 @@ namespace Player
         private void Update()
         {
             WeaponDetectionUpdate();
+            if (EnemyDetected != null && !EnemyDetected.GetComponent<EnemyBehaviour>().notStunned)
+            {
+                ViewCone.Instance.DeRegister(EnemyDetected.GetComponent<Collider>());
+            }
         }
 
 
@@ -350,6 +354,7 @@ namespace Player
                 {
                     WeaponEquipped.GetComponent<WeaponBehaviour>().OnAttack();
                 }
+
                 SprintIn();
             }
             else
