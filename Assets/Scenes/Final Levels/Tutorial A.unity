@@ -5473,7 +5473,7 @@ MonoBehaviour:
   - actorID: 1
     message: Move with <color=#00FFFF>"W,A,S,D"</color>
   - actorID: 1
-    message: Pause with <color=#00FFFF>"Esc"</color>
+    message: Pause with <color=#00FFFF>"TAB"</color>
   actors:
   - name: Player
     sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
@@ -6760,6 +6760,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 5.9799805
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573790247896445302, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+        type: 3}
+      propertyPath: m_text
+      value: Press Tab To Resume
       objectReference: {fileID: 0}
     - target: {fileID: 7132924386184517905, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}

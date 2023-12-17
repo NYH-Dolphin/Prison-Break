@@ -24,10 +24,14 @@ public class ViewCone : MonoBehaviour
 
     public void Register(Collider obj)
     {
-        Transform marker = obj.gameObject.transform.GetChild(2);
-        marker.localScale *= 2f;
-        marker.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
-        _objectsInTrigger.Add(obj);
+        if (!_objectsInTrigger.Contains(obj))
+        {
+            Transform marker = obj.gameObject.transform.GetChild(2);
+            marker.localScale *= 2f;
+            marker.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+            _objectsInTrigger.Add(obj); 
+        }
+        
     }
 
 

@@ -16,7 +16,7 @@ public class ExplosionTrigger : MonoBehaviour
         Debug.Log(charges);
         if(charges >= 2 && Vector3.Distance(player.transform.position, transform.position) > 30f)
         {
-            AudioControl.Instance.PlayExplode();
+            
             Explode();
         }
 
@@ -24,6 +24,7 @@ public class ExplosionTrigger : MonoBehaviour
 
     public void Explode()
     {
+        AudioControl.Instance.PlayExplode();
         for(int i = 0; i < 4; i++)
         {
             Instantiate(ExplosionEffect, this.gameObject.transform.GetChild(i).transform.position, Quaternion.identity);

@@ -105,7 +105,14 @@ public class NewNav : MonoBehaviour
                 {
                     if (first && !unconscious)
                     {
-                        StartCoroutine(Surprised());
+                        if(!stunned)
+                            StartCoroutine(Surprised());
+                        else
+                        {
+                            exclaim.enabled = false;
+                            isSurprised = false;
+                            playerInRange = true;
+                        }
                         first = false;
                     }
                 }
