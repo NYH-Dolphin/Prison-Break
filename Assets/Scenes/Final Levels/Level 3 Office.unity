@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18120216, g: 0.2267971, b: 0.30733407, a: 1}
+  m_IndirectSpecularColor: {r: 0.18120262, g: 0.22679766, b: 0.30733556, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1568,6 +1568,16 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.31054115
       objectReference: {fileID: 0}
+    - target: {fileID: 3171655538657005236, guid: 575d4dab55d008340a1d29c88a8e7382,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369506118529487586, guid: 575d4dab55d008340a1d29c88a8e7382,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3369506118529487586, guid: 575d4dab55d008340a1d29c88a8e7382,
         type: 3}
       propertyPath: deadGuard
@@ -1644,6 +1654,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warden_Sprites
       objectReference: {fileID: 0}
+    - target: {fileID: 7826128463735596502, guid: 575d4dab55d008340a1d29c88a8e7382,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6311949765514190679, guid: 575d4dab55d008340a1d29c88a8e7382, type: 3}
     m_RemovedGameObjects: []
@@ -1653,6 +1668,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 221065411}
+    - targetCorrespondingSourceObject: {fileID: 3104829894990346509, guid: 575d4dab55d008340a1d29c88a8e7382,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 221065412}
   m_SourcePrefab: {fileID: 100100000, guid: 575d4dab55d008340a1d29c88a8e7382, type: 3}
 --- !u!1 &221065410 stripped
 GameObject:
@@ -1672,6 +1691,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4788a9c52144589f3a0eddd352a343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &221065412
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221065410}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.706924, z: 1}
+  m_Center: {x: 0, y: -0.13163489, z: 0}
 --- !u!1001 &244806024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12005,16 +12045,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1272988455944500852, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -131.3501
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272988455944500852, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -12.099976
-      objectReference: {fileID: 0}
     - target: {fileID: 2581055105270581721, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -12045,22 +12075,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6745900643932410840, guid: c6191066ea5ccfb4bb853c5a9a85f954,
+    - target: {fileID: 4841095384602537455, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: c686be63a53f97144ba2f2406c4ba74f,
-        type: 2}
-    - target: {fileID: 6745900643932410840, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -8072694695292699644, guid: c686be63a53f97144ba2f2406c4ba74f,
-        type: 2}
-    - target: {fileID: 6745900643932410840, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 5.9799805
       objectReference: {fileID: 0}
     - target: {fileID: 7132924386184517905, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}

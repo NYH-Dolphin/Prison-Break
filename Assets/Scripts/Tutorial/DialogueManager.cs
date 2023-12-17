@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine displayLineCoroutine;
     private bool canContinue = false;
     private bool fill = false;
+    public bool intro = false;
 
 
     void Awake()
@@ -57,8 +58,12 @@ public class DialogueManager : MonoBehaviour
         {
             backgroundBox.LeanScale(Vector3.zero, 0.25f);
             isActive = false;
-            pc.enabled = true;
-            pw.enabled = true;
+            if (!intro)
+            {
+                pc.enabled = true;
+                pw.enabled = true;
+            }
+            
         }
     }
 

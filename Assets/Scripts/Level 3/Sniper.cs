@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Sniper : MonoBehaviour
 {
@@ -23,8 +21,7 @@ public class Sniper : MonoBehaviour
         {
             if(offset.z <= 0)
             {
-                AudioControl.Instance.PlaySniper();
-                playerDeath.Kill();
+                playerDeath.Kill(true);
             }
                 
             lr1.SetPosition(0, transform.GetChild(0).position + offset);
@@ -46,6 +43,7 @@ public class Sniper : MonoBehaviour
         }
         
     }
+    
 
     void SniperRecover()
     {

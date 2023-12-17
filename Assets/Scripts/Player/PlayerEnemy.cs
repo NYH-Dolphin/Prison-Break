@@ -19,7 +19,6 @@ public class PlayerEnemy : MonoBehaviour
 
     private PlayerController _pc;
     private IEnumerator _thread;
-    
 
 
     private void Awake()
@@ -27,19 +26,19 @@ public class PlayerEnemy : MonoBehaviour
         _pc = GetComponent<PlayerController>();
     }
 
-    public void Kill()
+    public void Kill(bool sniper = false)
     {
         if (bDev) return;
         if (_thread == null)
         {
-            Vector3 hitDir = new Vector3 (1,1,1);
+            Vector3 hitDir = new Vector3(1, 1, 1);
             hitDir.y = 0f;
             hitDir.Normalize();
-            _thread = OnGetKilled(hitDir);
+            _thread = OnGetKilled(hitDir, sniper);
             StartCoroutine(_thread);
         }
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && other.CompareTag("hitbox"))
@@ -57,7 +56,7 @@ public class PlayerEnemy : MonoBehaviour
     }
 
 
-    IEnumerator OnGetKilled(Vector3 dir)
+    IEnumerator OnGetKilled(Vector3 dir, bool sniper = false)
     {
         // player dead animation
         _pc.OnSetAttackDir(new Vector2(dir.z, dir.x));
@@ -89,6 +88,7 @@ public class PlayerEnemy : MonoBehaviour
 
         // back to normal -> restart
         Time.timeScale = 1f;
+        if (sniper) AudioControl.Instance.PlaySniper();
         AudioControl.Instance.PlayPlayerDead();
         Vector3 pos = new Vector3(transform.position.x, 0.1f, transform.position.z) + dir * 6f;
         yield return new WaitForSeconds(0.2f);
