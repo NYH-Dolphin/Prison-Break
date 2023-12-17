@@ -21,7 +21,7 @@ namespace UI
 
         // color for different range type
         private Color _cSharp = Color.red;
-        private Color _cBlunt = Color.blue;
+        private Color _cBlunt = new Color(0,.7f,1);
         
         // for weapon info animation use
         private RectTransform _rt;
@@ -35,7 +35,7 @@ namespace UI
             _rt = uiWeaponSharpness.gameObject.GetComponent<RectTransform>();
             Vector3 rtPos = _rt.anchoredPosition;
             _vRectUpPos = new Vector3(rtPos.x, -35f, rtPos.z);
-            _vRectDownPos = new Vector3(rtPos.x, -95f, rtPos.z);
+            _vRectDownPos = new Vector3(rtPos.x, -100f, rtPos.z);
         }
 
         private void Update()

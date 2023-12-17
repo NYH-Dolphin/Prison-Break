@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -131.35, y: -12.099976}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -249.39114, y: -50}
+  m_SizeDelta: {x: 428.0653, y: 74.9918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6663253695395688014
 CanvasRenderer:
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: BOOMERANG
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 206a2a8f11799614f96a76ca5cce981f, type: 2}
-  m_sharedMaterial: {fileID: 7229404813641370196, guid: 206a2a8f11799614f96a76ca5cce981f,
+  m_fontAsset: {fileID: 11400000, guid: d8429bb6d067f6a4da07fbd69b5c1251, type: 2}
+  m_sharedMaterial: {fileID: 253910392015894312, guid: d8429bb6d067f6a4da07fbd69b5c1251,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -93,15 +93,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85
-  m_fontSizeBase: 85
+  m_fontSize: 59.7
+  m_fontSizeBase: 59.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.9067, y: 0, z: 0, w: -26.703775}
+  m_margin: {x: 2.1484263, y: 0, z: 0, w: 1.5813345}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -169,8 +169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -131, y: -77.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -189.35, y: -100}
+  m_SizeDelta: {x: 307.98, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5472419541150962916
 CanvasRenderer:
@@ -202,16 +202,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 206a2a8f11799614f96a76ca5cce981f, type: 2}
-  m_sharedMaterial: {fileID: 7229404813641370196, guid: 206a2a8f11799614f96a76ca5cce981f,
+  m_fontAsset: {fileID: 11400000, guid: d8429bb6d067f6a4da07fbd69b5c1251, type: 2}
+  m_sharedMaterial: {fileID: 253910392015894312, guid: d8429bb6d067f6a4da07fbd69b5c1251,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293051022
-  m_fontColor: {r: 0.5568628, g: 0.761447, b: 0.8867924, a: 1}
+    rgba: 4294948864
+  m_fontColor: {r: 0, g: 0.72122526, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51
-  m_fontSizeBase: 51
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.9067, y: 0, z: 0, w: -26.703775}
+  m_margin: {x: -0.8865281, y: 0, z: 0, w: -0.89334893}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -435,7 +435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4841095384602537455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1257,7 +1257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
+  m_AnchoredPosition: {x: 20, y: 0}
   m_SizeDelta: {x: 364.875, y: 108.568}
   m_Pivot: {x: 0.00000004656613, y: 1.0000001}
 --- !u!114 &6277592776867590953
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: -15, y: 0}
+  m_Spacing: {x: -10, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &3143088899480475330
