@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18120216, g: 0.2267971, b: 0.30733407, a: 1}
+  m_IndirectSpecularColor: {r: 0.18120262, g: 0.22679766, b: 0.30733556, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4845,12 +4845,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637052501}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a44b3bc1328ef74096838a5692de784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breakEffectPrefab: {fileID: 0}
+  breakEffectPrefab: {fileID: 8206109940368110184, guid: b83cfaec704d6154a882e86447adf8ce,
+    type: 3}
   componentNumber: 0
   componentItems: []
 --- !u!114 &1637052507
@@ -6460,7 +6461,7 @@ PrefabInstance:
     - target: {fileID: 5877641227805579039, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8561411659449377494, guid: 767bd3d2db2639848851b71d8c9f8a99,
         type: 3}
@@ -6725,11 +6726,6 @@ PrefabInstance:
       propertyPath: messages.Array.data[3].message
       value: The ol bag and ball twister
       objectReference: {fileID: 0}
-    - target: {fileID: 1272988455944500852, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -12.099976
-      objectReference: {fileID: 0}
     - target: {fileID: 2581055105270581721, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6759,26 +6755,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943910863540809228, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 17.800049
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943910863540809228, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2.8302002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4666241831028263107, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -89.80002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4666241831028263107, guid: c6191066ea5ccfb4bb853c5a9a85f954,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 21.699951
       objectReference: {fileID: 0}
     - target: {fileID: 4841095384602537455, guid: c6191066ea5ccfb4bb853c5a9a85f954,
         type: 3}

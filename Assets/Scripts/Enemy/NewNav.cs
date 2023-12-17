@@ -135,10 +135,10 @@ public class NewNav : MonoBehaviour
     private IEnumerator Surprised()
     {
         //SFX.PlaySurprised();
-        //exclaim.enabled = true;
+        exclaim.enabled = true;
         isSurprised = true;
         yield return new WaitForSeconds(surprisedTime);
-        //exclaim.enabled = false;
+        exclaim.enabled = false;
         isSurprised = false;
         playerInRange = true;
     }
