@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class SetCharge : MonoBehaviour
 {
     public GameObject Explosions;
+    [SerializeField] private GameObject[] message;
     private InputControls _inputs;
     private GameObject _player;
 
@@ -30,6 +31,17 @@ public class SetCharge : MonoBehaviour
     {
         if (_player != null)
         {
+            if(Explosions.GetComponent<ExplosionTrigger>().charges == 0)
+            {
+                message[1].SetActive(true);
+            }
+            else
+            {
+                message[2].SetActive(true);
+            }
+            message[0].SetActive(false);
+                
+
             Explosions.GetComponent<ExplosionTrigger>().charges++;
             GetComponent<Collider>().enabled = false;
             _player = null;
