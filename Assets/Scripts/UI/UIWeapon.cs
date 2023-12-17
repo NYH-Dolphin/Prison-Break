@@ -21,7 +21,7 @@ namespace UI
 
         // color for different range type
         private Color _cSharp = Color.red;
-        private Color _cBlunt = new(142, 194, 226);
+        private Color _cBlunt = Color.blue;
         
         // for weapon info animation use
         private RectTransform _rt;

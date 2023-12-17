@@ -60,7 +60,7 @@ public class Sniper : MonoBehaviour
     }
     void SniperClose()
     {
-        offset -= new Vector3(0,0,0.3f *Time.deltaTime);
+        offset -= new Vector3(0,0, closeTime * Time.deltaTime);
         color2 -= new Color(0, closeTime *Time.deltaTime, closeTime *Time.deltaTime, -closeTime *Time.deltaTime);
         color1 -= new Color(0, closeTime *Time.deltaTime, closeTime *Time.deltaTime, -closeTime *Time.deltaTime);
         lr1.SetColors(color1, color2);
