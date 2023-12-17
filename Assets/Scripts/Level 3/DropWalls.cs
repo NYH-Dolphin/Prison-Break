@@ -22,6 +22,8 @@ namespace Level_3
                 CameraEffect.Instance.GenerateSmallImpulse();
                 _fShakeTime = 0;
             }
+
+
             _fTime += Time.deltaTime;
             
             
@@ -33,6 +35,8 @@ namespace Level_3
                     transform.GetChild(childBricks).GetChild(0).GetComponent<Animator>().Play("Brick");
                     transform.GetChild(childBricks).GetChild(0).GetComponent<WallBehaviour>().bActivate = true;
                     CameraEffect.Instance.GenerateBumpImpulse();
+                    if (_fDropTime > 0.2f) 
+                        _fDropTime -= 0.08f;
                     asDrop.Play();
                     childBricks++;
                 }
