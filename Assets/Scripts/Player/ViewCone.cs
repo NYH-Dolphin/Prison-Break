@@ -29,9 +29,8 @@ public class ViewCone : MonoBehaviour
             Transform marker = obj.gameObject.transform.GetChild(2);
             marker.localScale *= 2f;
             marker.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
-            _objectsInTrigger.Add(obj); 
+            _objectsInTrigger.Add(obj);
         }
-        
     }
 
 
@@ -97,12 +96,19 @@ public class ViewCone : MonoBehaviour
         Vector3 currentPosition = transform.position;
         foreach (Collider objectInTrigger in _objectsInTrigger)
         {
-            if (objectInTrigger == null) _objectsInTrigger.Remove(objectInTrigger);
-            float sqrDistanceToObject = (objectInTrigger.transform.position - currentPosition).sqrMagnitude;
-            if (sqrDistanceToObject < closestDistanceSqr)
+            try
             {
-                closestDistanceSqr = sqrDistanceToObject;
-                closestObject = objectInTrigger.gameObject;
+                if (objectInTrigger == null) _objectsInTrigger.Remove(objectInTrigger);
+                float sqrDistanceToObject = (objectInTrigger.transform.position - currentPosition).sqrMagnitude;
+                if (sqrDistanceToObject < closestDistanceSqr)
+                {
+                    closestDistanceSqr = sqrDistanceToObject;
+                    closestObject = objectInTrigger.gameObject;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
@@ -117,10 +123,9 @@ public class ViewCone : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy")  && active)
+        if (other.CompareTag("Enemy") && active)
         {
             DeRegister(other);
-
         }
     }
 }

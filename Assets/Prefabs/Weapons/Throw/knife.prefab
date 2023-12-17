@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 589279046659175887}
   - component: {fileID: 7672394465991862977}
   - component: {fileID: 470230865771333737}
-  - component: {fileID: 2438754630307028216}
   - component: {fileID: 7773926056730166994}
   - component: {fileID: 3391501287815065787}
+  - component: {fileID: -527698210945965049}
   m_Layer: 6
   m_Name: knife
   m_TagString: Untagged
@@ -103,27 +103,6 @@ MonoBehaviour:
   offsety: 0
   offsetx: 0
   offsetz: 0
---- !u!65 &2438754630307028216
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5553995303318409865}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0393345, y: 0.8855216, z: 0.7848738}
-  m_Center: {x: -0.080185704, y: 0.032693703, z: -0.06299505}
 --- !u!54 &7773926056730166994
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,3 +150,24 @@ MonoBehaviour:
   bAttack: 0
   fThrowForce: 120
   fThrowTime: 0.3
+--- !u!135 &-527698210945965049
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553995303318409865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.52
+  m_Center: {x: 0, y: 0, z: 0}

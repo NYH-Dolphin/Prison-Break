@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 589279046659175887}
   - component: {fileID: 7672394465991862977}
   - component: {fileID: 470230865771333737}
-  - component: {fileID: 2438754630307028216}
   - component: {fileID: 7773926056730166994}
   - component: {fileID: 3391501287815065787}
   - component: {fileID: -8427633957400677084}
+  - component: {fileID: 3170465645084719559}
   m_Layer: 6
   m_Name: BThrowWeapon
   m_TagString: Player
@@ -104,27 +104,6 @@ MonoBehaviour:
   offsety: 0
   offsetx: 0
   offsetz: 0
---- !u!65 &2438754630307028216
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5553995303318409865}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.8795246, y: 0.3337281, z: 0.6006928}
-  m_Center: {x: -0.0002806916, y: 0.0068640537, z: 0.029095257}
 --- !u!54 &7773926056730166994
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -200,3 +179,24 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 431f13020240a164493e55ca4a89c61e, type: 3}
   - name: Guide
     sprite: {fileID: 21300000, guid: 0aec66246fa4162469f4fba78f723e39, type: 3}
+--- !u!135 &3170465645084719559
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553995303318409865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.527595
+  m_Center: {x: 0, y: 0, z: 0}
