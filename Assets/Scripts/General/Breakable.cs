@@ -57,6 +57,8 @@ public class Breakable : MonoBehaviour
             }
         }
         AudioControl.Instance.PlayHit();
+        var breakEffect = Instantiate(breakEffectPrefab);
+        breakEffect.transform.position = transform.position;
         Destroy(gameObject);
     }
 
@@ -70,10 +72,5 @@ public class Breakable : MonoBehaviour
             OnHit();
         }
     }
-
-    private void OnDestroy()
-    {
-        var breakEffect = Instantiate(breakEffectPrefab);
-        breakEffect.transform.position = transform.position;
-    }
+    
 }
