@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1835284, g: 0.2290756, b: 0.3056603, a: 1}
+  m_IndirectSpecularColor: {r: 0.18352893, g: 0.2290762, b: 0.3056615, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1036,7 +1036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &215832567
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,7 +1344,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Size.x
-      value: 9.783455
+      value: 9.719611
       objectReference: {fileID: 0}
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -1354,12 +1354,12 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Size.z
-      value: 3.5324242
+      value: 3.3962526
       objectReference: {fileID: 0}
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.07255462
+      value: 0.040633418
       objectReference: {fileID: 0}
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -1369,7 +1369,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Center.z
-      value: -1.7194897
+      value: -1.7875732
       objectReference: {fileID: 0}
     - target: {fileID: 1818474034868298215, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -3532,7 +3532,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Size.z
-      value: 1.3294287
+      value: 1.2791121
       objectReference: {fileID: 0}
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -3547,7 +3547,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.6919358
+      value: -0.7170941
       objectReference: {fileID: 0}
     - target: {fileID: 1818474034868298215, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -4326,7 +4326,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Size.z
-      value: 2.7958767
+      value: 2.7219057
       objectReference: {fileID: 0}
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -4336,7 +4336,7 @@ PrefabInstance:
     - target: {fileID: 1457126761709686248, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
       propertyPath: m_Center.z
-      value: -1.4127697
+      value: -1.4497551
       objectReference: {fileID: 0}
     - target: {fileID: 1818474034868298215, guid: 768308a659ae1ff44aaafc8e96569f8d,
         type: 3}
@@ -5044,7 +5044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!320 &555747924
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -42381,6 +42381,7 @@ GameObject:
   - component: {fileID: 1729991938}
   - component: {fileID: 1729991937}
   - component: {fileID: 1729991936}
+  - component: {fileID: 1729991939}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -42428,6 +42429,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729991939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729991935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1ab0e8509546048f59ec43e27469b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - {fileID: 555747923}
+  - {fileID: 215832566}
+  levelName: Level3 Yard
 --- !u!1 &1739184433 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2570843806121656552, guid: c6191066ea5ccfb4bb853c5a9a85f954,
