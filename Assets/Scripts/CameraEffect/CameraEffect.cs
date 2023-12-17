@@ -7,6 +7,7 @@ namespace MyCameraEffect
     {
         [SerializeField] private CinemachineImpulseSource bumpImpulse;
         [SerializeField] private CinemachineImpulseSource meleeImpulse;
+        [SerializeField] private CinemachineImpulseSource smallImpulse;
         
         
         public static CameraEffect Instance;
@@ -35,6 +36,11 @@ namespace MyCameraEffect
         public void GenerateMeleeImpulseWithVelocity(Vector3 velocity)
         {
             meleeImpulse.GenerateImpulseWithVelocity(velocity);
+        }
+
+        public void GenerateSmallImpulse()
+        {
+            smallImpulse.GenerateImpulse();
         }
 
     }
