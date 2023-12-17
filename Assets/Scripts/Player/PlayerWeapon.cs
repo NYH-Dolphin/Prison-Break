@@ -437,6 +437,7 @@ namespace Player
                     EnemyDetected = _downedEnemy;
                     downedEnemies.Remove(_downedEnemy);
                     EnemyDetected.GetComponent<EnemyBehaviour>().OnHit(2, false);
+                    Score.Instance.Stomp();
 
                     SprintIn();
                     StompBehaviour();
@@ -527,6 +528,7 @@ namespace Player
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
                     }
+                    Score.Instance.Attack(WeaponEquipped);
                 }
 
                 WeaponEquipped.GetComponent<WeaponBehaviour>().OnUseMeleeWeapon();

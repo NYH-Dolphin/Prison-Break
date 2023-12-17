@@ -138,6 +138,7 @@ namespace Weapon
                 {
                     _setLobEnemies.Add(enemies);
                     enemies.GetComponent<EnemyBehaviour>().OnHitBlunt();
+                    Score.Instance.Attack(gameObject);
                 }
             }
 
@@ -154,6 +155,7 @@ namespace Weapon
                     {
                         enemies.GetComponent<EnemyBehaviour>().OnHit(2, false);
                     }
+                    Score.Instance.Attack(gameObject);
                 }
             }
         }

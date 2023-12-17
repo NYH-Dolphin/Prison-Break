@@ -104,7 +104,7 @@ namespace Weapon
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
                     }
-
+                    Score.Instance.Attack(gameObject);
                     // once hit the enemy, throw weapon will be ereased
                     if (_thread != null)
                     {

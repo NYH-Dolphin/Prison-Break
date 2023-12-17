@@ -149,6 +149,7 @@ namespace Weapon
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, false);
                     }
+                    Score.Instance.Attack(gameObject);
                 }
 
                 bool obstacle = other.gameObject.layer == LayerMask.NameToLayer("Obstacle");

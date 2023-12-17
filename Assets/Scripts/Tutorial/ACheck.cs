@@ -16,7 +16,6 @@ public class ACheck : MonoBehaviour
     {
         if(enemy != null)
         {
-            Debug.Log(enemy.GetComponent<EnemyBehaviour>().notStunned);
             if(enemy.GetComponent<EnemyBehaviour>().notStunned && weapon == null)
             {
                 message.SetActive(true);
