@@ -182,12 +182,14 @@ namespace Player
         {
             if (weapon == null) return;
             weapon.GetComponent<WeaponBehaviour>().OnSelected(_cFusedColor);
+            FuseIndicator.Instance.ShowFuse();
         }
 
         private void OnCancelDetectedWeapon(GameObject weapon)
         {
             if (weapon == null) return;
             weapon.GetComponent<WeaponBehaviour>().OnNotSelected();
+            FuseIndicator.Instance.HideFuse();
         }
 
         #endregion
