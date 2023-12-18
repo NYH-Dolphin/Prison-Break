@@ -104,10 +104,7 @@ namespace Weapon
         {
             setEnemyAttacked = new();
             Pc.OnAttackPerformed(weaponInfo.eAttackType);
-            if (weaponInfo.eRange == Range.Ranged)
-            {
-                Pc.SetPlayerAttackPosition();
-            }
+            Pc.SetPlayerAttackPosition();
         }
 
 
