@@ -24,7 +24,7 @@ public class SniperDialogue : MonoBehaviour
         NextDialogue();
         yield return new WaitForSeconds(2f);
         NextDialogue();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(7f);
         sniper.active = true;
         pc.enabled = true;
     }
