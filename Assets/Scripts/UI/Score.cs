@@ -33,7 +33,7 @@ public class Score : MonoBehaviour
     public string grade = "D";
     private bool fused;
 
-    private static Dictionary<string, int> _dicScoreForScenes = new();
+    //private static Dictionary<string, string> _dicScoreForScenes = new();
 
     [SerializeField] private Sprite[] grades;
     [SerializeField] private Sprite[] filledGrades;
@@ -55,79 +55,104 @@ public class Score : MonoBehaviour
 
             beginTransform = displayTransform.anchoredPosition;
             endTransform = beginTransform;
-            endTransform.y -= 100f;
+            endTransform.y -= 50f;
         }
 
         outside = GameObject.Find("/UI/Grade").GetComponent<Image>();
         inside = GameObject.Find("/UI/GradeFilled").GetComponent<Image>();
 
 
-        if (bFinal)
-        {
-            string grade = Score.GerFinalGrade();
-            if (grade == "D")
-            {
-                outside.sprite = grades[3];
-                inside.sprite = filledGrades[3];
-                display.color = new Color(.8f, .25f, .2f);
-            }
-            else if (grade == "C")
-            {
-                outside.sprite = grades[2];
-                inside.sprite = filledGrades[2];
-                display.color = new Color(.6f, .4f, .1f);
-            }
-            else if (grade == "B")
-            {
-                outside.sprite = grades[1];
-                inside.sprite = filledGrades[1];
-                display.color = new Color(.9f, .85f, .1f);
-            }
-            else
-            {
-                outside.sprite = grades[0];
-                inside.sprite = filledGrades[0];
-                display.color = new Color(.25f, .7f, 0f);
-            }
-        }
+        // if (bFinal)
+        // {
+        //     string grade = GetFinalGrade();
+        //     if (grade == "D")
+        //     {
+        //         outside.sprite = grades[3];
+        //         inside.sprite = filledGrades[3];
+        //         display.color = new Color(.8f, .25f, .2f);
+        //     }
+        //     else if (grade == "C")
+        //     {
+        //         outside.sprite = grades[2];
+        //         inside.sprite = filledGrades[2];
+        //         display.color = new Color(.6f, .4f, .1f);
+        //     }
+        //     else if (grade == "B")
+        //     {
+        //         outside.sprite = grades[1];
+        //         inside.sprite = filledGrades[1];
+        //         display.color = new Color(.9f, .85f, .1f);
+        //     }
+        //     else
+        //     {
+        //         outside.sprite = grades[0];
+        //         inside.sprite = filledGrades[0];
+        //         display.color = new Color(.25f, .7f, 0f);
+        //     }
+        // }
     }
 
-    private static string GerFinalGrade()
-    {
-        float scoreSum = 0;
-        foreach (var score in _dicScoreForScenes.Values)
-        {
-            scoreSum += score;
-        }
-        scoreSum /= _dicScoreForScenes.Count;
-        if (scoreSum < 500)
-        {
-            return "D";
-        }
+    // private string GetFinalGrade()
+    // {
+    //     float gradeAsVal = 0;
+    //     int i = 0;
 
-        if (scoreSum < 2 * 500)
-        {
-            return "C";
-        }
+    //     foreach (var grade in _dicScoreForScenes.Values)
+    //     {
+    //         switch(grade)
+    //         {
+    //             case "D":
+    //                 gradeAsVal += 1;
+    //                 finalOutside[i].sprite = grades[3];
+    //                 finalInside[i].sprite = filledGrades[3];
+    //                 i++;
+    //                 break;
+    //             case "C":
+    //                 gradeAsVal += 2;
+    //                 finalOutside[i].sprite = grades[2];
+    //                 finalInside[i].sprite = filledGrades[2];
+    //                 i++;
+    //                 break;
+    //             case "B":
+    //                 gradeAsVal += 3;
+    //                 finalOutside[i].sprite = grades[1];
+    //                 finalInside[i].sprite = filledGrades[1];
+    //                 i++;
+    //                 break;
+    //             case "A":
+    //                 gradeAsVal += 4;
+    //                 finalOutside[i].sprite = grades[0];
+    //                 finalInside[i].sprite = filledGrades[0];
+    //                 i++;
+    //                 break;
+    //         }
+    //     }
+    //     gradeAsVal /= _dicScoreForScenes.Count;
+    //     if (gradeAsVal >= 3.5f)
+    //     {
+    //         return "A";
+    //     }
+    //     else if (gradeAsVal >= 2.5f)
+    //     {
+    //         return "B";
+    //     }
+    //     else if (gradeAsVal >= 1.5f)
+    //     {
+    //         return "C";
+    //     }
+    //     else
+    //     {
+    //         return "D";
+    //     }
 
-        if (scoreSum < 3 * 500)
-        {
-            return "B";
-        }
-
-        if (scoreSum < 4 * 500)
-        {
-            return "A";
-        }
-
-        return "D";
-    }
+    //     return "D";
+    // }
 
 
-    private void OnDestroy()
-    {
-        _dicScoreForScenes[SceneManager.GetActiveScene().name] = score;
-    }
+    // private void OnDestroy()
+    // {
+    //     ScoreKeeper.Instance.AddToScore(grade);
+    // }
 
     public void Attack(GameObject weaponEquipped)
     {
