@@ -5,6 +5,7 @@ using Weapon;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Score : MonoBehaviour
     private string lastWeapon = "";
     private string currentWeaponBehaviour = "";
     private string lastWeaponBehaviour = "";
+
 
     private float weaponMultiplier = 1;
     private float behaviourMultiplier = 1;
@@ -29,11 +31,13 @@ public class Score : MonoBehaviour
     private bool active = false;
     public float levelScoreLimit;
     public string grade = "D";
-
     private bool fused;
+
+    private static Dictionary<string, int> _dicScoreForScenes = new();
 
     [SerializeField] private Sprite[] grades;
     [SerializeField] private Sprite[] filledGrades;
+    [SerializeField] private bool bFinal;
 
 
     void Awake()
@@ -44,14 +48,85 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!bFinal)
+        {
+            display = GameObject.Find("/UI/MultiplierDisplay").GetComponent<TMP_Text>();
+            displayTransform = display.transform.GetComponent<RectTransform>();
+
+            beginTransform = displayTransform.anchoredPosition;
+            endTransform = beginTransform;
+            endTransform.y -= 100f;
+        }
+
         outside = GameObject.Find("/UI/Grade").GetComponent<Image>();
         inside = GameObject.Find("/UI/GradeFilled").GetComponent<Image>();
-        display = GameObject.Find("/UI/MultiplierDisplay").GetComponent<TMP_Text>();
-        displayTransform = display.transform.GetComponent<RectTransform>();
 
-        beginTransform = displayTransform.anchoredPosition;
-        endTransform = beginTransform;
-        endTransform.y -= 100f;
+
+        if (bFinal)
+        {
+            string grade = Score.GerFinalGrade();
+            if (grade == "D")
+            {
+                outside.sprite = grades[3];
+                inside.sprite = filledGrades[3];
+                display.color = new Color(.8f, .25f, .2f);
+            }
+            else if (grade == "C")
+            {
+                outside.sprite = grades[2];
+                inside.sprite = filledGrades[2];
+                display.color = new Color(.6f, .4f, .1f);
+            }
+            else if (grade == "B")
+            {
+                outside.sprite = grades[1];
+                inside.sprite = filledGrades[1];
+                display.color = new Color(.9f, .85f, .1f);
+            }
+            else
+            {
+                outside.sprite = grades[0];
+                inside.sprite = filledGrades[0];
+                display.color = new Color(.25f, .7f, 0f);
+            }
+        }
+    }
+
+    private static string GerFinalGrade()
+    {
+        float scoreSum = 0;
+        foreach (var score in _dicScoreForScenes.Values)
+        {
+            scoreSum += score;
+        }
+        scoreSum /= _dicScoreForScenes.Count;
+        if (scoreSum < 500)
+        {
+            return "D";
+        }
+
+        if (scoreSum < 2 * 500)
+        {
+            return "C";
+        }
+
+        if (scoreSum < 3 * 500)
+        {
+            return "B";
+        }
+
+        if (scoreSum < 4 * 500)
+        {
+            return "A";
+        }
+
+        return "D";
+    }
+
+
+    private void OnDestroy()
+    {
+        _dicScoreForScenes[SceneManager.GetActiveScene().name] = score;
     }
 
     public void Attack(GameObject weaponEquipped)
@@ -140,6 +215,15 @@ public class Score : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (!bFinal)
+        {
+            ScoreCalculationUpdate();
+        }
+    }
+
+
+    void ScoreCalculationUpdate()
     {
         if (score < levelScoreLimit)
         {
