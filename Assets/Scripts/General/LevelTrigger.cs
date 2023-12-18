@@ -7,9 +7,10 @@ public class LevelTrigger : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            //ScoreKeeper.Instance.AddToScore(Score.Instance.grade);
-            if(ScoreKeeper.Instance!= null) 
+            if (ScoreKeeper.Instance != null)
+            {
                 ScoreKeeper.Instance.LevelGrades.Add(Score.Instance.grade);
+            }
             transform.GetChild(0).GetComponent<NextScene>().FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
