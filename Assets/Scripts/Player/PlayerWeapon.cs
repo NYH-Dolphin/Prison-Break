@@ -364,6 +364,7 @@ namespace Player
                 if (_breakableObjectDetected != null)
                 {
                     _breakableObjectDetected.GetComponent<Breakable>().OnHit();
+                    _breakableObjectDetected = null;
                     BreakBehaviour();
                 }
             }
@@ -528,6 +529,7 @@ namespace Player
                     {
                         other.gameObject.GetComponent<EnemyBehaviour>().OnHit(2, true);
                     }
+
                     Score.Instance.Attack(WeaponEquipped);
                 }
 
